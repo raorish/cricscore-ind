@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cricket Live Scores</title>
+<style>
+  :root { --bg:#f4f6f8; --card:#fff; --text:#1a1d21; --muted:#6b7280; --accent:#0a7d3b; --live:#d92d20; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0f1214; --card:#1a1e22; --text:#eceff1; --muted:#9aa4ae; --accent:#2ecc71; --live:#ff5a4d; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:var(--text); }
+  header { background:var(--accent); color:#fff; padding:16px; text-align:center; }
+  header h1 { margin:0; font-size:1.3rem; }
+  main { max-width:760px; margin:0 auto; padding:12px; }
+  .tabs { display:flex; gap:8px; margin:8px 0 14px; }
+  .tabs button { flex:1; padding:10px; border:0; border-radius:8px; background:var(--card); color:var(--text); font-weight:600; cursor:pointer; }
+  .tabs button.on { background:var(--accent); color:#fff; }
+  .card { background:var(--card); border-radius:12px; padding:14px; margin-bottom:12px; box-shadow:0 1px 3px rgba(0,0,0,.12); }
+  .top { display:flex; justify-content:space-between; font-size:.8rem; color:var(--muted); }
+  .live { color:var(--live); font-weight:700; }
+  .team { display:flex; justify-content:space-between; margin-top:8px; font-weight:600; }
+  .score { font-variant-numeric: tabular-nums; }
+  .status { margin-top:10px; font-size:.9rem; color:var(--accent); }
+  .msg { text-align:center; color:var(--muted); padding:30px 0; }
+</style>
+</head>
+<body>
+<header><h1>🏏 Cricket Live Scores</h1></header>
+<main>
+  <div class="tabs">
+    <button data-t="live" class="on">Live</button>
+    <button data-t="upcoming">Upcoming</button>
+    <button data-t="done">Completed</button>
+  </div>
+  <div id="list"><div class="msg">Loading...</div></div>
+</main>
+<script>
+let matches = [], tab = "live";
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function kind(m) {
+  if (m.matchEnded) return "done";
+  if (m.matchStarted) return "live";
+  return "upcoming";
+}
+
+function scoreFor(m, team) {
+  const rows = (m.score || []).filter(s => (s.inning || "").toLowerCase().includes(team.toLowerCase()));
+  return rows.map(s => `${s.r}/${s.w} (${s.o})`).join(" & ") || "-";
+}
+
+function render() {
+  const list = document.getElementById("list");
+  const items = matches.filter(m => kind(m) === tab);
+  if (!items.length) { list.innerHTML = '<div class="msg">Is category me abhi koi match nahi hai</div>'; return; }
+  list.innerHTML = items.map(m => `
+    <div class="card">
+      <div class="top"><span>${esc(m.matchType).toUpperCase()} • ${esc(m.venue)}</span>
+        ${kind(m) === "live" ? '<span class="live">● LIVE</span>' : `<span>${esc(m.date)}</span>`}</div>
+      ${(m.teams || []).map(t => `<div class="team"><span>${esc(t)}</span><span class="score">${esc(scoreFor(m, t))}</span></div>`).join("")}
+      <div class="status">${esc(m.status)}</div>
+    </div>`).join("");
+}
+
+async function load() {
+  try {
+    const r = await fetch("/api/matches");
+    const d = await r.json();
+    if (d.error) throw new Error(d.error);
+    matches = d;
+    render();
+  } catch (e) {
+    document.getElementById("list").innerHTML = `<div class="msg">Error: ${esc(e.message)}</div>`;
+  }
+}
+
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.remove("on"));
+  b.classList.add("on"); tab = b.dataset.t; render();
+});
+
+load();
+setInterval(load, 120000);
+</script>
+</body>
+</html>
