@@ -25,7 +25,7 @@ main{max-width:760px;margin:0 auto;padding:14px}
 .chip,select{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 14px;cursor:pointer}
 .chip.on{background:var(--saf);border-color:var(--saf);color:#14213d;font-weight:600}
 select{max-width:46%}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--card);padding:5px;border-radius:12px;border:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--card);padding:5px;border-radius:12px;border:1px solid var(--line)}
 .tabs button{border:0;background:none;color:var(--ink);padding:10px 4px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
 .tabs button.on{background:var(--blue);color:#fff}
 .tabs i{font-style:normal;opacity:.75;font-weight:400}
@@ -44,6 +44,7 @@ select{max-width:46%}
 .act button,.act a{font:inherit;font-size:.88rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;text-decoration:none}
 .act .wa{border-color:#25d366;color:#128c4a}
 :root[data-theme=dark] .act .wa{color:#4fe08a}
+.nw a{color:var(--ink);font-weight:600;text-decoration:none;font-size:1.02rem}.nw a:hover{text-decoration:underline}.nw p{margin:6px 0 0;color:var(--mut);font-size:.9rem}
 .msg{text-align:center;color:var(--mut);padding:36px 10px}
 .sk{height:96px;border-radius:14px;margin-bottom:12px;background:linear-gradient(90deg,var(--card),var(--line),var(--card));background-size:200% 100%;animation:sh 1.3s linear infinite}
 @keyframes sh{to{background-position:-200% 0}}
@@ -74,13 +75,13 @@ button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(
 </main>
 <dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button id="dx" aria-label="Close">×</button></div><div class="db" id="db"></div></dialog>
 <script>
-const L={en:{live:"Live",up:"Upcoming",done:"Completed",ind:"Team India",all:"All matches",fav:"My team",none:"My team: none",empty:"No matches in this section right now.",upd:"Updated",ago:"min ago",now:"just now",sc:"Scorecard",wa:"Share",bat:"Batting",bowl:"Bowling",nosc:"Scorecard is not available for this match yet.",err:"Could not load scores. Please try again in a few minutes.",lv:"LIVE",tI:"India"},
-hi:{live:"लाइव",up:"आने वाले",done:"खत्म",ind:"टीम इंडिया",all:"सभी मैच",fav:"मेरी टीम",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया"}};
+const L={en:{news:"News",nonews:"News is not available right now.",live:"Live",up:"Upcoming",done:"Completed",ind:"Team India",all:"All matches",fav:"My team",none:"My team: none",empty:"No matches in this section right now.",upd:"Updated",ago:"min ago",now:"just now",sc:"Scorecard",wa:"Share",bat:"Batting",bowl:"Bowling",nosc:"Scorecard is not available for this match yet.",err:"Could not load scores. Please try again in a few minutes.",lv:"LIVE",tI:"India"},
+hi:{news:"खबरें",nonews:"अभी खबरें उपलब्ध नहीं हैं।",live:"लाइव",up:"आने वाले",done:"खत्म",ind:"टीम इंडिया",all:"सभी मैच",fav:"मेरी टीम",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया"}};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const get=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
 const put=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
-let S={lang:get("lang","en"),theme:get("theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),tab:"live",india:get("india","0")==="1",fav:get("fav",""),matches:[],at:0,err:""};
+let S={lang:get("lang","en"),theme:get("theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),tab:"live",india:get("india","0")==="1",fav:get("fav",""),matches:[],news:null,at:0,err:""};
 const t=k=>L[S.lang][k];
 const kind=m=>m.matchEnded?"done":m.matchStarted?"live":"up";
 const isInd=m=>(m.teams||[]).some(x=>/india/i.test(x));
@@ -98,7 +99,8 @@ function render(){
  shell();
  const pool=S.india?S.matches.filter(isInd):S.matches;
  const cnt={live:0,up:0,done:0};pool.forEach(m=>cnt[kind(m)]++);
- $("tabs").innerHTML=["live","up","done"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)} <i>${cnt[k]}</i></button>`).join("");
+ $("tabs").innerHTML=["live","up","done","news"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)}${k==="news"?"":` <i>${cnt[k]}</i>`}</button>`).join("");
+ if(S.tab==="news"){$("meta").textContent="";return renderNews()}
  let items=pool.filter(m=>kind(m)===S.tab);
  const w=m=>(S.fav&&(m.teams||[]).includes(S.fav)?2:0)+(isInd(m)?1:0);
  items=items.map((m,i)=>[m,i]).sort((a,b)=>w(b[0])-w(a[0])||a[1]-b[1]).map(x=>x[0]);
@@ -112,6 +114,15 @@ function render(){
  ${(m.teams||[]).map(x=>`<div class="team"><span>${esc(x)}</span><span class="sc">${esc(score(m,x))}</span></div>`).join("")}
  <div class="st">${esc(m.status)}</div>
  <div class="act"><button data-id="${esc(m.id)}" data-n="${esc((m.teams||[]).join(" vs "))}">${t("sc")}</button><a class="wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin)}">${t("wa")} 📲</a></div></div>`).join("");
+}
+function renderNews(){
+ if(S.news===null){$("list").innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';return}
+ if(!S.news.length){$("list").innerHTML=`<div class="msg">${esc(t("nonews"))}</div>`;return}
+ $("list").innerHTML=S.news.map(n=>`<div class="card nw"><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a><p>${esc((n.description||"").slice(0,160))}</p><div class="top" style="margin-top:8px"><span>${esc(n.source)}</span><span>${esc((n.pubDate||"").slice(0,10))}</span></div></div>`).join("");
+}
+async function loadNews(){
+ try{const r=await fetch("/api/news");const d=await r.json();S.news=Array.isArray(d)?d:[]}catch(e){S.news=[]}
+ render();
 }
 async function load(){
  try{const r=await fetch("/api/matches");const d=await r.json();if(d.error)throw new Error(d.error);S.matches=d.matches||[];S.at=d.updatedAt||Date.now();S.err=""}
@@ -133,7 +144,7 @@ $("list").addEventListener("click",async e=>{
 });
 $("dx").onclick=()=>$("dlg").close();
 $("dlg").addEventListener("click",e=>{if(e.target===$("dlg"))$("dlg").close()});
-$("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.tab=b.dataset.t;render()}});
+$("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.tab=b.dataset.t;render();if(S.tab==="news"&&S.news===null)loadNews()}});
 $("fIn").onclick=()=>{S.india=true;put("india","1");render()};
 $("fAll").onclick=()=>{S.india=false;put("india","0");render()};
 $("fav").onchange=e=>{S.fav=e.target.value;put("fav",S.fav);render()};
