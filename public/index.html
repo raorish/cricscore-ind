@@ -2,87 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cricket Live Scores</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CricScore India – Live cricket scores, Team India matches</title>
+<meta name="description" content="Live cricket scores, scorecards and Team India matches. Hindi and English.">
+<meta name="theme-color" content="#0b4fb3">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Hind:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#f4f6f8; --card:#fff; --text:#1a1d21; --muted:#6b7280; --accent:#0a7d3b; --live:#d92d20; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg:#0f1214; --card:#1a1e22; --text:#eceff1; --muted:#9aa4ae; --accent:#2ecc71; --live:#ff5a4d; }
-  }
-  * { box-sizing: border-box; }
-  body { margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:var(--text); }
-  header { background:var(--accent); color:#fff; padding:16px; text-align:center; }
-  header h1 { margin:0; font-size:1.3rem; }
-  main { max-width:760px; margin:0 auto; padding:12px; }
-  .tabs { display:flex; gap:8px; margin:8px 0 14px; }
-  .tabs button { flex:1; padding:10px; border:0; border-radius:8px; background:var(--card); color:var(--text); font-weight:600; cursor:pointer; }
-  .tabs button.on { background:var(--accent); color:#fff; }
-  .card { background:var(--card); border-radius:12px; padding:14px; margin-bottom:12px; box-shadow:0 1px 3px rgba(0,0,0,.12); }
-  .top { display:flex; justify-content:space-between; font-size:.8rem; color:var(--muted); }
-  .live { color:var(--live); font-weight:700; }
-  .team { display:flex; justify-content:space-between; margin-top:8px; font-weight:600; }
-  .score { font-variant-numeric: tabular-nums; }
-  .status { margin-top:10px; font-size:.9rem; color:var(--accent); }
-  .msg { text-align:center; color:var(--muted); padding:30px 0; }
+:root{--bg:#f2f5fb;--card:#fff;--ink:#0d1b3d;--mut:#5a6785;--line:#dbe2f0;--blue:#0b4fb3;--saf:#ff8a1f;--live:#e5372b;--ok:#0a7d3b}
+:root[data-theme=dark]{--bg:#0a1226;--card:#131d38;--ink:#e9eefb;--mut:#9fb0d3;--line:#25335a;--blue:#5b9bff;--saf:#ffa24d;--live:#ff6b5e;--ok:#4fd48a}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Hind",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+h1,h2,h3,.sc{font-family:"Baloo 2","Hind",sans-serif}
+header{background:var(--blue);color:#fff;border-bottom:5px solid var(--saf)}
+header .in{max-width:760px;margin:0 auto;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+header h1{margin:0;font-size:1.45rem;font-weight:800}
+header h1 span{color:var(--saf)}
+.tools{display:flex;gap:8px}
+.tools button{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:8px;padding:7px 12px;font:inherit;font-weight:600;cursor:pointer}
+main{max-width:760px;margin:0 auto;padding:14px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.chip,select{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 14px;cursor:pointer}
+.chip.on{background:var(--saf);border-color:var(--saf);color:#14213d;font-weight:600}
+select{max-width:46%}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--card);padding:5px;border-radius:12px;border:1px solid var(--line)}
+.tabs button{border:0;background:none;color:var(--ink);padding:10px 4px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button.on{background:var(--blue);color:#fff}
+.tabs i{font-style:normal;opacity:.75;font-weight:400}
+#meta{font-size:.82rem;color:var(--mut);margin:10px 2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.card.in{border-left:5px solid var(--saf)}
+.card.feat{border-color:var(--blue);box-shadow:0 4px 16px rgba(11,79,179,.18)}
+.top{display:flex;justify-content:space-between;gap:8px;font-size:.8rem;color:var(--mut)}
+.live{color:var(--live);font-weight:700;white-space:nowrap}
+.tag{background:var(--saf);color:#14213d;border-radius:6px;padding:0 7px;font-weight:600;font-size:.75rem;margin-right:6px}
+.team{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-weight:600}
+.sc{font-size:1.25rem;font-variant-numeric:tabular-nums}
+.feat .sc{font-size:1.6rem}
+.st{margin-top:8px;color:var(--ok);font-size:.92rem}
+.act{display:flex;gap:8px;margin-top:12px}
+.act button,.act a{font:inherit;font-size:.88rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;text-decoration:none}
+.act .wa{border-color:#25d366;color:#128c4a}
+:root[data-theme=dark] .act .wa{color:#4fe08a}
+.msg{text-align:center;color:var(--mut);padding:36px 10px}
+.sk{height:96px;border-radius:14px;margin-bottom:12px;background:linear-gradient(90deg,var(--card),var(--line),var(--card));background-size:200% 100%;animation:sh 1.3s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+dialog{width:min(720px,96vw);max-height:88vh;border:0;border-radius:14px;padding:0;background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card)}
+.dh h2{margin:0;font-size:1.1rem}
+.dh button{border:0;background:none;color:var(--ink);font-size:1.5rem;cursor:pointer}
+.db{padding:4px 16px 16px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{text-align:right;padding:6px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+th{color:var(--mut);font-weight:600}
+td small{display:block;color:var(--mut)}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--saf);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.sk{animation:none}}
 </style>
 </head>
 <body>
-<header><h1>🏏 Cricket Live Scores</h1></header>
+<header><div class="in"><h1>🏏 CricScore <span>India</span></h1>
+<div class="tools"><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">🌓</button></div></div></header>
 <main>
-  <div class="tabs">
-    <button data-t="live" class="on">Live</button>
-    <button data-t="upcoming">Upcoming</button>
-    <button data-t="done">Completed</button>
-  </div>
-  <div id="list"><div class="msg">Loading...</div></div>
+<div class="bar"><button class="chip" id="fIn"></button><button class="chip" id="fAll"></button><select id="fav" aria-label="My team"></select></div>
+<div class="tabs" id="tabs"></div>
+<div id="meta" role="status"></div>
+<div id="list"></div>
 </main>
+<dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button id="dx" aria-label="Close">×</button></div><div class="db" id="db"></div></dialog>
 <script>
-let matches = [], tab = "live";
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-
-function kind(m) {
-  if (m.matchEnded) return "done";
-  if (m.matchStarted) return "live";
-  return "upcoming";
+const L={en:{live:"Live",up:"Upcoming",done:"Completed",ind:"Team India",all:"All matches",fav:"My team",none:"My team: none",empty:"No matches in this section right now.",upd:"Updated",ago:"min ago",now:"just now",sc:"Scorecard",wa:"Share",bat:"Batting",bowl:"Bowling",nosc:"Scorecard is not available for this match yet.",err:"Could not load scores. Please try again in a few minutes.",lv:"LIVE",tI:"India"},
+hi:{live:"लाइव",up:"आने वाले",done:"खत्म",ind:"टीम इंडिया",all:"सभी मैच",fav:"मेरी टीम",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया"}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const get=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
+const put=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+let S={lang:get("lang","en"),theme:get("theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),tab:"live",india:get("india","0")==="1",fav:get("fav",""),matches:[],at:0,err:""};
+const t=k=>L[S.lang][k];
+const kind=m=>m.matchEnded?"done":m.matchStarted?"live":"up";
+const isInd=m=>(m.teams||[]).some(x=>/india/i.test(x));
+const score=(m,tm)=>((m.score||[]).filter(s=>(s.inning||"").toLowerCase().includes(tm.toLowerCase())).map(s=>`${s.r}/${s.w} (${s.o})`).join(" & "))||"-";
+function applyTheme(){document.documentElement.dataset.theme=S.theme}
+function shell(){
+ document.documentElement.lang=S.lang;
+ $("fIn").textContent="🇮🇳 "+t("ind");$("fIn").classList.toggle("on",S.india);
+ $("fAll").textContent=t("all");$("fAll").classList.toggle("on",!S.india);
+ const teams=[...new Set(S.matches.flatMap(m=>m.teams||[]))].sort();
+ $("fav").innerHTML=`<option value="">${esc(t("none"))}</option>`+teams.map(x=>`<option ${x===S.fav?"selected":""}>${esc(x)}</option>`).join("");
+ $("lang").textContent=S.lang==="en"?"हिं":"EN";
 }
-
-function scoreFor(m, team) {
-  const rows = (m.score || []).filter(s => (s.inning || "").toLowerCase().includes(team.toLowerCase()));
-  return rows.map(s => `${s.r}/${s.w} (${s.o})`).join(" & ") || "-";
+function render(){
+ shell();
+ const pool=S.india?S.matches.filter(isInd):S.matches;
+ const cnt={live:0,up:0,done:0};pool.forEach(m=>cnt[kind(m)]++);
+ $("tabs").innerHTML=["live","up","done"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)} <i>${cnt[k]}</i></button>`).join("");
+ let items=pool.filter(m=>kind(m)===S.tab);
+ const w=m=>(S.fav&&(m.teams||[]).includes(S.fav)?2:0)+(isInd(m)?1:0);
+ items=items.map((m,i)=>[m,i]).sort((a,b)=>w(b[0])-w(a[0])||a[1]-b[1]).map(x=>x[0]);
+ const mins=S.at?Math.floor((Date.now()-S.at)/60000):null;
+ $("meta").textContent=S.err||(mins===null?"":`${t("upd")}: ${mins<1?t("now"):mins+" "+t("ago")}`);
+ if(!S.matches.length&&!S.err){$("list").innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';return}
+ if(S.err&&!S.matches.length){$("list").innerHTML=`<div class="msg">${esc(t("err"))}</div>`;return}
+ if(!items.length){$("list").innerHTML=`<div class="msg">${esc(t("empty"))}</div>`;return}
+ $("list").innerHTML=items.map((m,i)=>`<div class="card ${isInd(m)?"in":""} ${i===0&&S.tab==="live"?"feat":""}">
+ <div class="top"><span>${isInd(m)?`<span class="tag">${t("tI")}</span>`:""}${esc(m.matchType).toUpperCase()} • ${esc(m.venue)}</span>${kind(m)==="live"?`<span class="live">● ${t("lv")}</span>`:`<span>${esc(m.date)}</span>`}</div>
+ ${(m.teams||[]).map(x=>`<div class="team"><span>${esc(x)}</span><span class="sc">${esc(score(m,x))}</span></div>`).join("")}
+ <div class="st">${esc(m.status)}</div>
+ <div class="act"><button data-id="${esc(m.id)}" data-n="${esc((m.teams||[]).join(" vs "))}">${t("sc")}</button><a class="wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin)}">${t("wa")} 📲</a></div></div>`).join("");
 }
-
-function render() {
-  const list = document.getElementById("list");
-  const items = matches.filter(m => kind(m) === tab);
-  if (!items.length) { list.innerHTML = '<div class="msg">Is category me abhi koi match nahi hai</div>'; return; }
-  list.innerHTML = items.map(m => `
-    <div class="card">
-      <div class="top"><span>${esc(m.matchType).toUpperCase()} • ${esc(m.venue)}</span>
-        ${kind(m) === "live" ? '<span class="live">● LIVE</span>' : `<span>${esc(m.date)}</span>`}</div>
-      ${(m.teams || []).map(t => `<div class="team"><span>${esc(t)}</span><span class="score">${esc(scoreFor(m, t))}</span></div>`).join("")}
-      <div class="status">${esc(m.status)}</div>
-    </div>`).join("");
+async function load(){
+ try{const r=await fetch("/api/matches");const d=await r.json();if(d.error)throw new Error(d.error);S.matches=d.matches||[];S.at=d.updatedAt||Date.now();S.err=""}
+ catch(e){S.err=S.matches.length?t("err"):"";if(!S.matches.length)S.err=t("err")}
+ render();
 }
-
-async function load() {
-  try {
-    const r = await fetch("/api/matches");
-    const d = await r.json();
-    if (d.error) throw new Error(d.error);
-    matches = d;
-    render();
-  } catch (e) {
-    document.getElementById("list").innerHTML = `<div class="msg">Error: ${esc(e.message)}</div>`;
-  }
+const tbl=(h,rows)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows}</table></div>`;
+function card(d){
+ const inns=d.scorecard||[];if(!inns.length)return`<p>${t("nosc")}</p>`;
+ return inns.map(i=>`<h3>${esc(i.inning)}</h3>`+
+ tbl([t("bat"),"R","B","4s","6s"],(i.batting||[]).map(b=>`<tr><td>${esc(b.batsman?.name)}<small>${esc(b["dismissal-text"]||"")}</small></td><td>${esc(b.r)}</td><td>${esc(b.b)}</td><td>${esc(b["4s"])}</td><td>${esc(b["6s"])}</td></tr>`).join(""))+
+ tbl([t("bowl"),"O","M","R","W"],(i.bowling||[]).map(b=>`<tr><td>${esc(b.bowler?.name)}</td><td>${esc(b.o)}</td><td>${esc(b.m)}</td><td>${esc(b.r)}</td><td>${esc(b.w)}</td></tr>`).join(""))).join("");
 }
-
-document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
-  document.querySelectorAll(".tabs button").forEach(x => x.classList.remove("on"));
-  b.classList.add("on"); tab = b.dataset.t; render();
+$("list").addEventListener("click",async e=>{
+ const b=e.target.closest("button[data-id]");if(!b)return;
+ $("dt").textContent=b.dataset.n;$("db").innerHTML='<div class="sk"></div>';$("dlg").showModal();
+ try{const r=await fetch("/api/match/"+encodeURIComponent(b.dataset.id));const d=await r.json();if(d.error)throw new Error(d.error);$("db").innerHTML=card(d)}
+ catch(err){$("db").innerHTML=`<p>${esc(t("nosc"))}</p>`}
 });
-
-load();
-setInterval(load, 120000);
+$("dx").onclick=()=>$("dlg").close();
+$("dlg").addEventListener("click",e=>{if(e.target===$("dlg"))$("dlg").close()});
+$("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.tab=b.dataset.t;render()}});
+$("fIn").onclick=()=>{S.india=true;put("india","1");render()};
+$("fAll").onclick=()=>{S.india=false;put("india","0");render()};
+$("fav").onchange=e=>{S.fav=e.target.value;put("fav",S.fav);render()};
+$("lang").onclick=()=>{S.lang=S.lang==="en"?"hi":"en";put("lang",S.lang);render()};
+$("theme").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";put("theme",S.theme);applyTheme()};
+applyTheme();render();load();setInterval(load,120000);
 </script>
 </body>
 </html>
