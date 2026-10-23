@@ -58,6 +58,23 @@ app.get("/api/match/:id", async (req, res) => {
   }
 });
 
+let news = { data: null, at: 0 }, newsNext = 0;
+app.get("/api/news", async (req, res) => {
+  if (!process.env.NEWS_KEY) return res.status(500).json({ error: "NEWS_KEY set nahi hai" });
+  const stale = !news.data || Date.now() - news.at > 30 * 60 * 1000;   // 30 min cache
+  if (stale && Date.now() >= newsNext) {
+    try {
+      const r = await fetch(`https://newsdata.io/api/1/latest?apikey=${process.env.NEWS_KEY}&q=cricket&country=in&language=en,hi`);
+      const j = await r.json();
+      if (j.status !== "success") throw new Error("News nahi mili");
+      news = { data: (j.results || []).slice(0, 10).map(n => ({ title: n.title, link: n.link, description: n.description, pubDate: n.pubDate, source: n.source_name })), at: Date.now() };
+    } catch (e) { newsNext = Date.now() + RETRY; }
+  }
+  if (!news.data) return res.status(502).json({ error: "News abhi available nahi hai" });
+  res.set("Cache-Control", "public, max-age=300");
+  res.json(news.data);
+});
+
 function findPage() {
   const dirs = [__dirname, path.join(__dirname, "public"), path.join(__dirname, "src")];
   for (const d of dirs) {
