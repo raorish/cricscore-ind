@@ -33,6 +33,23 @@ app.get("/api/matches", async (req, res) => {
   res.json(cache.data);
 });
 
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html")));
+const fs = require("fs");
+
+function findPage() {
+  const dirs = [__dirname, path.join(__dirname, "public"), path.join(__dirname, "src")];
+  for (const d of dirs) {
+    if (!fs.existsSync(d)) continue;
+    const files = fs.readdirSync(d).filter(f => f.toLowerCase().endsWith(".html"));
+    const pick = files.find(f => f.toLowerCase() === "index.html") || files[0];
+    if (pick) return path.join(d, pick);
+  }
+  return null;
+}
+
+app.get("/", (req, res) => {
+  const page = findPage();
+  if (!page) return res.status(404).send("HTML file repository me nahi mili. GitHub me check karo ki file ka naam index.html hai.");
+  res.sendFile(page);
+});
 
 app.listen(process.env.PORT || 3000, () => console.log("Server chalu hai"));
