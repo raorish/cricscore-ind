@@ -85,6 +85,7 @@ function findPage() {
   }
   return null;
 }
+app.use(express.static(path.join(__dirname, "public")));   // logo.svg jaisi files ke liye
 app.get("/", (req, res) => {
   const page = findPage();
   if (!page) return res.status(404).send("HTML file repository me nahi mili. File ka naam index.html rakho.");
