@@ -96,28 +96,42 @@ td small{display:block;color:var(--mut);font-size:.74rem}
 .big{font-size:2.2rem;font-weight:800;margin:6px 0}
 .btn{font:inherit;font-weight:700;background:var(--hd);color:#fff;border:0;border-radius:8px;padding:9px 18px;cursor:pointer;margin:12px 8px 0 0;text-decoration:none;display:inline-block}
 :root[data-theme=dark] .btn{background:var(--acc);color:#05080d}
-.sp{position:fixed;inset:0;z-index:100;background:linear-gradient(#0a1020,#16305f);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:opacity .45s;color:#fff;text-align:center}
+.sp{position:fixed;inset:0;z-index:100;background:linear-gradient(#0a1020,#16305f);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:opacity .5s;color:#fff;text-align:center}
 .sp.out{opacity:0;pointer-events:none}
-.sp-stage{position:relative;width:min(560px,94vw)}
+.sp-stage{position:relative;width:min(560px,94vw);animation:sp-shake 5.6s forwards}
 .sp-stage svg{width:100%;height:auto;display:block}
-.sp-six{position:absolute;top:4%;left:50%;transform:translateX(-50%);opacity:0;animation:sp-pop 2.6s forwards;pointer-events:none}
-.sp-six b{display:block;font-size:clamp(2.4rem,11vw,4rem);font-weight:800;line-height:1.1;color:#ffb347;text-shadow:0 3px 0 #b45309,0 0 24px rgba(255,160,50,.6)}
-.sp-six span{font-size:1.1rem;font-weight:800;letter-spacing:.35em;color:#fff}
-@keyframes sp-pop{0%,36%{opacity:0;transform:translateX(-50%) scale(.3)}44%{opacity:1;transform:translateX(-50%) scale(1.25)}52%,100%{opacity:1;transform:translateX(-50%) scale(1)}}
-.sp-bat{transform-origin:126px 118px;animation:sp-swing 2.6s forwards}
-@keyframes sp-swing{0%{transform:rotate(110deg)}30%{transform:rotate(122deg)}35%{transform:rotate(-28deg)}100%{transform:rotate(-105deg)}}
-.sp-ball{transform-box:fill-box;transform-origin:center;animation:sp-ball 2.6s forwards}
-@keyframes sp-ball{0%{transform:translate(190px,14px)}35%{transform:translate(0,0)}50%{transform:translate(90px,-95px)}70%{transform:translate(170px,-165px) scale(.7)}100%{transform:translate(240px,-232px) scale(.3);opacity:0}}
+@keyframes sp-shake{0%,45%{transform:none}47%{transform:translateX(-4px)}49%{transform:translateX(3px)}51%{transform:translateX(-2px)}53%,100%{transform:none}}
+.sp-six{position:absolute;top:2%;left:50%;transform:translateX(-50%);opacity:0;animation:sp-pop 5.6s forwards;pointer-events:none;white-space:nowrap}
+.sp-six b{display:block;font-size:clamp(2.2rem,10vw,3.6rem);font-weight:800;line-height:1.1;color:#ff6b5e;text-shadow:0 3px 0 #7f1d1d,0 0 24px rgba(255,90,70,.55)}
+.sp-six span{font-size:1.05rem;font-weight:800;letter-spacing:.35em;color:#fff}
+@keyframes sp-pop{0%,49%{opacity:0;transform:translateX(-50%) scale(.3)}56%{opacity:1;transform:translateX(-50%) scale(1.2)}62%,100%{opacity:1;transform:translateX(-50%) scale(1)}}
+.sp-man{transform-origin:109px 186px;animation:sp-slump 5.6s forwards}
+@keyframes sp-slump{0%,48%{transform:none}60%,100%{transform:translate(-1px,2px) rotate(-4deg)}}
+.sp-bat{transform-origin:126px 118px;animation:sp-swing 5.6s forwards}
+@keyframes sp-swing{0%{transform:rotate(108deg);animation-timing-function:ease-in-out}12%{transform:rotate(113deg);animation-timing-function:ease-in-out}24%{transform:rotate(108deg);animation-timing-function:ease-in-out}34%{transform:rotate(122deg)}40%{transform:rotate(122deg);animation-timing-function:cubic-bezier(.45,0,.55,1)}47%{transform:rotate(-30deg);animation-timing-function:cubic-bezier(.2,.6,.4,1)}62%,100%{transform:rotate(-100deg)}}
+.sp-ball{animation:sp-ball 5.6s forwards}
+@keyframes sp-ball{0%{transform:translate(372px,56px);animation-timing-function:cubic-bezier(.5,0,.9,.6)}20%{transform:translate(250px,180px);animation-timing-function:cubic-bezier(.2,.5,.5,1)}31%{transform:translate(195px,160px);animation-timing-function:cubic-bezier(.5,0,.8,.5)}41%{transform:translate(110px,176px);animation-timing-function:linear}46%{transform:translate(66px,170px);animation-timing-function:ease-out}56%{transform:translate(16px,182px);opacity:1}66%,100%{transform:translate(-8px,182px);opacity:0}}
+.sp-st1{transform-box:view-box;transform-origin:44px 186px;animation:sp-s1 5.6s forwards}
+.sp-st3{transform-box:view-box;transform-origin:60px 186px;animation:sp-s3 5.6s forwards}
+.sp-st2,.sp-b1,.sp-b2,.sp-burst{transform-box:fill-box;transform-origin:center}
+.sp-st2{animation:sp-s2 5.6s forwards}.sp-b1{animation:sp-bl 5.6s forwards}.sp-b2{animation:sp-br 5.6s forwards}
+@keyframes sp-s1{0%,46%{transform:none;animation-timing-function:ease-in}72%,100%{transform:rotate(-84deg)}}
+@keyframes sp-s3{0%,46%{transform:none;animation-timing-function:ease-in}70%,100%{transform:rotate(-70deg)}}
+@keyframes sp-s2{0%,46%{transform:none;animation-timing-function:cubic-bezier(.3,.6,.5,1)}58%{transform:translate(-22px,-36px) rotate(-250deg);animation-timing-function:cubic-bezier(.5,0,.8,.6)}72%,100%{transform:translate(-40px,20px) rotate(-450deg)}}
+@keyframes sp-bl{0%,46%{transform:none;animation-timing-function:cubic-bezier(.3,.6,.5,1)}57%{transform:translate(-14px,-48px) rotate(-190deg);animation-timing-function:cubic-bezier(.5,0,.8,.6)}74%,100%{transform:translate(-30px,48px) rotate(-420deg)}}
+@keyframes sp-br{0%,46%{transform:none;animation-timing-function:cubic-bezier(.3,.6,.5,1)}58%{transform:translate(10px,-58px) rotate(220deg);animation-timing-function:cubic-bezier(.5,0,.8,.6)}76%,100%{transform:translate(14px,48px) rotate(480deg)}}
+.sp-burst{opacity:0;animation:sp-bu 5.6s forwards}
+@keyframes sp-bu{0%,45.5%{opacity:0;transform:scale(.2)}47%{opacity:.9;transform:scale(1)}56%,100%{opacity:0;transform:scale(4)}}
 .sp-crowd{animation:sp-wave 1.2s ease-in-out infinite alternate}
 @keyframes sp-wave{to{opacity:.35}}
 .sp-ld{font-weight:700;font-size:1.05rem}.sp-ld b{background:#f97316;color:#111;border-radius:4px;padding:0 6px;font-size:.7rem;letter-spacing:.15em;margin-left:4px;vertical-align:2px}
 .sp-ld span{display:block;font-weight:400;font-size:.8rem;opacity:.75;margin-top:2px}
 .sp-bar{width:min(260px,70vw);height:4px;border-radius:4px;background:rgba(255,255,255,.18);overflow:hidden}
-.sp-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff9933,#fff,#138808);animation:sp-fill 3s linear forwards}
+.sp-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff9933,#fff,#138808);animation:sp-fill 5.8s linear forwards}
 @keyframes sp-fill{to{width:100%}}
 .sp-snd{font:inherit;font-weight:600;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:8px 18px;cursor:pointer}
 .sp small{opacity:.55;font-size:.72rem}
-@media(prefers-reduced-motion:reduce){.sp-six{animation:none;opacity:1}.sp-bat{animation:none;transform:rotate(-70deg)}.sp-ball{animation:none;opacity:0}.sp-crowd{animation:none}}
+@media(prefers-reduced-motion:reduce){.sp-stage,.sp-man,.sp-crowd,.sp-burst{animation:none}.sp-six{animation:none;opacity:1}.sp-bat{animation:none;transform:rotate(-100deg)}.sp-ball{animation:none;opacity:0}.sp-st1{animation:none;transform:rotate(-84deg)}.sp-st3{animation:none;transform:rotate(-70deg)}.sp-st2{animation:none;transform:translate(-40px,20px) rotate(-450deg)}.sp-b1{animation:none;transform:translate(-30px,48px) rotate(-420deg)}.sp-b2{animation:none;transform:translate(14px,48px) rotate(480deg)}}
 button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
 </style>
@@ -125,18 +139,26 @@ button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(
 <body>
 <div class="sp" id="sp" role="status" aria-label="Loading">
 <div class="sp-stage">
-<div class="sp-six"><b>छक्का!</b><span>SIX!</span></div>
+<div class="sp-six"><b>बोल्ड!</b><span>BOWLED!</span></div>
 <svg viewBox="0 0 360 230" aria-hidden="true">
 <defs><pattern id="spc" width="12" height="11" patternUnits="userSpaceOnUse"><circle cx="3" cy="5" r="2.6" fill="#f97316"/><circle cx="9" cy="5" r="2.6" fill="#fff"/></pattern></defs>
 <rect y="196" width="360" height="34" fill="#0b1328"/>
 <rect class="sp-crowd" y="198" width="360" height="30" fill="url(#spc)" opacity=".7"/>
 <rect y="186" width="360" height="11" fill="#166534"/>
-<g stroke-linecap="round"><path d="M100 150L93 186M112 150L121 186" stroke="#f3f4f6" stroke-width="8"/></g>
+<rect class="sp-st1" x="42.5" y="140" width="3.5" height="46" rx="1.5" fill="#f3e3c3"/>
+<rect class="sp-st2" x="50.5" y="140" width="3.5" height="46" rx="1.5" fill="#f3e3c3"/>
+<rect class="sp-st3" x="58.5" y="140" width="3.5" height="46" rx="1.5" fill="#f3e3c3"/>
+<rect class="sp-b1" x="43" y="136" width="9" height="3" rx="1.5" fill="#e0b25a"/>
+<rect class="sp-b2" x="52" y="136" width="9" height="3" rx="1.5" fill="#e0b25a"/>
+<circle class="sp-burst" cx="62" cy="168" r="5" fill="#fff"/>
+<circle class="sp-ball" cx="0" cy="0" r="5.5" fill="#c1272d" stroke="#fff" stroke-width="1"/>
+<g class="sp-man">
+<path d="M100 150L93 186M112 150L121 186" stroke="#f3f4f6" stroke-width="8" stroke-linecap="round"/>
 <rect x="95" y="104" width="27" height="50" rx="10" fill="#1d4ed8"/><rect x="95" y="124" width="27" height="5" fill="#f97316"/>
 <circle cx="109" cy="92" r="11" fill="#f1c59a"/><path d="M96 92A13 13 0 0 1 122 92Z" fill="#1d4ed8"/>
 <path d="M116 112L126 118" stroke="#f1c59a" stroke-width="6" stroke-linecap="round"/>
 <g class="sp-bat"><rect x="123" y="118" width="7" height="52" rx="3" fill="#d9a85c"/><rect x="123" y="118" width="7" height="15" rx="3" fill="#5b3a1a"/></g>
-<circle class="sp-ball" cx="150" cy="164" r="5.5" fill="#c1272d" stroke="#fff" stroke-width="1"/>
+</g>
 </svg></div>
 <div class="sp-ld">CricScore <b>INDIA</b><span>Live scores load ho rahe hain…</span></div>
 <div class="sp-bar"><i></i></div>
@@ -258,22 +280,23 @@ function calc(){
  const r=n("sr1"),b=n("sr2");$("r2").textContent=isNaN(r)||!(b>0)?"":(r/b*100).toFixed(2);
  const c=n("ec1"),o=n("ec2");$("r3").textContent=isNaN(c)||!(o>0)?"":(c/ov(o)).toFixed(2);
 }
-function chakka(){try{const hi=(speechSynthesis.getVoices()||[]).some(v=>/^hi/i.test(v.lang));const u=new SpeechSynthesisUtterance(hi?"ओ गुरु, छक्का!":"Oh guru, chakka!");u.lang=hi?"hi-IN":"en-IN";u.rate=.95;u.pitch=1.15;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 function thwack(){try{
  const c=new(window.AudioContext||window.webkitAudioContext)(),sr=c.sampleRate;
- const noise=(sec,f)=>{const b=c.createBuffer(1,Math.round(sr*sec),sr),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*f(i/d.length);const n=c.createBufferSource();n.buffer=b;return n};
- const hit=noise(.12,x=>Math.pow(1-x,3)),bp=c.createBiquadFilter();bp.type="bandpass";bp.frequency.value=1800;hit.connect(bp);bp.connect(c.destination);hit.start();
- const roar=noise(2,x=>Math.sin(Math.PI*x)*.16),lp=c.createBiquadFilter();lp.type="lowpass";lp.frequency.value=900;roar.connect(lp);lp.connect(c.destination);roar.start(c.currentTime+.15);
+ const n=c.createBuffer(1,Math.round(sr*.2),sr),d=n.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
+ const src=c.createBufferSource();src.buffer=n;const bp=c.createBiquadFilter();bp.type="bandpass";bp.frequency.value=1200;src.connect(bp);bp.connect(c.destination);src.start();
 }catch(e){}}
 function splash(first){
  const sp=$("sp");if(!sp)return;
- const t0=performance.now(),HIT=910;let played=false;
- const play=()=>{if(played)return;played=true;thwack();chakka()};
- $("spSnd").onclick=e=>{e.stopPropagation();$("spSnd").textContent="🔊 ON";setTimeout(play,Math.max(HIT-(performance.now()-t0),0))};
- const hide=()=>{sp.classList.add("out");setTimeout(()=>sp.remove(),500)};
+ const t0=performance.now(),HIT=2580;let played=false;
+ const aud=new Audio("/bowled.mp3");aud.preload="auto";
+ const play=()=>{if(played)return;played=true;try{aud.currentTime=0}catch(e){}const p=aud.play();if(p&&p.catch)p.catch(thwack)};
+ $("spSnd").onclick=e=>{e.stopPropagation();$("spSnd").textContent="🔊 ON";
+  aud.muted=true;const u=aud.play();if(u&&u.then)u.then(()=>{aud.pause();aud.currentTime=0;aud.muted=false}).catch(()=>{aud.muted=false});
+  setTimeout(play,Math.max(HIT-(performance.now()-t0),250))};
+ const hide=()=>{aud.pause();sp.classList.add("out");setTimeout(()=>sp.remove(),550)};
  sp.onclick=hide;
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
- Promise.race([Promise.all([sleep(3000),first]),sleep(5500)]).then(hide);
+ Promise.race([Promise.all([sleep(5900),first]),sleep(8000)]).then(hide);
 }
 async function loadNews(){
  try{const r=await fetch("/api/news");const d=await r.json();S.news=Array.isArray(d)?d:[]}catch(e){S.news=[]}
