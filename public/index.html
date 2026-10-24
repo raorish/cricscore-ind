@@ -1,281 +1,360 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CricScore India – Live cricket scores, scorecards and news</title>
-<meta name="description" content="Live cricket scores, scorecards, venue weather, player info and news. Team India first. Hindi and English.">
-<meta name="theme-color" content="#0f172a">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2048%2048%22%3E%3Cdefs%3E%3CclipPath%20id%3D%22c%22%3E%3Crect%20width%3D%2248%22%20height%3D%2248%22%20rx%3D%2212%22/%3E%3C/clipPath%3E%3C/defs%3E%3Cg%20clip-path%3D%22url%28%23c%29%22%3E%3Crect%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23ff9933%22/%3E%3Crect%20y%3D%2216%22%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23fff%22/%3E%3Crect%20y%3D%2232%22%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23138808%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%2213%22%20fill%3D%22%23c1272d%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M15%2017c5%204%205%2010%200%2014M33%2017c-5%204-5%2010%200%2014%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.6%22%20fill%3D%22none%22%20stroke-dasharray%3D%222.4%202%22/%3E%3C/svg%3E">
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>RAORISH AIR 2.0</title>
+<meta name="description" content="RAORISH AIR 2.0 - a free AI assistant by Rishabh Yadav. Chat in English, Hindi or Hinglish.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;500;600&family=Source+Serif+4:wght@400;500;600&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/logo.svg"><link rel="apple-touch-icon" href="/icon-192.png"><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#131314">
 <style>
-:root{--bg:#f4f5f7;--card:#fff;--ink:#111827;--mut:#6b7280;--line:#e5e7eb;--hd:#0f172a;--acc:#15803d;--live:#dc2626;--saf:#f97316;--lnk:#1d4ed8}
-:root[data-theme=dark]{--bg:#0b0f17;--card:#121826;--ink:#e5e7eb;--mut:#9ca3af;--line:#1f2937;--hd:#05080d;--acc:#4ade80;--live:#f87171;--saf:#fb923c;--lnk:#7aa2ff}
-*{box-sizing:border-box}
-body{margin:0;font:15px/1.5 "Inter","Noto Sans Devanagari",system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
-.w{max-width:1040px;margin:0 auto;padding:0 16px}
-.hd{background:var(--hd);color:#fff;position:relative}
-.hd::before{content:"";display:block;height:3px;background:linear-gradient(90deg,#ff9933 33.3%,#fff 33.3% 66.6%,#138808 66.6%)}
-.hd .w{display:flex;align-items:center;justify-content:space-between;height:54px}
-.lg{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.35rem;letter-spacing:-.4px}
-.lg small{font-size:.6rem;letter-spacing:.16em;background:var(--saf);color:#111;font-weight:800;padding:2px 6px;border-radius:4px;margin-left:-2px}
-.tools{display:flex;gap:6px}
-.tools button{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:4px 11px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
-.tb{background:var(--hd);position:sticky;top:0;z-index:5;border-bottom:1px solid rgba(255,255,255,.08)}
-#tabs{display:flex;overflow-x:auto;scrollbar-width:none}
-#tabs button{background:none;border:0;border-bottom:3px solid transparent;color:#9ca9bd;padding:10px 16px 8px;font:inherit;font-weight:600;font-size:.92rem;cursor:pointer;white-space:nowrap}
-#tabs button.on{color:#fff;border-bottom-color:var(--acc)}
-#tabs span{color:#7b8aa3;font-weight:500;margin-left:5px}
-.strip{display:flex;gap:10px;overflow-x:auto;padding:14px 16px;max-width:1040px;margin:0 auto;scrollbar-width:thin}
-.mini{flex:0 0 196px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;font:inherit;color:var(--ink);cursor:pointer}
-.mini.in{box-shadow:inset 3px 0 0 var(--saf)}
-.mt{font-size:.68rem;font-weight:600;letter-spacing:.04em;color:var(--mut);margin-bottom:3px}
-.mr{display:flex;justify-content:space-between;font-weight:600;font-size:.88rem}
-.mr span:last-child,.sc{font-variant-numeric:tabular-nums}
-.ms{font-size:.72rem;color:var(--mut);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--live);margin-right:5px;animation:pl 1.4s infinite}
-@keyframes pl{50%{opacity:.25}}
-.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:4px 0 10px}
-.seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--card)}
-.seg button{border:0;background:none;color:var(--ink);padding:6px 14px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
-.seg button.on{background:var(--hd);color:#fff}
-:root[data-theme=dark] .seg button.on{background:var(--acc);color:#05080d}
-select{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:7px;padding:6px 10px;max-width:50%}
-#meta{font-size:.78rem;color:var(--mut);margin:0 2px 8px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:30px}
-.row{padding:14px 16px;border-bottom:1px solid var(--line)}.row:last-child{border:0}
-.row.in{box-shadow:inset 3px 0 0 var(--saf)}
-.ttl{font-weight:600;font-size:.95rem}
-.vn{font-size:.78rem;color:var(--mut);margin-top:1px}
-.rb{display:grid;gap:10px;margin-top:10px}
-@media(min-width:700px){.rb{grid-template-columns:1.3fr 1fr;align-items:center}}
-.tm{display:flex;align-items:center;gap:10px;padding:3px 0}
-.bd{position:relative;flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:.6rem;font-weight:700;overflow:hidden;color:var(--mut)}
-.bd img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--card)}
-.nm{flex:1;font-weight:500}
-.sc{font-weight:700;font-size:1rem}
-.st{font-size:.86rem;font-weight:600;line-height:1.35}
-.st.live{color:var(--live)}.st.done{color:var(--acc)}.st.up{color:var(--mut)}
-.act{display:flex;gap:8px;margin-top:8px}
-.act button,.act a,.lk{font:inherit;font-size:.8rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--ink);border-radius:6px;padding:4px 11px;cursor:pointer;text-decoration:none}
-.act button:hover,.act a:hover{border-color:var(--ink)}
-.tag{font-size:.65rem;font-weight:700;letter-spacing:.06em;background:var(--saf);color:#111;border-radius:4px;padding:1px 6px;margin-right:6px;vertical-align:1px}
-.live{color:var(--live);font-weight:700;font-size:.72rem;letter-spacing:.05em;margin-right:6px}
-.nw a{color:var(--ink);font-weight:600;text-decoration:none}.nw a:hover{color:var(--lnk)}
-.nw p{margin:4px 0 0;color:var(--mut);font-size:.88rem}
-.msg{text-align:center;color:var(--mut);padding:40px 10px}
-.sk{height:84px;margin:12px 16px;border-radius:8px;background:linear-gradient(90deg,var(--card),var(--line),var(--card));background-size:200% 100%;animation:sh 1.3s linear infinite}
-@keyframes sh{to{background-position:-200% 0}}
-dialog{width:min(720px,96vw);max-height:88vh;border:0;border-radius:12px;padding:0;background:var(--card);color:var(--ink)}
-dialog::backdrop{background:rgba(0,0,0,.55)}
-.dh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--hd);color:#fff;position:sticky;top:0}
-.dh h2{margin:0;font-size:1rem;font-weight:600}.dh button{border:0;background:none;color:#fff;font-size:1.5rem;cursor:pointer}
-.db{padding:4px 16px 16px}
-.wx{font-size:.85rem;color:var(--mut);padding:10px 0 4px}
-.db h3{font-size:.95rem;margin:16px 0 4px}
-.tw{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.88rem}
-th,td{text-align:right;padding:6px;border-bottom:1px solid var(--line);white-space:nowrap}
-th:first-child,td:first-child{text-align:left;white-space:normal}
-th{color:var(--mut);font-weight:600;font-size:.75rem;background:var(--bg)}
-td small{display:block;color:var(--mut);font-size:.74rem}
-.pn{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--lnk);cursor:pointer;text-align:left}
-.pn:hover{text-decoration:underline}
-.ph{float:right;width:96px;height:auto;border-radius:8px;margin:0 0 8px 12px}
-.db p{margin:8px 0}.db a{color:var(--lnk)}
-.note{font-size:.75rem;color:var(--mut)}
-.ins{font-size:.78rem;color:var(--mut);margin-top:5px;font-variant-numeric:tabular-nums}
-.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.fg label{font-size:.78rem;color:var(--mut);font-weight:600}
-.fg input{display:block;width:100%;margin-top:3px;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink)}
-.res{margin-top:10px;font-weight:700;color:var(--acc);min-height:1.4em}
-.opt{display:block;width:100%;text-align:left;margin-top:8px;font:inherit;font-weight:600;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
-.opt.ok{border-color:var(--acc);background:rgba(21,128,61,.12)}.opt.bad{border-color:var(--live);background:rgba(220,38,38,.1)}
-.pr{font-size:.78rem;color:var(--mut);font-weight:600}
-.big{font-size:2.2rem;font-weight:800;margin:6px 0}
-.btn{font:inherit;font-weight:700;background:var(--hd);color:#fff;border:0;border-radius:8px;padding:9px 18px;cursor:pointer;margin:12px 8px 0 0;text-decoration:none;display:inline-block}
-:root[data-theme=dark] .btn{background:var(--acc);color:#05080d}
-button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
-@media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
-</style>
-</head>
-<body>
-<header class="hd"><div class="w"><div class="lg"><svg width="36" height="36" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><clipPath id="lc"><rect width="48" height="48" rx="12"/></clipPath></defs><g clip-path="url(#lc)"><rect width="48" height="16" fill="#ff9933"/><rect y="16" width="48" height="16" fill="#fff"/><rect y="32" width="48" height="16" fill="#138808"/></g><circle cx="24" cy="24" r="13" fill="#c1272d" stroke="#fff" stroke-width="2"/><path d="M15 17c5 4 5 10 0 14M33 17c-5 4-5 10 0 14" stroke="#fff" stroke-width="1.6" fill="none" stroke-dasharray="2.4 2"/></svg>CricScore<small>INDIA</small></div>
-<div class="tools"><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">◐</button></div></div></header>
-<div class="tb"><div class="w"><div id="tabs"></div></div></div>
-<div class="strip" id="strip"></div>
-<main class="w">
-<div class="bar" id="bar"><div class="seg"><button id="fIn"></button><button id="fAll"></button></div><select id="fav" aria-label="My team"></select></div>
-<div id="meta" role="status"></div>
-<div id="list"></div>
-</main>
-<dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button id="dx" aria-label="Close">×</button></div><div class="db"><div class="wx" id="wx"></div><div id="db"></div></div></dialog>
-<dialog id="pl"><div class="dh"><h2 id="pt"></h2><button id="px" aria-label="Close">×</button></div><div class="db" id="pb"></div></dialog>
+:root{--bg:#faf9f5;--panel:#fff;--side:#f5f4ee;--ink:#141413;--mute:#5f5e58;--line:#dcdacf;--ac:#c96442;--ac2:#b5583a;--me:#f0eee6}
+@media(prefers-color-scheme:dark){:root{--bg:#262624;--panel:#30302e;--side:#1f1e1d;--ink:#f3f1ec;--mute:#bab8b0;--line:#4a4945;--ac:#d97757;--ac2:#e08868;--me:#3a3936}}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 Inter,Hind,system-ui,sans-serif;display:flex}
+h1,h2,h3,.brand b{font-family:'Source Serif 4','Noto Serif Devanagari',Georgia,serif;font-weight:500;margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.side{width:268px;background:var(--side);display:flex;flex-direction:column;padding:14px;gap:10px;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px}.brand svg{width:34px;height:34px}.brand b{font-size:1.05rem;line-height:1.1}
+.brand small{display:block;color:var(--mute);font-size:.72rem}
+.btn{background:var(--ac);color:#fff;border-radius:10px;padding:9px 14px;font-weight:600}.btn:hover{background:var(--ac2)}
+.ghost{border:1px solid var(--line);border-radius:10px;padding:7px 12px;font-size:.85rem}.ghost:hover{background:var(--me)}
+#list{flex:1;overflow:auto;display:flex;flex-direction:column;gap:2px}
+.row{display:flex;align-items:center;border-radius:9px}.row:hover,.row.on{background:var(--me)}
+.row button.t{flex:1;text-align:left;padding:7px 10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:.92rem}
+.row button.x{padding:4px 9px;color:var(--mute)}
+.acct{border-top:1px solid var(--line);padding-top:10px;display:flex;flex-direction:column;gap:8px;font-size:.88rem}
+.pro{background:var(--ac);color:#fff;border-radius:6px;padding:0 6px;font-size:.7rem;font-weight:600;margin-left:6px}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;height:100%}
+
+#msgs{flex:1;overflow:auto;padding:24px 16px}.wrap{max-width:760px;margin:0 auto}
+.hero{text-align:center}.hero h1{font-size:clamp(1.6rem,4.5vw,2.2rem);line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px}.gm{width:30px;height:30px;flex-shrink:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chips button{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 14px;font-size:.9rem}.chips button:hover{border-color:var(--ac)}
+.m{margin:0 0 18px;white-space:pre-wrap;word-wrap:break-word}
+.m.user{background:var(--me);border-radius:16px 16px 4px 16px;padding:9px 14px;margin-left:auto;width:fit-content;max-width:88%}
+.m.assistant{max-width:100%}.m pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;overflow:auto;white-space:pre;font-size:.86rem}
+.m code{font-family:ui-monospace,Consolas,monospace;font-size:.88em}.m h4{margin:.4rem 0;font:600 1rem 'Source Serif 4','Noto Serif Devanagari',Georgia,serif}
+.m li{display:block;padding-left:1.1em;text-indent:-1.1em}.m li:before{content:'• '}.m a{color:var(--ac);word-break:break-all}
+.m img{max-width:220px;border-radius:10px;display:block;margin-bottom:6px}
+.act{display:flex;gap:4px;margin-top:2px}.act button{color:var(--mute);font-size:.8rem;padding:2px 8px;border-radius:6px}.act button:hover{background:var(--me)}
+.dots span{display:inline-block;width:7px;height:7px;margin-right:4px;border-radius:50%;background:var(--ac);animation:b 1s infinite}
+.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}@keyframes b{50%{transform:translateY(-5px);opacity:.4}}
+.comp{padding:8px 16px calc(14px + env(safe-area-inset-bottom))}
+.box{max-width:760px;margin:0 auto;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:8px 10px;box-shadow:0 2px 14px #0000000d}.box:focus-within{border-color:var(--mute)}
+.box textarea{width:100%;border:0;background:none;color:inherit;font:inherit;resize:none;outline:none;padding:6px 8px;max-height:160px}
+.tools{display:flex;align-items:center;gap:4px}.tools .sp{flex:1}
+.ic{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:var(--mute)}.ic:hover{background:var(--me)}.ic.on{color:var(--ac);background:var(--me)}
+.ic svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.send{background:var(--ac);color:#fff}.send:hover{background:var(--ac2)}
+.pv{display:none;align-items:center;gap:8px;padding:4px 8px;font-size:.85rem;color:var(--mute)}.pv img{height:42px;border-radius:8px}
+.note{text-align:center;color:var(--mute);font-size:.74rem;padding-top:6px}
+#auth{position:fixed;inset:0;background:var(--bg);display:none;place-items:center;padding:16px;z-index:9}
+.card{width:100%;max-width:380px;display:flex;flex-direction:column;gap:10px}.card h2{font-size:2rem}
+.card input{padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:inherit;font:inherit}
+.tabs{display:flex;gap:6px}.tabs button{flex:1;padding:8px;border-radius:10px;border:1px solid var(--line)}.tabs .on{background:var(--ac);color:#fff;border-color:var(--ac)}
+#amsg{color:#d93a3a;min-height:1.4em;font-size:.9rem}
+@media(max-width:760px){.side{position:fixed;inset:0 auto 0 0;z-index:5;transform:translateX(-100%);transition:transform .2s}.side.open{transform:none;box-shadow:0 0 40px #0006}.top{display:flex}}
+.pg{flex:1;overflow:auto;padding:24px 16px}.pg .in{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.pg textarea,.pg select,.pg input[type=text],.pg input[type=password],.pg input[type=number]{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:inherit;font:inherit;width:100%}
+.pg h2{font-size:1.8rem}.pg .two{display:flex;gap:8px}.pg .two>*{flex:1}.pg label.c{display:flex;gap:8px;align-items:center;color:var(--mute);font-size:.9rem}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}.gal img{width:100%;border-radius:12px;display:block}
+.pg pre{white-space:pre-wrap;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:60px;margin:0}
+.dev{font-size:.82rem;color:var(--mute)}.dev summary{cursor:pointer}.dev p{margin:.4rem 0}.dev a{color:var(--ac);margin-right:12px}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 12px;margin:6px 0}.opt.ok{border-color:#2f9e62;background:#2f9e6222}.opt.no{border-color:#d93a3a;background:#d93a3a22}
+.fc{min-height:160px;display:grid;place-items:center;text-align:center;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--panel);font-size:1.15rem;cursor:pointer;margin-bottom:10px}
+.tw{overflow:auto;margin:.5rem 0}.m table{border-collapse:collapse;white-space:normal;font-size:.9rem}.m th,.m td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}.m th{background:var(--me)}
+.note a{color:var(--mute)}.card label.c{display:flex;gap:8px;font-size:.85rem;color:var(--mute);align-items:flex-start}.card label.c a{color:var(--ac)}
+.nav{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:8px 10px;border-radius:10px;font-weight:500}.nav:hover{background:var(--me)}
+.nav svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.lab{font-size:.72rem;color:var(--mute);letter-spacing:.04em;padding:10px 10px 2px}#list{scrollbar-width:thin}
+.accw{position:relative}.who{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 10px;border-radius:12px}.who:hover{background:var(--me)}
+.av{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:600;flex-shrink:0}
+.wt{display:flex;flex-direction:column;line-height:1.25}.wt small{color:var(--mute);font-size:.72rem}
+.pop{display:none;position:absolute;left:0;right:0;bottom:56px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 8px 30px #0002;z-index:6}.pop.open{display:block}
+.pop button{display:block;width:100%;text-align:left;padding:8px 10px;border-radius:8px;font-size:.9rem}.pop button:hover{background:var(--me)}
+.pop select{width:100%;margin:2px 0;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:inherit;font:inherit;font-size:.85rem}
+.pop .dev{padding:8px 10px 2px;border-top:1px solid var(--line);margin-top:4px}
+*{scrollbar-width:thin;scrollbar-color:#8886 transparent}
+.m.assistant{font-family:'Source Serif 4','Noto Serif Devanagari',Georgia,serif;font-size:1.06rem;line-height:1.7}.m hr{border:0;border-top:1px solid var(--line);margin:1rem 0}
+.act button{display:grid;place-items:center;width:30px;height:30px;padding:0;border-radius:8px}.act svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.act button.ok{color:var(--ac)}.act button.busy{opacity:.4}
+.tools{position:relative}.mdl{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:10px;color:var(--mute);font-size:.88rem}.mdl:hover{background:var(--me)}
+.pop2{display:none;position:absolute;bottom:48px;left:0;min-width:200px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 8px 30px #0002;z-index:6}.pop2.open{display:block}.pop2.r{left:auto;right:0;min-width:260px}
+.pop2 button{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:8px 10px;border-radius:8px;font-size:.9rem}.pop2 button:hover{background:var(--me)}.pop2 small{display:block;color:var(--mute);font-size:.78rem}
+.top{display:flex;padding:8px 16px;align-items:center;gap:8px;min-height:52px}.top b{font-weight:500;font-size:.98rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+body.collapsed .side{display:none}.nav{font-size:.95rem}
+.main.empty #msgs{flex:1;display:flex;align-items:flex-end;padding-bottom:20px}.main.empty #msgs .wrap{width:100%}.main.empty .comp{flex:1}.main.empty .note{display:none}
+#chips{max-width:760px;margin:14px auto 0;justify-content:center}.box textarea{min-height:44px}
+.m.user{position:relative}.ed{position:absolute;left:-32px;top:6px;width:26px;height:26px;display:grid;place-items:center;color:var(--mute);opacity:0;border-radius:6px}.m.user:hover .ed,.ed:focus-visible{opacity:1}.ed:hover{background:var(--me)}.ed svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(hover:none){.ed{opacity:.6;left:auto;right:-4px;top:-26px}}
+.cb{position:relative}.cpy{position:absolute;right:8px;top:6px;font-size:.75rem;color:var(--mute);padding:2px 8px;border-radius:6px;border:1px solid var(--line);background:var(--panel)}
+.srch{margin:2px 2px 4px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:transparent;color:inherit;font:inherit;font-size:.88rem}
+.cc{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0;background:var(--panel)}.cc .m{margin:6px 0 0}.ch{display:flex;gap:8px;align-items:baseline}.ch span{margin-left:auto;color:var(--mute);font-size:.85rem}
+.rmb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;font-size:.88rem;color:var(--mute)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style><link rel="stylesheet" href="/gemini.css"></head><body>
+
+<div id="auth"><div class="card">
+  <div class="brand"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1f1e1d"/><circle cx="32" cy="32" r="25" fill="none" stroke="#c96442" stroke-width="1.5" opacity=".45"/><circle cx="32" cy="32" r="19" fill="#c96442"/><circle cx="32" cy="32" r="13" fill="#d97757"/><circle cx="32" cy="32" r="7" fill="#f3b08c"/><path d="M32 25L33.8 30.2L39 32L33.8 33.8L32 39L30.2 33.8L25 32L30.2 30.2Z" fill="#fff"/><path d="M50 10L51.2 14.2L55.4 15.4L51.2 16.6L50 20.8L48.8 16.6L44.6 15.4L48.8 14.2Z" fill="#faf9f5"/></svg><b>RAORISH AIR 2.0</b></div>
+  <h2 data-i="welcome">Welcome</h2>
+  <div class="tabs"><button id="tL" class="on" data-i="login">Log in</button><button id="tS" data-i="signup">Sign up</button></div>
+  <input id="au" placeholder="Username" autocomplete="username"><input id="ap" type="password" placeholder="Password" autocomplete="current-password">
+  <label class="c" id="agl" style="display:none"><input type="checkbox" id="agree"><span>I agree to the <a href="/legal.html" target="_blank">Terms and Privacy Policy</a>. If I am under 18, a parent or guardian knows I use this app.</span></label>
+  <div id="cft"></div>
+  <div id="amsg"></div>
+  <button class="btn" id="ago" data-i="login">Log in</button>
+  <button class="ghost" id="agu" data-i="guest">Continue as guest</button>
+  <small style="color:var(--mute)" data-i="privacy">We store only your username and a hashed password. Use a password you don't use anywhere else.</small>
+</div></div>
+
+<aside class="side" id="side">
+  <div class="brand"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#1f1e1d"/><circle cx="32" cy="32" r="25" fill="none" stroke="#c96442" stroke-width="1.5" opacity=".45"/><circle cx="32" cy="32" r="19" fill="#c96442"/><circle cx="32" cy="32" r="13" fill="#d97757"/><circle cx="32" cy="32" r="7" fill="#f3b08c"/><path d="M32 25L33.8 30.2L39 32L33.8 33.8L32 39L30.2 33.8L25 32L30.2 30.2Z" fill="#fff"/><path d="M50 10L51.2 14.2L55.4 15.4L51.2 16.6L50 20.8L48.8 16.6L44.6 15.4L48.8 14.2Z" fill="#faf9f5"/></svg><div><b>RAORISH AIR 2.0</b><small>by Rishabh Yadav</small></div></div>
+  <button class="nav" id="new"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span data-i="new">New chat</span></button>
+  <button class="nav" id="navimg"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4-4L6 21"/></svg><span data-i="img">Image Studio</span></button>
+  <button class="nav" id="navstudy"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2"/><path d="M8 7h7"/></svg><span data-i="study">Study tools</span></button>
+  <div class="lab">Recents</div>
+  <input id="csearch" class="srch" placeholder="Search chats" aria-label="Search chats">
+  <div id="list"></div>
+  <div class="accw">
+    <div class="pop" id="pop">
+      <select id="lang" aria-label="Language"></select>
+      <select id="vl" aria-label="Voice language"><option value="en-IN">Voice: English</option><option value="hi-IN">Voice: हिन्दी</option><option value="bn-IN">Voice: বাংলা</option><option value="ta-IN">Voice: தமிழ்</option><option value="te-IN">Voice: తెలుగు</option><option value="mr-IN">Voice: मराठी</option><option value="gu-IN">Voice: ગુજરાતી</option><option value="kn-IN">Voice: ಕನ್ನಡ</option><option value="ml-IN">Voice: മലയാളം</option><option value="pa-IN">Voice: ਪੰਜਾਬੀ</option><option value="ur-IN">Voice: اردو</option></select>
+      <button id="navmem" data-i="mem">AI memory</button>
+      <button id="gopro" data-i="pro">Go Pro</button>
+      <button id="support">♥ Support us</button>
+      <button id="navadm">Admin</button>
+      <button id="delacc" style="display:none">Delete account</button>
+      <button id="out">Log in</button>
+      <div class="dev"><b>Rishabh Yadav</b><br><a href="https://www.instagram.com/raorish/" target="_blank" rel="noopener">Instagram</a><a href="mailto:ind5354ia@gmail.com">Email</a><a href="/legal.html" target="_blank" rel="noopener">Privacy and Terms</a></div>
+    </div>
+    <button class="who" id="who"></button>
+  </div>
+</aside>
+
+<div class="main">
+  <div class="top"><button class="ic" id="menu" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><b id="ttl">New chat</b></div>
+  <div id="msgs"><div class="wrap" id="wrap"></div></div>
+  <div class="pg" id="imgv" style="display:none"><div class="in">
+  <h2 data-i="img">Image Studio</h2>
+  <textarea id="iidea" rows="3" placeholder="e.g. A lion flying above the clouds at sunset"></textarea>
+  <div class="two"><select id="isty"><option value="">Auto</option><option>Realistic photo</option><option>Cinematic</option><option>Anime</option><option>3D render</option><option>Oil painting</option><option>Cartoon</option><option>Logo</option><option>Pixel art</option></select>
+  <select id="isz"><option value="square">Square</option><option value="portrait">Portrait</option><option value="landscape">Landscape</option><option value="wide">Wide</option></select></div>
+  <label class="c"><input type="checkbox" id="imag" checked> Magic prompt (AI improves my idea)</label>
+  <button class="btn" id="igo" data-i="make">Create image</button><div id="ist" style="color:var(--mute)"></div><div class="gal" id="igal"></div>
+</div></div>
+<div class="pg" id="adminv" style="display:none"><div class="in">
+  <h2>Admin</h2><input type="password" id="akey" placeholder="Admin password">
+  <div class="two"><button class="ghost" id="adS">Stats</button><button class="ghost" id="adU">Users</button><button class="ghost" id="adR">Reports</button><button class="ghost" id="adT">Test all AIs</button><button class="ghost" id="adD">Dashboard</button><button class="ghost" id="adB">Backup</button></div>
+  <input type="text" id="auser" placeholder="Username"><div class="two"><button class="btn" id="adP1">Make Pro</button><button class="ghost" id="adP0">Remove Pro</button></div>
+  <button class="ghost" id="adX">Delete user and all their data</button>
+  <div class="two"><input type="number" id="an" value="1" min="1" max="20"><button class="ghost" id="adC">Generate Pro codes</button></div><pre id="aout"></pre>
+  <h3 style="margin-top:10px">Languages</h3><button class="ghost" id="adL">Make all 28 translations</button><div id="lout" style="color:var(--mute);font-size:.9rem"></div>
+  <h3 style="margin-top:10px">Compare AIs</h3>
+  <select id="cwho"><option value="all">All AIs together</option><option>groq</option><option>gemini</option><option>groq2</option><option>cohere</option><option>mistral</option><option>cloudflare</option><option>openrouter</option><option>huggingface</option><option>cerebras</option><option>github</option><option>deepseek</option><option>ollama</option><option>siliconflow</option></select>
+  <textarea id="cprompt" rows="3" placeholder="Type one question to ask the AIs"></textarea><button class="btn" id="cgo">Ask and compare</button><div id="cout"></div>
+</div></div>
+<div class="pg" id="studyv" style="display:none"><div class="in">
+  <h2 data-i="study">Study tools</h2>
+  <input type="text" id="stopic" placeholder="Type a topic, or attach a file with the document button in chat">
+  <div id="sdoc" style="color:var(--mute);font-size:.9rem"></div>
+  <select id="sn"><option value="5">5 questions or cards</option><option value="10">10 questions or cards</option></select>
+  <div class="two"><button class="btn" id="sq">Quiz</button><button class="btn" id="sf">Flashcards</button></div>
+  <div class="two"><button class="ghost" id="sno">Short notes</button><button class="ghost" id="spl">Study plan</button></div>
+  <div id="sout"></div>
+</div></div>
+<div class="pg" id="memv" style="display:none"><div class="in">
+  <h2 data-i="mem">AI memory</h2>
+  <p style="color:var(--mute);margin:0">Write what you want me to remember in every chat. Example: "I am preparing for CDS. Explain in easy English with short points." Only you can see and edit this.</p>
+  <textarea id="mtxt" rows="7" maxlength="1500"></textarea><button class="btn" id="msave">Save</button><div id="mst" style="color:var(--mute)"></div>
+</div></div>
+<div class="comp">
+    <div class="box">
+      <div class="pv" id="pv"><img id="pvi" alt=""><button class="ghost" id="pvx">✕</button></div>
+      <div class="pv" id="dc"><span id="dcn"></span><button class="ghost" id="dcx">✕</button></div>
+      <textarea id="in" rows="1" data-p="ask" placeholder="Ask anything…"></textarea>
+      <div class="tools">
+        <button class="ic" id="plus" aria-label="Add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="pop2" id="pm"><button id="att">Add photo</button><button id="doc">Add file (PDF, DOCX, TXT, CSV)</button><button id="web"><span>Web search</span><span id="webs"></span></button><button id="deep"><span>Deep research (Pro)</span><span id="deeps"></span></button></div>
+        <span class="sp"></span>
+        <button class="ic" id="mic" aria-label="Mic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+        <button class="mdl" id="mdl"><span id="mdn">Sampurna 2.0</span><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="pop2 r" id="mm"></div>
+        <button class="ic send" id="send" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="note" data-i="note">AI can make mistakes. Check important facts.</div>
+    <div class="note"><a href="/legal.html" target="_blank">Privacy and Terms</a></div>
+  </div>
+  <input type="file" id="file" accept="image/*" hidden><input type="file" id="dfile" accept=".pdf,.docx,.txt,.csv" hidden>
+</div>
+
 <script>
-const L={en:{news:"News",nonews:"News is not available right now.",live:"Live",up:"Upcoming",done:"Recent",ind:"Team India",all:"All matches",none:"My team: none",empty:"No matches in this section right now.",upd:"Updated",ago:"min ago",now:"just now",sc:"Scorecard",wa:"Share",bat:"Batting",bowl:"Bowling",nosc:"Scorecard is not available for this match yet.",err:"Could not load scores. Please try again in a few minutes.",lv:"LIVE",tI:"INDIA",wind:"wind",wiki:"Read more on Wikipedia",nop:"Player details not found.",wnote:"Source: Wikipedia. The match may not always be exact."},
-hi:{news:"खबरें",nonews:"अभी खबरें उपलब्ध नहीं हैं।",live:"लाइव",up:"आने वाले",done:"हाल के",ind:"टीम इंडिया",all:"सभी मैच",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया",wind:"हवा",wiki:"विकिपीडिया पर पढ़ें",nop:"खिलाड़ी की जानकारी नहीं मिली।",wnote:"स्रोत: विकिपीडिया। हो सकता है नाम पूरी तरह न मिले।"}};
-Object.assign(L.en,{quiz:"Quiz",tools:"Tools",proj:"Projected",need:"Need",inn:"in",balls:"balls",qh:"Daily Cricket Quiz",qs:"Question",next:"Next",fin:"Your score",again:"Play again",shq:"Share score",come:"New questions every day.",rrr:"Required run rate",tg:"Target",rs:"Runs scored",to:"Total overs",ob:"Overs bowled (e.g. 12.3)",sr:"Strike rate",ec:"Economy rate",rn:"Runs",bl:"Balls",rc:"Runs conceded",ov:"Overs"});
-Object.assign(L.hi,{quiz:"क्विज़",tools:"टूल्स",proj:"अनुमानित",need:"चाहिए",inn:"में",balls:"गेंद",qh:"रोज़ का क्रिकेट क्विज़",qs:"सवाल",next:"अगला",fin:"आपका स्कोर",again:"फिर खेलें",shq:"स्कोर शेयर करें",come:"हर दिन नए सवाल।",rrr:"आवश्यक रन रेट",tg:"लक्ष्य",rs:"बने रन",to:"कुल ओवर",ob:"फेंके गए ओवर (जैसे 12.3)",sr:"स्ट्राइक रेट",ec:"इकॉनमी रेट",rn:"रन",bl:"गेंद",rc:"दिए गए रन",ov:"ओवर"});
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const get=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
-const put=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
-let S={lang:get("lang","en"),theme:get("theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),tab:"live",india:get("india","0")==="1",fav:get("fav",""),matches:[],news:null,at:0,err:""};
-const t=k=>L[S.lang][k];
-const kind=m=>m.matchEnded?"done":m.matchStarted?"live":"up";
-const isInd=m=>(m.teams||[]).some(x=>/india/i.test(x));
-const score=(m,tm)=>((m.score||[]).filter(s=>(s.inning||"").toLowerCase().includes(tm.toLowerCase())).map(s=>`${s.r}/${s.w} (${s.o})`).join(" & "))||"-";
-function badge(m,n){
- const i=(m.teamInfo||[]).find(x=>x.name===n)||{};
- const sn=(i.shortname||n.split(/\s+/).map(w=>w[0]).join("")).slice(0,4).toUpperCase();
- return{sn,html:`<span class="bd">${esc(sn.slice(0,3))}${i.img?`<img src="${esc(i.img)}" alt="" loading="lazy" onerror="this.remove()">`:""}</span>`};
+const $=s=>document.querySelector(s);
+const TX={en:{welcome:'Welcome',mem:'AI memory',report:'Report',reported:'Thanks. We will look at this answer.',study:'Study tools',img:'Image Studio',about:'About the developer',wait:'Creating your image. This can take 10-30 seconds.',make:'Create image',login:'Log in',signup:'Sign up',guest:'Continue as guest',privacy:"We store only your username and a hashed password. Use a password you don't use anywhere else.",new:'New chat',pro:'Go Pro',note:'AI can make mistakes. Check important facts.',ask:'Ask anything…',hello:'Ask me anything. I answer in English, Hindi or Hinglish.',logout:'Log out',guestl:'Guest',left:'messages a day',copy:'Copy',copied:'Copied',speak:'Listen',again:'Retry',err:'Something went wrong. Please try again.',procode:'Enter the Pro password',proyes:'Pro unlocked!',nomic:'Voice typing works in Chrome or Edge.',s:['Explain photosynthesis simply','Make a study plan for today','Fix this Python error','Ask me 5 GK questions']},
+hi:{welcome:'स्वागत है',mem:'AI मेमोरी',report:'रिपोर्ट',reported:'धन्यवाद। हम इस जवाब को देखेंगे।',study:'पढ़ाई के टूल',img:'इमेज स्टूडियो',about:'डेवलपर के बारे में',wait:'इमेज बन रही है। 10-30 सेकंड लग सकते हैं।',make:'इमेज बनाएँ',login:'लॉग इन',signup:'साइन अप',guest:'गेस्ट के रूप में जारी रखें',privacy:'हम सिर्फ़ आपका यूज़रनेम और हैश किया हुआ पासवर्ड रखते हैं। ऐसा पासवर्ड रखें जो कहीं और इस्तेमाल न हो।',new:'नई चैट',pro:'Pro लें',note:'AI से गलती हो सकती है। ज़रूरी बातें जाँच लें।',ask:'कुछ भी पूछिए…',hello:'कुछ भी पूछिए। मैं हिंदी, अंग्रेज़ी या हिंग्लिश में जवाब देता हूँ।',logout:'लॉग आउट',guestl:'गेस्ट',left:'संदेश रोज़',copy:'कॉपी',copied:'कॉपी हुआ',speak:'सुनें',again:'दोबारा',err:'कुछ गड़बड़ हुई। फिर से कोशिश करें।',procode:'Pro पासवर्ड डालिए',proyes:'Pro चालू हो गया!',nomic:'वॉइस टाइपिंग Chrome या Edge में चलती है।',s:['प्रकाश संश्लेषण आसान भाषा में समझाओ','आज की स्टडी प्लान बनाओ','यह Python error ठीक करो','मुझसे 5 GK सवाल पूछो']}};
+const S={token:localStorage.rz_t||'',user:null,plan:'guest',limit:5,chat:[],id:null,img:null,busy:false,web:false,ctl:null,lang:localStorage.rz_l||'en',mode:'login'};
+const T=k=>((TX[S.lang]||{})[k]??TX.en[k]);
+/* ---- Captcha, WhatsApp share, support. Paste your Turnstile SITE key below ('' = captcha off). ---- */
+const TS_KEY='0x4AAAAAAFirdvpktZxzVcfF';
+const UPI_ID='7470640085@fam';
+S.ts='';
+function tsInit(){if(!TS_KEY||!window.turnstile)return;turnstile.render('#cft',{sitekey:TS_KEY,callback:t=>S.ts=t,'expired-callback':()=>S.ts='','error-callback':()=>S.ts=''})}
+function shareWA(t){
+ t=String(t||'').replace(/\*\*([^*\n]+)\*\*/g,'*$1*').replace(/^#{1,3} /gm,'');
+ const txt=(t.length>1200?t.slice(0,1200)+'…':t)+'\n\n— RAORISH AIR 2.0 (free AI): '+location.origin;
+ if(navigator.share&&/Mobi|Android/i.test(navigator.userAgent)){navigator.share({text:txt}).catch(()=>{});return}
+ window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
 }
-const dat=m=>`data-id="${esc(m.id)}" data-n="${esc((m.teams||[]).join(" vs "))}" data-v="${esc(m.venue)}"`;
-function shell(){
- document.documentElement.lang=S.lang;
- $("fIn").textContent=t("ind");$("fIn").classList.toggle("on",S.india);
- $("fAll").textContent=t("all");$("fAll").classList.toggle("on",!S.india);
- const teams=[...new Set(S.matches.flatMap(m=>m.teams||[]))].sort();
- $("fav").innerHTML=`<option value="">${esc(t("none"))}</option>`+teams.map(x=>`<option ${x===S.fav?"selected":""}>${esc(x)}</option>`).join("");
- $("lang").textContent=S.lang==="en"?"हिं":"EN";
-}
-function strip(){
- const o={live:0,done:1,up:2};
- const a=[...S.matches].sort((x,y)=>o[kind(x)]-o[kind(y)]||(isInd(y)-isInd(x))).slice(0,12);
- $("strip").innerHTML=a.map(m=>`<button class="mini ${isInd(m)?"in":""}" ${dat(m)}><div class="mt">${kind(m)==="live"?`<span class="dot"></span>${t("lv")}`:esc(m.matchType).toUpperCase()}</div>${(m.teams||[]).map(x=>`<div class="mr"><span>${esc(badge(m,x).sn)}</span><span>${esc(score(m,x))}</span></div>`).join("")}<div class="ms">${esc(m.status)}</div></button>`).join("");
-}
-function render(){
- shell();strip();
- const pool=S.india?S.matches.filter(isInd):S.matches;
- const cnt={live:0,up:0,done:0};pool.forEach(m=>cnt[kind(m)]++);
- $("tabs").innerHTML=["live","up","done","news","quiz","tools"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)}${cnt[k]===undefined?"":`<span>${cnt[k]}</span>`}</button>`).join("");
- const ex=["news","quiz","tools"].includes(S.tab);$("bar").hidden=ex;
- if(ex){$("meta").textContent="";return S.tab==="news"?renderNews():S.tab==="quiz"?renderQuiz():renderTools()}
- let items=pool.filter(m=>kind(m)===S.tab);
- const w=m=>(S.fav&&(m.teams||[]).includes(S.fav)?2:0)+(isInd(m)?1:0);
- items=items.map((m,i)=>[m,i]).sort((a,b)=>w(b[0])-w(a[0])||a[1]-b[1]).map(x=>x[0]);
- const mins=S.at?Math.floor((Date.now()-S.at)/60000):null;
- $("meta").textContent=S.err||(mins===null?"":`${t("upd")}: ${mins<1?t("now"):mins+" "+t("ago")}`);
- const sk='<div class="panel"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
- if(!S.matches.length&&!S.err){$("list").innerHTML=sk;return}
- if(S.err&&!S.matches.length){$("list").innerHTML=`<div class="msg">${esc(t("err"))}</div>`;return}
- if(!items.length){$("list").innerHTML=`<div class="msg">${esc(t("empty"))}</div>`;return}
- $("list").innerHTML='<div class="panel">'+items.map(m=>{const k=kind(m);return`<div class="row ${isInd(m)?"in":""}">
- <div class="ttl">${isInd(m)?`<span class="tag">${t("tI")}</span>`:""}${k==="live"?`<span class="live"><span class="dot"></span>${t("lv")}</span>`:""}${esc(m.name||(m.teams||[]).join(" vs "))}</div>
- <div class="vn">${esc(m.matchType).toUpperCase()} • ${esc(m.venue)}${k==="live"?"":" • "+esc(m.date)}</div>
- <div class="rb"><div>${(m.teams||[]).map(x=>`<div class="tm">${badge(m,x).html}<span class="nm">${esc(x)}</span><span class="sc">${esc(score(m,x))}</span></div>`).join("")}</div>
- <div><div class="st ${k}">${esc(m.status)}</div>${k==="live"?ins(m):""}<div class="act"><button ${dat(m)}>${t("sc")}</button><a target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin)}">${t("wa")}</a></div></div></div></div>`}).join("")+'</div>';
-}
-function renderNews(){
- if(S.news===null){$("list").innerHTML='<div class="panel"><div class="sk"></div><div class="sk"></div></div>';return}
- if(!S.news.length){$("list").innerHTML=`<div class="msg">${esc(t("nonews"))}</div>`;return}
- $("list").innerHTML='<div class="panel">'+S.news.map(n=>`<div class="row nw"><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a><p>${esc((n.description||"").slice(0,160))}</p><div class="vn">${esc(n.source)} • ${esc((n.pubDate||"").slice(0,10))}</div></div>`).join("")+'</div>';
-}
-function ins(m){
- const mt=(m.matchType||"").toLowerCase(),max=mt==="t20"?20:mt==="odi"?50:0;if(!max)return"";
- const sc=m.score||[];let k=-1;sc.forEach((x,i)=>{if(+x.o>0&&+x.o<max&&+x.w<10)k=i});if(k<0)return"";
- const s=sc[k],o=+s.o,ov=Math.floor(o)+Math.round((o%1)*10)/6,rr=s.r/ov;
- let h=`CRR ${rr.toFixed(2)}`;
- if(k===0)h+=` • ${t("proj")} ${Math.round(rr*max)}`;
- else if(sc[k-1]){const need=sc[k-1].r+1-s.r,bl=Math.round((max-ov)*6);if(need>0&&bl>0)h+=` • ${t("need")} ${need} ${t("inn")} ${bl} ${t("balls")} • RRR ${(need/(bl/6)).toFixed(2)}`}
- return`<div class="ins">${h}</div>`;
-}
-const QZ=[
-{q:["Who has scored the most international centuries in men's cricket?","पुरुष क्रिकेट में सबसे ज़्यादा अंतरराष्ट्रीय शतक किसके नाम हैं?"],o:["Sachin Tendulkar","Virat Kohli","Ricky Ponting","Kumar Sangakkara"],a:0},
-{q:["Who won the first Cricket World Cup in 1975?","1975 का पहला क्रिकेट वर्ल्ड कप किसने जीता?"],o:["Australia","England","West Indies","India"],a:2},
-{q:["Who captained India to the 1983 World Cup win?","1983 वर्ल्ड कप में भारत के कप्तान कौन थे?"],o:["Sunil Gavaskar","Kapil Dev","MS Dhoni","Mohinder Amarnath"],a:1},
-{q:["In which year did the IPL begin?","IPL की शुरुआत किस साल हुई?"],o:["2006","2007","2008","2009"],a:2},
-{q:["Who holds the highest individual score in ODI cricket?","वनडे में सबसे बड़ा व्यक्तिगत स्कोर किसका है?"],o:["Rohit Sharma","Martin Guptill","Chris Gayle","Virender Sehwag"],a:0},
-{q:["How long is a cricket pitch?","क्रिकेट की पिच कितनी लंबी होती है?"],o:["20 yards","22 yards","24 yards","25 yards"],a:1},
-{q:["Who has taken the most wickets in Test cricket?","टेस्ट क्रिकेट में सबसे ज़्यादा विकेट किसके नाम हैं?"],o:["Shane Warne","Anil Kumble","Muttiah Muralitharan","James Anderson"],a:2},
-{q:["Which team won the first T20 World Cup in 2007?","2007 का पहला T20 वर्ल्ड कप किसने जीता?"],o:["Pakistan","India","Australia","Sri Lanka"],a:1},
-{q:["Where is the ICC headquarters?","ICC का मुख्यालय कहाँ है?"],o:["London","Mumbai","Dubai","Melbourne"],a:2},
-{q:["Who won the first IPL season in 2008?","2008 के पहले IPL सीज़न का विजेता कौन था?"],o:["Chennai Super Kings","Mumbai Indians","Rajasthan Royals","Deccan Chargers"],a:2}];
-let Q=null;
-function renderQuiz(){
- if(!Q){const st=(Math.floor(Date.now()/864e5)*3)%QZ.length;Q={list:[0,1,2,3,4].map(j=>QZ[(st+j)%QZ.length]),i:0,sc:0,pick:null}}
- const hi=S.lang==="hi"?1:0;
- if(Q.i>=5){
-  const msg=encodeURIComponent(`🏏 CricScore India Quiz: ${Q.sc}/5!\n${location.origin}`);
-  $("list").innerHTML=`<div class="panel"><div class="row"><div class="ttl">${t("qh")}</div><div class="pr" style="margin-top:8px">${t("fin")}</div><div class="big">${Q.sc}/5</div><div class="vn">${t("come")}</div><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${msg}">${t("shq")}</a><button class="btn" data-rq="1">${t("again")}</button></div></div>`;return}
- const q=Q.list[Q.i];
- $("list").innerHTML=`<div class="panel"><div class="row"><div class="pr">${t("qh")} • ${t("qs")} ${Q.i+1}/5</div><div class="ttl" style="font-size:1.1rem;margin-top:6px">${esc(q.q[hi])}</div>${q.o.map((x,k)=>`<button class="opt ${Q.pick===null?"":k===q.a?"ok":k===Q.pick?"bad":""}" data-o="${k}">${esc(x)}</button>`).join("")}${Q.pick!==null?`<button class="btn" data-nx="1">${t("next")}</button>`:""}</div></div>`;
-}
-function answer(k){if(Q.pick!==null)return;Q.pick=k;if(k===Q.list[Q.i].a)Q.sc++;renderQuiz()}
-const fi=(id,l,v="")=>`<label>${l}<input id="${id}" type="number" inputmode="decimal" min="0" step="any" value="${v}"></label>`;
-function renderTools(){
- $("list").innerHTML=`<div class="panel"><div class="row"><div class="ttl">${t("rrr")}</div><div class="fg">${fi("tg",t("tg"))}${fi("rs",t("rs"))}${fi("ot",t("to"),"20")}${fi("ob",t("ob"))}</div><div class="res" id="r1"></div></div>
- <div class="row"><div class="ttl">${t("sr")}</div><div class="fg">${fi("sr1",t("rn"))}${fi("sr2",t("bl"))}</div><div class="res" id="r2"></div></div>
- <div class="row"><div class="ttl">${t("ec")}</div><div class="fg">${fi("ec1",t("rc"))}${fi("ec2",t("ov"))}</div><div class="res" id="r3"></div></div></div>`;
-}
-function calc(){
- const n=id=>parseFloat($(id).value),ov=x=>Math.floor(x)+Math.round((x%1)*10)/6;
- const a=[n("tg"),n("rs"),n("ot"),n("ob")],left=ov(a[2])-ov(a[3]);
- $("r1").textContent=a.some(isNaN)||left<=0?"":`${t("need")} ${Math.max(a[0]-a[1],0)} ${t("inn")} ${Math.round(left*6)} ${t("balls")} • RRR ${(Math.max(a[0]-a[1],0)/left).toFixed(2)}`;
- const r=n("sr1"),b=n("sr2");$("r2").textContent=isNaN(r)||!(b>0)?"":(r/b*100).toFixed(2);
- const c=n("ec1"),o=n("ec2");$("r3").textContent=isNaN(c)||!(o>0)?"":(c/ov(o)).toFixed(2);
-}
-async function loadNews(){
- try{const r=await fetch("/api/news");const d=await r.json();S.news=Array.isArray(d)?d:[]}catch(e){S.news=[]}
- render();
-}
-async function load(){
- try{const r=await fetch("/api/matches");const d=await r.json();if(d.error)throw new Error(d.error);S.matches=d.matches||[];S.at=d.updatedAt||Date.now();S.err=""}
- catch(e){S.err=t("err")}
- render();
-}
-/* Venue weather: Open-Meteo, no key needed */
-const wx={};
-const WI=c=>c===0?["☀️","Clear"]:c<=3?["⛅","Partly cloudy"]:c<=48?["🌫️","Fog"]:c<=67?["🌧️","Rain"]:c<=77?["❄️","Snow"]:c<=82?["🌦️","Showers"]:["⛈️","Thunderstorm"];
-async function weather(venue){
- const city=(venue||"").split(",").pop().trim();if(!city)return"";
- if(wx[city]!==undefined)return wx[city];
- try{
-  const g=await(await fetch("https://geocoding-api.open-meteo.com/v1/search?count=1&name="+encodeURIComponent(city))).json();
-  const p=g.results&&g.results[0];if(!p)return wx[city]="";
-  const w=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.latitude}&longitude=${p.longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`)).json();
-  const c=w.current,i=WI(c.weather_code);
-  return wx[city]=`${i[0]} ${city}: ${Math.round(c.temperature_2m)}°C, ${i[1]}, ${t("wind")} ${Math.round(c.wind_speed_10m)} km/h`;
- }catch(e){return wx[city]=""}
-}
-/* Player info: Wikipedia, no key needed */
-async function player(name){
- $("pt").textContent=name;$("pb").innerHTML='<div class="sk" style="margin:12px 0"></div>';$("pl").showModal();
- try{
-  const s=await(await fetch("https://en.wikipedia.org/w/api.php?action=query&list=search&srlimit=1&format=json&origin=*&srsearch="+encodeURIComponent(name+" cricketer"))).json();
-  const title=s.query.search[0].title;
-  const r=await(await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(title))).json();
-  $("pb").innerHTML=`${r.thumbnail?`<img class="ph" src="${esc(r.thumbnail.source)}" alt="">`:""}<p><b>${esc(r.title||title)}</b><br>${esc(r.description||"")}</p><p>${esc((r.extract||"").slice(0,650))}</p><p><a href="${esc(r.content_urls?.desktop?.page||"#")}" target="_blank" rel="noopener">${t("wiki")}</a></p><p class="note">${esc(t("wnote"))}</p>`;
- }catch(e){$("pb").innerHTML=`<p>${esc(t("nop"))}</p>`}
-}
-const pn=n=>n?`<button class="pn" data-p="${esc(n)}">${esc(n)}</button>`:"";
-const tbl=(h,rows)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows}</table></div>`;
-function card(d){
- const inns=d.scorecard||[];if(!inns.length)return`<p>${t("nosc")}</p>`;
- return inns.map(i=>`<h3>${esc(i.inning)}</h3>`+
- tbl([t("bat"),"R","B","4s","6s"],(i.batting||[]).map(b=>`<tr><td>${pn(b.batsman?.name)}<small>${esc(b["dismissal-text"]||"")}</small></td><td>${esc(b.r)}</td><td>${esc(b.b)}</td><td>${esc(b["4s"])}</td><td>${esc(b["6s"])}</td></tr>`).join(""))+
- tbl([t("bowl"),"O","M","R","W"],(i.bowling||[]).map(b=>`<tr><td>${pn(b.bowler?.name)}</td><td>${esc(b.o)}</td><td>${esc(b.m)}</td><td>${esc(b.r)}</td><td>${esc(b.w)}</td></tr>`).join(""))).join("");
-}
-document.addEventListener("click",async e=>{
- const p=e.target.closest("button[data-p]");if(p){player(p.dataset.p);return}
- const b=e.target.closest("button[data-id]");if(!b)return;
- $("dt").textContent=b.dataset.n;$("wx").textContent="";$("db").innerHTML='<div class="sk" style="margin:12px 0"></div>';$("dlg").showModal();
- weather(b.dataset.v).then(x=>{$("wx").textContent=x});
- try{const r=await fetch("/api/match/"+encodeURIComponent(b.dataset.id));const d=await r.json();if(d.error)throw new Error(d.error);$("db").innerHTML=card(d)}
- catch(err){$("db").innerHTML=`<p>${esc(t("nosc"))}</p>`}
-});
-$("dx").onclick=()=>$("dlg").close();$("px").onclick=()=>$("pl").close();
-for(const id of["dlg","pl"])$(id).addEventListener("click",e=>{if(e.target===$(id))$(id).close()});
-$("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.tab=b.dataset.t;render();if(S.tab==="news"&&S.news===null)loadNews()}});
-$("fIn").onclick=()=>{S.india=true;put("india","1");render()};
-$("fAll").onclick=()=>{S.india=false;put("india","0");render()};
-$("fav").onchange=e=>{S.fav=e.target.value;put("fav",S.fav);render()};
-$("lang").onclick=()=>{S.lang=S.lang==="en"?"hi":"en";put("lang",S.lang);render()};
-$("theme").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";put("theme",S.theme);document.documentElement.dataset.theme=S.theme};
-document.addEventListener("input",e=>{if(e.target.closest(".fg"))calc()});
-document.addEventListener("click",e=>{const o=e.target.closest("[data-o]");if(o){answer(+o.dataset.o);return}if(e.target.closest("[data-nx]")){Q.i++;Q.pick=null;renderQuiz();return}if(e.target.closest("[data-rq]")){Q=null;renderQuiz()}});
-document.documentElement.dataset.theme=S.theme;render();load();setInterval(load,120000);
+const sup=$('#support');if(sup)sup.onclick=()=>{
+ if(UPI_ID==='YOUR_UPI_ID'){alert('Support link is not set up yet.');return}
+ if(/Mobi|Android/i.test(navigator.userAgent))location.href='upi://pay?pa='+encodeURIComponent(UPI_ID)+'&pn=RAORISH%20AIR&cu=INR&tn=Support';
+ else window.open('/upi-qr.png','_blank');
+};
+
+function i18n(){document.documentElement.lang=S.lang;document.querySelectorAll('[data-i]').forEach(e=>e.textContent=T(e.dataset.i));document.querySelectorAll('[data-p]').forEach(e=>e.placeholder=T(e.dataset.p));$('#lang').value=S.lang;document.documentElement.dir=['ar','ur'].includes(S.lang)?'rtl':'ltr';who();if(!S.chat.length)hero();authTabs()}
+async function api(p,o={}){const r=await fetch(p,{...o,headers:{'Content-Type':'application/json',Authorization:'Bearer '+S.token,'X-Guest':localStorage.rz_gt||'',...(o.headers||{})}});return r}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function md(s){s=esc(s).replace(/&lt;br\s*\/?>/gi,'<br>');s=s.replace(/```\w*\n?([\s\S]*?)(```|$)/g,(m,c)=>'<div class="cb"><button class="cpy" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText);this.textContent=\'Copied\'">Copy</button><pre><code>'+c+'</code></pre></div>').replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\*\*([^*\n]+)\*\*/g,'<b>$1</b>').replace(/^#{1,3} (.+)$/gm,'<h4>$1</h4>').replace(/^[-*] (.+)$/gm,'<li>$1</li>').replace(/(https?:\/\/[^\s<)]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');s=s.replace(/\*([^*\n]+)\*/g,'<i>$1</i>');s=s.replace(/(^\|.*\|[ \t]*(?:\n|$))+/gm,blk=>{const rows=blk.trim().split('\n').filter(r=>!/^\|[\s:|-]+\|?$/.test(r.trim()));if(!rows.length)return blk;const cell=(r,t)=>'<tr>'+r.trim().replace(/^\||\|$/g,'').split('|').filter((c,i,a)=>!(i===a.length-1&&c.trim()==='')).map(c=>'<'+t+'>'+c.trim()+'</'+t+'>').join('')+'</tr>';return '<div class="tw"><table>'+rows.map((r,i)=>cell(r,i?'td':'th')).join('')+'</table></div>'});s=s.replace(/^-{3,}$/gm,'<hr>');return s.replace(/(<\/li>|<\/h4>|<\/pre>|<\/div>|<hr>)\n/g,'$1')}
+function emp(on){document.querySelector('.main').classList.toggle('empty',on);if(!on)$('#chips').innerHTML=''}
+function hero(){emp(true);$('#ttl').textContent=T('new');const h=new Date().getHours();let nm=S.user?S.user.replace(/\d+$/,'').split('_')[0]||S.user:'';nm=nm?nm[0].toUpperCase()+nm.slice(1):'';
+ const lg=document.querySelector('.brand svg').outerHTML.replace('<svg ','<svg class="gm" ');
+ $('#wrap').innerHTML='<div class="hero"><h1><span class="g1">'+(S.lang==='hi'?'नमस्ते':'Hello')+(nm?', '+esc(nm):'')+'</span><span class="g2">'+(S.lang==='hi'?'आज मैं आपकी कैसे मदद करूँ?':'How can I help you today?')+'</span></h1></div>';
+ $('#chips').innerHTML=T('s').map(x=>'<button>'+esc(x)+'</button>').join('');document.querySelectorAll('#chips button').forEach(b=>b.onclick=()=>{$('#in').value=b.textContent;send()})}
+function addMsg(m){const w=$('#wrap');if(w.querySelector('.hero'))w.innerHTML='';emp(false);if(m.role==='user'&&S.chat.filter(x=>x.role==='user').length===1)$('#ttl').textContent=m.content.slice(0,40);const d=document.createElement('div');d.className='m '+m.role;w.appendChild(d);render(d,m);return d}
+function render(d,m){if(m.role==='user'){d.innerHTML=(m.image?'<img src="'+m.image+'" alt="">':'')+esc(m.content);const eb=document.createElement('button');eb.className='ed';eb.title='Edit';eb.setAttribute('aria-label','Edit');eb.innerHTML=IC.edit;eb.onclick=()=>editMsg(m);d.appendChild(eb);return}
+ if(!m.content){d.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';return}
+ d.innerHTML=md(clean(m.content,S.busy&&d===$('#wrap').lastChild));if(!S.busy||d!==$('#wrap').lastChild){const a=document.createElement('div');a.className='act';a.innerHTML=['copy','speak','up','down','retry','wa'].map(k=>'<button title="'+TT[k]+'" aria-label="'+TT[k]+'">'+IC[k]+'</button>').join('');const bs=a.children;bs[0].onclick=()=>{navigator.clipboard.writeText(clean(m.content));bs[0].classList.add('ok');setTimeout(()=>bs[0].classList.remove('ok'),1200)};bs[1].onclick=()=>speak(clean(m.content),bs[1]);bs[2].onclick=()=>{report(m,'up');bs[2].classList.add('ok')};bs[3].onclick=()=>{report(m,'down');bs[3].classList.add('ok')};bs[4].onclick=()=>retry(m);bs[5].onclick=()=>shareWA(clean(m.content));d.appendChild(a);const fu=fups(m.content);if(fu.length&&S.chat[S.chat.length-1]===m){const cw=document.createElement('div');cw.className='chips';cw.style.marginTop='6px';fu.forEach(x=>{const b=document.createElement('button');b.textContent=x;b.onclick=()=>{$('#in').value=x;send()};cw.appendChild(b)});d.appendChild(cw)}const rm=parts(m.content).rm;if(rm&&S.user&&S.chat[S.chat.length-1]===m){const rb=document.createElement('div');rb.className='rmb';rb.innerHTML='<span></span><button class="ghost">Remember</button><button class="ghost">No</button>';rb.children[0].textContent='Remember this? '+rm;rb.children[1].onclick=async()=>{await api('/api/profile',{method:'POST',body:JSON.stringify({add:rm})});rb.textContent='Saved to AI memory.'};rb.children[2].onclick=()=>rb.remove();d.appendChild(rb)}}
+ $('#msgs').scrollTop=1e9}
+async function speak(t,btn){speechSynthesis.cancel();if(window.au){au.pause();window.au=null}t=t.replace(/[*#`_>|]/g,' ').slice(0,1500);let why='';if(btn)btn.classList.add('busy');
+ try{const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),28000);const r=await api('/api/tts',{method:'POST',body:JSON.stringify({text:t}),signal:ctl.signal});clearTimeout(tm);
+  if(r.ok){const a=window.au=new Audio(URL.createObjectURL(await r.blob()));if(btn)btn.classList.remove('busy');await a.play();return}
+  why=(await r.json().catch(()=>({}))).error||''}catch(e){why=e.name==='AbortError'?'The voice took too long.':String(e.message||e)}
+ if(btn)btn.classList.remove('busy');if(!('speechSynthesis' in window)){alert('Voice failed. '+why);return}
+ const u=new SpeechSynthesisUtterance(t);u.lang=/[\u0900-\u097F]/.test(t)?'hi-IN':S.vl;u.onerror=()=>alert('Voice failed. '+why);speechSynthesis.speak(u)}
+function who(){const n=S.user||T('guestl');$('#who').innerHTML='<span class="av">'+esc(n[0].toUpperCase())+'</span><span class="wt"><b>'+esc(n)+(S.plan==='pro'?'<span class="pro">PRO</span>':'')+'</b><small>'+S.limit+' '+T('left')+'</small></span>';$('#out').textContent=S.user?T('logout'):T('login');$('#gopro').style.display=S.user&&S.plan!=='pro'?'':'none';$('#delacc').style.display=S.user?'':'none';modelUI()}
+async function boot(){const r=await api('/api/me');const j=await r.json();S.user=j.user;S.plan=j.plan;S.limit=j.limit;if(S.token&&!j.user){S.token='';localStorage.removeItem('rz_t')}
+ if(!S.user&&!localStorage.rz_g)$('#auth').style.display='grid';else $('#auth').style.display='none';if(!await loadPack(S.lang))S.lang='en';i18n();loadList()}
+async function loadList(){const l=$('#list');l.innerHTML='';if(!S.user)return;const r=await api('/api/chats');(await r.json()).forEach(c=>{const d=document.createElement('div');d.className='row'+(c.id===S.id?' on':'');d.innerHTML='<button class="t"></button><button class="x" aria-label="Delete">✕</button>';d.children[0].textContent=tidy(c.title);d.children[0].onclick=async()=>{view('chat');$('#ttl').textContent=tidy(c.title);const m=await(await api('/api/chats/'+c.id)).json();S.chat=m;S.id=c.id;$('#wrap').innerHTML='';m.forEach(addMsg);$('#side').classList.remove('open');loadList()};d.children[1].onclick=async()=>{await api('/api/chats/'+c.id,{method:'DELETE'});if(S.id===c.id)newChat();else loadList()};l.appendChild(d)})}
+function newChat(){view('chat');S.chat=[];S.id=null;hero();loadList();$('#side').classList.remove('open')}
+async function save(){if(!S.user||!S.chat.length)return;const t=tidy(S.chat.find(m=>m.role==='user').content.slice(0,40));const r=await api('/api/save',{method:'POST',body:JSON.stringify({id:S.id,title:t,messages:S.chat.map(m=>({role:m.role,content:clean(m.content)}))})});if(r.ok){S.id=(await r.json()).id;loadList()}}
+function ui(){$('#send').innerHTML=S.busy?'<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>':'<svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>'}
+async function send(){if(S.busy){S.ctl&&S.ctl.abort();return}
+ const t=$('#in').value.trim();if(!t&&!S.img)return;
+ const m={role:'user',content:t||'📷'};if(S.img)m.image=S.img;S.chat.push(m);addMsg(m);$('#in').value='';$('#in').style.height='';clearImg();
+ const a={role:'assistant',content:''};S.chat.push(a);const el=addMsg(a);S.busy=true;ui();S.ctl=new AbortController();
+ const hist=S.chat.slice(0,-1).map((x,i,arr)=>i===arr.length-1?x:{role:x.role,content:clean(x.content)});
+ try{const r=await api('/api/chat',{method:'POST',body:JSON.stringify({messages:hist,web:S.web,model:S.model,alt:ALT(),deep:DEEP(),doc:S.doc&&S.doc.text,doc_id:S.doc&&S.doc.id}),signal:S.ctl.signal});
+  if(!r.ok){const j=await r.json().catch(()=>({}));a.content=j.error||T('err');if(r.status===401&&!S.user){localStorage.removeItem('rz_g');localStorage.removeItem('rz_gt');setTimeout(boot,1500)}}
+  else{const rd=r.body.getReader(),dc=new TextDecoder();for(;;){const{done,value}=await rd.read();if(done)break;a.content+=dc.decode(value,{stream:true});render(el,a)}}
+ }catch(e){if(e.name!=='AbortError')a.content=a.content||T('err')}
+ if(!a.content)S.chat.pop();S.busy=false;ui();render(el,a);if(!a.content)el.remove();save();const me=await(await api('/api/me')).json();S.limit=me.limit;who()}
+function clearImg(){S.img=null;$('#pv').style.display='none'}
+$('#att').onclick=()=>$('#file').click();$('#pvx').onclick=clearImg;
+$('#file').onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{const k=Math.min(1,1024/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);S.img=c.toDataURL('image/jpeg',.8);$('#pvi').src=S.img;$('#pv').style.display='flex'};im.src=URL.createObjectURL(f);e.target.value=''};
+$('#web').onclick=()=>{S.web=!S.web;$('#web').classList.toggle('on',S.web)};
+$('#mic').onclick=()=>{const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return alert(T('nomic'));if(window.rec){rec.stop();return}
+ const r=window.rec=new R();r.lang=S.vl;r.interimResults=true;const base=$('#in').value?$('#in').value+' ':'';$('#mic').classList.add('on');
+ r.onresult=e=>{$('#in').value=base+[...e.results].map(x=>x[0].transcript).join('')};r.onend=r.onerror=()=>{window.rec=null;$('#mic').classList.remove('on')};r.start()};
+$('#send').onclick=send;$('#new').onclick=newChat;$('#menu').onclick=()=>{if(innerWidth<=760)$('#side').classList.toggle('open');else document.body.classList.toggle('collapsed')};
+$('#in').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey&&!/Mobi|Android/i.test(navigator.userAgent)){e.preventDefault();send()}};
+$('#in').oninput=e=>{e.target.style.height='auto';e.target.style.height=e.target.scrollHeight+'px'};
+$('#lang').onchange=async e=>{const c=e.target.value;if(!await loadPack(c)){alert('This language is not ready yet. The admin can make it in Admin > Languages.');e.target.value=S.lang;return}S.lang=c;localStorage.rz_l=c;i18n()};
+$('#gopro').onclick=async()=>{const c=prompt(T('procode'));if(!c)return;const r=await api('/api/pro',{method:'POST',body:JSON.stringify({code:c})});const j=await r.json();alert(r.ok?T('proyes'):j.error);boot()};
+$('#out').onclick=()=>{if(S.user){S.token='';localStorage.removeItem('rz_t');localStorage.removeItem('rz_g');S.chat=[];S.id=null;S.user=null}else{localStorage.removeItem('rz_g')}boot()};
+function authTabs(){$('#tL').classList.toggle('on',S.mode==='login');$('#tS').classList.toggle('on',S.mode==='signup');$('#ago').textContent=T(S.mode);$('#agl').style.display=S.mode==='signup'?'flex':'none'}
+$('#tL').onclick=()=>{S.mode='login';authTabs()};$('#tS').onclick=()=>{S.mode='signup';authTabs()};
+$('#ago').onclick=async()=>{$('#amsg').textContent='';const r=await api('/api/'+S.mode,{method:'POST',body:JSON.stringify({username:$('#au').value,password:$('#ap').value,agree:$('#agree').checked,ts:S.ts})});const j=await r.json();if(TS_KEY&&window.turnstile){try{turnstile.reset()}catch(e){}S.ts=''}if(!r.ok){$('#amsg').textContent=j.error;return}S.token=j.token;localStorage.rz_t=j.token;$('#ap').value='';boot()};
+$('#ap').onkeydown=e=>{if(e.key==='Enter')$('#ago').click()};
+$('#agu').onclick=async()=>{if(TS_KEY){if(!S.ts){$('#amsg').textContent='Verifying you are human... wait a moment and tap again.';return}
+ const r=await api('/api/guest',{method:'POST',body:JSON.stringify({ts:S.ts})});const j=await r.json().catch(()=>({}));
+ try{turnstile.reset()}catch(e){}S.ts='';if(!r.ok){$('#amsg').textContent=j.error||T('err');return}localStorage.rz_gt=j.guest}
+ localStorage.rz_g=1;boot()};
+function view(v){$('#msgs').style.display=$('.comp').style.display=v==='chat'?'':'none';$('#imgv').style.display=v==='img'?'block':'none';$('#adminv').style.display=v==='admin'?'block':'none';$('#studyv').style.display=v==='study'?'block':'none';$('#memv').style.display=v==='mem'?'block':'none';$('#side').classList.remove('open')}
+$('#navimg').onclick=()=>view('img');$('#navadm').onclick=()=>view('admin');
+$('#igo').onclick=async()=>{const p=$('#iidea').value.trim();if(!p)return;const b=$('#igo');b.disabled=true;$('#ist').textContent=T('wait');
+ try{const r=await api('/api/image',{method:'POST',body:JSON.stringify({prompt:p,style:$('#isty').value,size:$('#isz').value,magic:$('#imag').checked})});
+  if(!r.ok){$('#ist').textContent=(await r.json().catch(()=>({}))).error||T('err')}
+  else{const u=URL.createObjectURL(await r.blob());const a=document.createElement('a');a.href=u;a.download='raorish-image.jpg';a.innerHTML='<img src="'+u+'" alt="">';$('#igal').prepend(a);$('#ist').textContent=''}
+ }catch(e){$('#ist').textContent=T('err')}b.disabled=false};
+async function adm(op,x={}){const r=await api('/api/admin',{method:'POST',body:JSON.stringify({key:$('#akey').value,op,...x})});const j=await r.json().catch(()=>({}));$('#aout').textContent=j.text||j.error||T('err')}
+$('#adS').onclick=()=>adm('stats');$('#adU').onclick=()=>adm('users');$('#adP1').onclick=()=>adm('pro',{username:$('#auser').value,on:true});$('#adP0').onclick=()=>adm('pro',{username:$('#auser').value,on:false});$('#adC').onclick=()=>adm('codes',{n:$('#an').value});
+S.doc=null;
+$('#doc').onclick=()=>$('#dfile').click();
+$('#dfile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;if(f.size>6e6)return alert('Max file size is 6 MB.');
+ const b64=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result.split(',')[1]);fr.readAsDataURL(f)});
+ $('#dcn').textContent='…';$('#dc').style.display='flex';
+ const r=await api('/api/doc',{method:'POST',body:JSON.stringify({name:f.name,data:b64})});const j=await r.json().catch(()=>({}));
+ if(!r.ok){$('#dc').style.display='none';alert(j.error||T('err'));return}
+ S.doc={name:f.name,text:j.text,id:j.doc_id};$('#dcn').textContent='📄 '+f.name+(j.doc_id?' (smart search over '+j.chunks+' parts)':(j.cut?' (first '+Math.round(j.limit/1000)+'k characters)':''))};
+$('#dcx').onclick=()=>{S.doc=null;$('#dc').style.display='none'};
+$('#navstudy').onclick=()=>{view('study');$('#sdoc').textContent=S.doc?'📄 '+S.doc.name:''};
+async function sgen(tool){const topic=$('#stopic').value.trim();if(!topic&&!S.doc){$('#sout').textContent='Type a topic or attach a file first.';return}
+ $('#sout').textContent='Working on it…';
+ const r=await api('/api/study',{method:'POST',body:JSON.stringify({tool,topic,n:+$('#sn').value,doc:S.doc&&S.doc.text})});const j=await r.json().catch(()=>({}));
+ if(!r.ok){$('#sout').textContent=j.error||T('err');return}
+ tool==='quiz'?quiz(j.items):cards(j.items)}
+function quiz(it){let i=0,sc=0;const o=$('#sout');
+ const show=()=>{if(i>=it.length){o.innerHTML='<h3>Score: '+sc+' / '+it.length+'</h3>';const b=document.createElement('button');b.className='btn';b.textContent='Try again';b.onclick=()=>quiz(it);o.appendChild(b);return}
+  const x=it[i];o.innerHTML='<p><b>'+(i+1)+'/'+it.length+'. '+esc(String(x.q))+'</b></p>';
+  x.options.forEach((t,k)=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>{o.querySelectorAll('.opt').forEach((e,m)=>{e.disabled=true;if(m===x.answer)e.classList.add('ok')});if(k===x.answer)sc++;else b.classList.add('no');const w=document.createElement('p');w.textContent=x.why||'';o.appendChild(w);const n=document.createElement('button');n.className='btn';n.textContent='Next';n.onclick=()=>{i++;show()};o.appendChild(n)};o.appendChild(b)})};show()}
+function cards(it){let i=0,f=false;const o=$('#sout');
+ const show=()=>{const x=it[i];o.innerHTML='<div class="fc">'+esc(String(f?x.back:x.front))+'</div><div class="two"><button class="ghost" id="fp">Back</button><button class="ghost" id="ff">Flip</button><button class="ghost" id="fn">Next</button></div><small>'+(i+1)+' / '+it.length+'</small>';
+  $('.fc').onclick=$('#ff').onclick=()=>{f=!f;show()};$('#fp').onclick=()=>{i=(i+it.length-1)%it.length;f=false;show()};$('#fn').onclick=()=>{i=(i+1)%it.length;f=false;show()}};show()}
+$('#sq').onclick=()=>sgen('quiz');$('#sf').onclick=()=>sgen('cards');
+function toChat(p){view('chat');$('#in').value=p;send()}
+$('#sno').onclick=()=>{const t=$('#stopic').value.trim();if(!t&&!S.doc){$('#sout').textContent='Type a topic or attach a file first.';return}toChat('Make short notes in easy English'+(S.doc?' from the attached file':'')+(t?' on: '+t:'')+'. Use short points and simple words.')};
+$('#spl').onclick=()=>toChat('Make me a day-by-day study plan. Ask me first for my exam date, subjects and daily study hours.');
+async function report(m,kind){const i=S.chat.indexOf(m);const r=await api('/api/report',{method:'POST',body:JSON.stringify({kind,question:i>0?S.chat[i-1].content:'',answer:m.content})});if(kind==='down')alert(r.ok?T('reported'):T('err'))}
+$('#adR').onclick=()=>adm('reports');$('#adT').onclick=()=>{$('#aout').textContent='Testing every AI. This can take up to a minute...';adm('test')};
+$('#delacc').onclick=async()=>{const p=prompt('Enter your password to delete your account and all your chats forever.');if(!p)return;const r=await api('/api/delete_account',{method:'POST',body:JSON.stringify({password:p})});if(r.ok){S.token='';localStorage.removeItem('rz_t');localStorage.removeItem('rz_g');S.chat=[];S.id=null;S.user=null;boot()}else alert((await r.json().catch(()=>({}))).error||T('err'))};
+S.vl=localStorage.rz_vl||'en-IN';$('#vl').value=S.vl;$('#vl').onchange=e=>{S.vl=e.target.value;localStorage.rz_vl=S.vl};
+$('#who').onclick=e=>{e.stopPropagation();$('#pop').classList.toggle('open')};
+document.addEventListener('click',e=>{if(!e.target.closest('.pop'))$('#pop').classList.remove('open')});
+$('#pop').onclick=e=>{if(e.target.closest('button'))$('#pop').classList.remove('open')};
+$('#navmem').onclick=async()=>{view('mem');if(!S.user){$('#mst').textContent='Log in to use AI memory.';return}const r=await api('/api/profile');$('#mtxt').value=(await r.json()).profile||'';$('#mst').textContent=''};
+$('#msave').onclick=async()=>{const r=await api('/api/profile',{method:'POST',body:JSON.stringify({profile:$('#mtxt').value})});$('#mst').textContent=r.ok?'Saved.':((await r.json().catch(()=>({}))).error||T('err'))};
+const TT={wa:'Share on WhatsApp',copy:'Copy',speak:'Listen',up:'Good answer',down:'Report this answer',retry:'Try again'};
+const IC={copy:'<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>',
+speak:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+up:'<svg viewBox="0 0 24 24"><path d="M7 11v9H4v-9zM7 11l4-8a2 2 0 0 1 2 2v4h5.5a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 17.3 20H7"/></svg>',
+down:'<svg viewBox="0 0 24 24" style="transform:scaleY(-1)"><path d="M7 11v9H4v-9zM7 11l4-8a2 2 0 0 1 2 2v4h5.5a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 17.3 20H7"/></svg>',
+retry:'<svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"/></svg>'};
+function retry(m){if(S.busy||S.chat[S.chat.length-1]!==m)return;S.chat.pop();const u=S.chat.pop();const w=$('#wrap');w.lastChild.remove();w.lastChild.remove();$('#in').value=u.content==='📷'?'':u.content;if(u.image){S.img=u.image;$('#pvi').src=u.image;$('#pv').style.display='flex'}S.alt=true;send()}
+const MODELS={sampurna:{n:'Sampurna 2.0',d:'All-rounder for everyday things'},auto:{n:'Auto',d:'Picks the best model for each question'},karma:{n:'Karma Pro',d:'Photos, notes and study work',pro:1},ninja:{n:'Ninja Advance',d:'Coding, maths and hard problems, double-checked',pro:1}};
+S.model=localStorage.rz_m||'sampurna';
+function modelUI(){if(!MODELS[S.model]||(MODELS[S.model].pro&&S.plan!=='pro'))S.model='sampurna';$('#mdn').textContent=MODELS[S.model].n;const m=$('#mm');m.innerHTML='';
+ Object.keys(MODELS).forEach(k=>{const x=MODELS[k],b=document.createElement('button');b.innerHTML='<span><b>'+x.n+'</b><small>'+x.d+'</small></span><span>'+(k===S.model?'✓':(x.pro&&S.plan!=='pro'?'Pro':''))+'</span>';
+  b.onclick=()=>{m.classList.remove('open');if(x.pro&&S.plan!=='pro'){alert('This model is for Pro users. Open the menu at the bottom left and choose Go Pro.');return}S.model=k;localStorage.rz_m=k;modelUI()};m.appendChild(b)})}
+$('#mdl').onclick=e=>{e.stopPropagation();$('#mm').classList.toggle('open');$('#pm').classList.remove('open')};
+$('#plus').onclick=e=>{e.stopPropagation();$('#pm').classList.toggle('open');$('#mm').classList.remove('open')};
+document.addEventListener('click',e=>{if(!e.target.closest('.pop2'))document.querySelectorAll('.pop2').forEach(p=>p.classList.remove('open'))});
+$('#pm').onclick=()=>$('#pm').classList.remove('open');
+$('#web').onclick=()=>{S.web=!S.web;$('#webs').textContent=S.web?'On':'';$('#plus').classList.toggle('on',S.web)};
+modelUI();
+IC.wa='<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>';
+IC.edit='<svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+function tidy(t){t=String(t||'');return t.length>3&&t===t.toUpperCase()?t[0]+t.slice(1).toLowerCase():t}
+function parts(s){s=String(s||'');const f=s.indexOf('FOLLOWUPS:'),r=s.indexOf('REMEMBER:');const e=[f,r].filter(x=>x>=0);const i=e.length?Math.min(...e):-1;
+ const fu=f<0?[]:s.slice(f+10,r>f?r:undefined).split('|').map(x=>x.trim().replace(/^[-*\d.\s]+/,'')).filter(Boolean).slice(0,3);
+ return{body:i<0?s:s.slice(0,i).trimEnd(),fu,rm:r<0?'':s.slice(r+9,f>r?f:undefined).trim().slice(0,200)}}
+function clean(s,stream){let b=parts(s).body;if(stream&&b===String(s||''))b=b.replace(/\s*F(O(L(L(O(W(U(P(S)?)?)?)?)?)?)?)?$/,'');return b}
+function fups(s){return parts(s).fu}
+function editMsg(m){if(S.busy)return;const i=S.chat.indexOf(m);if(i<0)return;const w=$('#wrap');while(w.children.length>i)w.lastChild.remove();S.chat=S.chat.slice(0,i);$('#in').value=m.content==='📷'?'':m.content;if(m.image){S.img=m.image;$('#pvi').src=m.image;$('#pv').style.display='flex'}$('#in').focus();if(!S.chat.length)hero()}
+$('#csearch').oninput=e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('#list .row').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')};
+$('#adD').onclick=()=>adm('dash');$('#adX').onclick=()=>{const u=$('#auser').value.trim();if(!u)return;if(!confirm('Delete '+u+' and ALL their data forever?'))return;adm('deluser',{username:u})};
+$('#cgo').onclick=async()=>{const p=$('#cprompt').value.trim();if(!p)return;$('#cout').innerHTML='<p style="color:var(--mute)">Asking the AIs. This can take up to a minute...</p>';
+ const r=await api('/api/admin',{method:'POST',body:JSON.stringify({key:$('#akey').value,op:'compare',prompt:p,who:$('#cwho').value})});const j=await r.json().catch(()=>({}));
+ if(!r.ok){$('#cout').textContent=j.error||T('err');return}
+ $('#cout').innerHTML=j.items.map(x=>'<div class="cc"><div class="ch"><b>'+esc(x.name)+'</b><small>'+esc(x.model)+'</small><span>'+(x.ok?x.ms+' ms':'failed')+'</span></div><div class="m assistant">'+(x.ok?md(clean(x.text)):esc(x.text))+'</div></div>').join('')};
+const LANGS=[['en','English','English'],['hi','हिन्दी','Hindi'],['bn','বাংলা','Bengali'],['mr','मराठी','Marathi'],['te','తెలుగు','Telugu'],['ta','தமிழ்','Tamil'],['gu','ગુજરાતી','Gujarati'],['ur','اردو','Urdu'],['kn','ಕನ್ನಡ','Kannada'],['or','ଓଡ଼ିଆ','Odia'],['ml','മലയാളം','Malayalam'],['pa','ਪੰਜਾਬੀ','Punjabi'],['as','অসমীয়া','Assamese'],['ne','नेपाली','Nepali'],['sa','संस्कृतम्','Sanskrit'],['mai','मैथिली','Maithili'],['es','Español','Spanish'],['fr','Français','French'],['de','Deutsch','German'],['pt','Português','Portuguese'],['ru','Русский','Russian'],['ar','العربية','Arabic'],['zh','中文','Chinese (Simplified)'],['ja','日本語','Japanese'],['ko','한국어','Korean'],['id','Bahasa Indonesia','Indonesian'],['tr','Türkçe','Turkish'],['it','Italiano','Italian'],['vi','Tiếng Việt','Vietnamese'],['th','ไทย','Thai']];
+function ALT(){const a=!!S.alt;S.alt=false;return a}
+function DEEP(){const d=!!S.deep;S.deep=false;$('#deeps').textContent='';return d}
+async function loadPack(c){if(c==='en'||c==='hi'||TX[c])return true;try{const r=await fetch('/api/i18n/'+c);if(!r.ok)return false;TX[c]=await r.json();return true}catch(e){return false}}
+LANGS.forEach(l=>{const o=document.createElement('option');o.value=l[0];o.textContent=l[1];$('#lang').appendChild(o)});$('#lang').value=S.lang;
+$('#deep').onclick=()=>{if(S.plan!=='pro'){alert('Deep research is for Pro users.');return}S.deep=!S.deep;$('#deeps').textContent=S.deep?'On':''};
+$('#adB').onclick=async()=>{const r=await api('/api/admin',{method:'POST',body:JSON.stringify({key:$('#akey').value,op:'backup'})});const j=await r.json().catch(()=>({}));if(!r.ok){$('#aout').textContent=j.error||T('err');return}const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(j.data)],{type:'application/json'}));a.download='raorish-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();$('#aout').textContent=j.text};
+$('#adL').onclick=async()=>{const key=$('#akey').value,bad=[];for(const l of LANGS){if(l[0]==='en'||l[0]==='hi')continue;$('#lout').textContent='Translating '+l[2]+'...';const r=await api('/api/admin',{method:'POST',body:JSON.stringify({key,op:'i18n',code:l[0],name:l[2],en:TX.en})});const j=await r.json().catch(()=>({}));if(r.status===403){$('#lout').textContent=j.error;return}if(!r.ok)bad.push(l[2]);await new Promise(x=>setTimeout(x,1200))}$('#lout').textContent='Finished.'+(bad.length?' Failed (press again to retry): '+bad.join(', '):' All done. Refresh and pick a language from the menu.')};
+boot();
 </script>
-</body>
-</html>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=tsInit" async defer></script>
+<script src="/batch2.js"></script><script src="/batch3.js"></script><script src="/batch5.js"></script><script src="/gemini.js"></script>
