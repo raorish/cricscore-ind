@@ -6,6 +6,7 @@
 <title>CricScore India – Live cricket scores, scorecards and news</title>
 <meta name="description" content="Live cricket scores, scorecards, venue weather, player info and news. Team India first. Hindi and English.">
 <meta name="theme-color" content="#0f172a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2048%2048%22%3E%3Cdefs%3E%3CclipPath%20id%3D%22c%22%3E%3Crect%20width%3D%2248%22%20height%3D%2248%22%20rx%3D%2212%22/%3E%3C/clipPath%3E%3C/defs%3E%3Cg%20clip-path%3D%22url%28%23c%29%22%3E%3Crect%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23ff9933%22/%3E%3Crect%20y%3D%2216%22%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23fff%22/%3E%3Crect%20y%3D%2232%22%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23138808%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%2213%22%20fill%3D%22%23c1272d%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M15%2017c5%204%205%2010%200%2014M33%2017c-5%204-5%2010%200%2014%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.6%22%20fill%3D%22none%22%20stroke-dasharray%3D%222.4%202%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -17,8 +18,8 @@ body{margin:0;font:15px/1.5 "Inter","Noto Sans Devanagari",system-ui,sans-serif;
 .hd{background:var(--hd);color:#fff;position:relative}
 .hd::before{content:"";display:block;height:3px;background:linear-gradient(90deg,#ff9933 33.3%,#fff 33.3% 66.6%,#138808 66.6%)}
 .hd .w{display:flex;align-items:center;justify-content:space-between;height:54px}
-.lg{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1.15rem;letter-spacing:-.2px}
-.lg small{font-size:.62rem;letter-spacing:.2em;color:var(--saf);font-weight:700;margin-left:-3px;align-self:flex-end;padding-bottom:3px}
+.lg{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.35rem;letter-spacing:-.4px}
+.lg small{font-size:.6rem;letter-spacing:.16em;background:var(--saf);color:#111;font-weight:800;padding:2px 6px;border-radius:4px;margin-left:-2px}
 .tools{display:flex;gap:6px}
 .tools button{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:4px 11px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
 .tb{background:var(--hd);position:sticky;top:0;z-index:5;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -84,12 +85,23 @@ td small{display:block;color:var(--mut);font-size:.74rem}
 .ph{float:right;width:96px;height:auto;border-radius:8px;margin:0 0 8px 12px}
 .db p{margin:8px 0}.db a{color:var(--lnk)}
 .note{font-size:.75rem;color:var(--mut)}
+.ins{font-size:.78rem;color:var(--mut);margin-top:5px;font-variant-numeric:tabular-nums}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.fg label{font-size:.78rem;color:var(--mut);font-weight:600}
+.fg input{display:block;width:100%;margin-top:3px;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink)}
+.res{margin-top:10px;font-weight:700;color:var(--acc);min-height:1.4em}
+.opt{display:block;width:100%;text-align:left;margin-top:8px;font:inherit;font-weight:600;padding:11px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+.opt.ok{border-color:var(--acc);background:rgba(21,128,61,.12)}.opt.bad{border-color:var(--live);background:rgba(220,38,38,.1)}
+.pr{font-size:.78rem;color:var(--mut);font-weight:600}
+.big{font-size:2.2rem;font-weight:800;margin:6px 0}
+.btn{font:inherit;font-weight:700;background:var(--hd);color:#fff;border:0;border-radius:8px;padding:9px 18px;cursor:pointer;margin:12px 8px 0 0;text-decoration:none;display:inline-block}
+:root[data-theme=dark] .btn{background:var(--acc);color:#05080d}
 button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
 </style>
 </head>
 <body>
-<header class="hd"><div class="w"><div class="lg"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#c1272d"/><path d="M5 6c4 3 4 9 0 12M19 6c-4 3-4 9 0 12" stroke="#fff" stroke-width="1.4" fill="none" stroke-dasharray="2 2"/></svg>CricScore<small>INDIA</small></div>
+<header class="hd"><div class="w"><div class="lg"><svg width="36" height="36" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><clipPath id="lc"><rect width="48" height="48" rx="12"/></clipPath></defs><g clip-path="url(#lc)"><rect width="48" height="16" fill="#ff9933"/><rect y="16" width="48" height="16" fill="#fff"/><rect y="32" width="48" height="16" fill="#138808"/></g><circle cx="24" cy="24" r="13" fill="#c1272d" stroke="#fff" stroke-width="2"/><path d="M15 17c5 4 5 10 0 14M33 17c-5 4-5 10 0 14" stroke="#fff" stroke-width="1.6" fill="none" stroke-dasharray="2.4 2"/></svg>CricScore<small>INDIA</small></div>
 <div class="tools"><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">◐</button></div></div></header>
 <div class="tb"><div class="w"><div id="tabs"></div></div></div>
 <div class="strip" id="strip"></div>
@@ -103,6 +115,8 @@ button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(
 <script>
 const L={en:{news:"News",nonews:"News is not available right now.",live:"Live",up:"Upcoming",done:"Recent",ind:"Team India",all:"All matches",none:"My team: none",empty:"No matches in this section right now.",upd:"Updated",ago:"min ago",now:"just now",sc:"Scorecard",wa:"Share",bat:"Batting",bowl:"Bowling",nosc:"Scorecard is not available for this match yet.",err:"Could not load scores. Please try again in a few minutes.",lv:"LIVE",tI:"INDIA",wind:"wind",wiki:"Read more on Wikipedia",nop:"Player details not found.",wnote:"Source: Wikipedia. The match may not always be exact."},
 hi:{news:"खबरें",nonews:"अभी खबरें उपलब्ध नहीं हैं।",live:"लाइव",up:"आने वाले",done:"हाल के",ind:"टीम इंडिया",all:"सभी मैच",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया",wind:"हवा",wiki:"विकिपीडिया पर पढ़ें",nop:"खिलाड़ी की जानकारी नहीं मिली।",wnote:"स्रोत: विकिपीडिया। हो सकता है नाम पूरी तरह न मिले।"}};
+Object.assign(L.en,{quiz:"Quiz",tools:"Tools",proj:"Projected",need:"Need",inn:"in",balls:"balls",qh:"Daily Cricket Quiz",qs:"Question",next:"Next",fin:"Your score",again:"Play again",shq:"Share score",come:"New questions every day.",rrr:"Required run rate",tg:"Target",rs:"Runs scored",to:"Total overs",ob:"Overs bowled (e.g. 12.3)",sr:"Strike rate",ec:"Economy rate",rn:"Runs",bl:"Balls",rc:"Runs conceded",ov:"Overs"});
+Object.assign(L.hi,{quiz:"क्विज़",tools:"टूल्स",proj:"अनुमानित",need:"चाहिए",inn:"में",balls:"गेंद",qh:"रोज़ का क्रिकेट क्विज़",qs:"सवाल",next:"अगला",fin:"आपका स्कोर",again:"फिर खेलें",shq:"स्कोर शेयर करें",come:"हर दिन नए सवाल।",rrr:"आवश्यक रन रेट",tg:"लक्ष्य",rs:"बने रन",to:"कुल ओवर",ob:"फेंके गए ओवर (जैसे 12.3)",sr:"स्ट्राइक रेट",ec:"इकॉनमी रेट",rn:"रन",bl:"गेंद",rc:"दिए गए रन",ov:"ओवर"});
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const get=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
@@ -135,9 +149,9 @@ function render(){
  shell();strip();
  const pool=S.india?S.matches.filter(isInd):S.matches;
  const cnt={live:0,up:0,done:0};pool.forEach(m=>cnt[kind(m)]++);
- $("tabs").innerHTML=["live","up","done","news"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)}${k==="news"?"":`<span>${cnt[k]}</span>`}</button>`).join("");
- const nws=S.tab==="news";$("bar").hidden=nws;
- if(nws){$("meta").textContent="";return renderNews()}
+ $("tabs").innerHTML=["live","up","done","news","quiz","tools"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)}${cnt[k]===undefined?"":`<span>${cnt[k]}</span>`}</button>`).join("");
+ const ex=["news","quiz","tools"].includes(S.tab);$("bar").hidden=ex;
+ if(ex){$("meta").textContent="";return S.tab==="news"?renderNews():S.tab==="quiz"?renderQuiz():renderTools()}
  let items=pool.filter(m=>kind(m)===S.tab);
  const w=m=>(S.fav&&(m.teams||[]).includes(S.fav)?2:0)+(isInd(m)?1:0);
  items=items.map((m,i)=>[m,i]).sort((a,b)=>w(b[0])-w(a[0])||a[1]-b[1]).map(x=>x[0]);
@@ -151,12 +165,56 @@ function render(){
  <div class="ttl">${isInd(m)?`<span class="tag">${t("tI")}</span>`:""}${k==="live"?`<span class="live"><span class="dot"></span>${t("lv")}</span>`:""}${esc(m.name||(m.teams||[]).join(" vs "))}</div>
  <div class="vn">${esc(m.matchType).toUpperCase()} • ${esc(m.venue)}${k==="live"?"":" • "+esc(m.date)}</div>
  <div class="rb"><div>${(m.teams||[]).map(x=>`<div class="tm">${badge(m,x).html}<span class="nm">${esc(x)}</span><span class="sc">${esc(score(m,x))}</span></div>`).join("")}</div>
- <div><div class="st ${k}">${esc(m.status)}</div><div class="act"><button ${dat(m)}>${t("sc")}</button><a target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin)}">${t("wa")}</a></div></div></div></div>`}).join("")+'</div>';
+ <div><div class="st ${k}">${esc(m.status)}</div>${k==="live"?ins(m):""}<div class="act"><button ${dat(m)}>${t("sc")}</button><a target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin)}">${t("wa")}</a></div></div></div></div>`}).join("")+'</div>';
 }
 function renderNews(){
  if(S.news===null){$("list").innerHTML='<div class="panel"><div class="sk"></div><div class="sk"></div></div>';return}
  if(!S.news.length){$("list").innerHTML=`<div class="msg">${esc(t("nonews"))}</div>`;return}
  $("list").innerHTML='<div class="panel">'+S.news.map(n=>`<div class="row nw"><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a><p>${esc((n.description||"").slice(0,160))}</p><div class="vn">${esc(n.source)} • ${esc((n.pubDate||"").slice(0,10))}</div></div>`).join("")+'</div>';
+}
+function ins(m){
+ const mt=(m.matchType||"").toLowerCase(),max=mt==="t20"?20:mt==="odi"?50:0;if(!max)return"";
+ const sc=m.score||[];let k=-1;sc.forEach((x,i)=>{if(+x.o>0&&+x.o<max&&+x.w<10)k=i});if(k<0)return"";
+ const s=sc[k],o=+s.o,ov=Math.floor(o)+Math.round((o%1)*10)/6,rr=s.r/ov;
+ let h=`CRR ${rr.toFixed(2)}`;
+ if(k===0)h+=` • ${t("proj")} ${Math.round(rr*max)}`;
+ else if(sc[k-1]){const need=sc[k-1].r+1-s.r,bl=Math.round((max-ov)*6);if(need>0&&bl>0)h+=` • ${t("need")} ${need} ${t("inn")} ${bl} ${t("balls")} • RRR ${(need/(bl/6)).toFixed(2)}`}
+ return`<div class="ins">${h}</div>`;
+}
+const QZ=[
+{q:["Who has scored the most international centuries in men's cricket?","पुरुष क्रिकेट में सबसे ज़्यादा अंतरराष्ट्रीय शतक किसके नाम हैं?"],o:["Sachin Tendulkar","Virat Kohli","Ricky Ponting","Kumar Sangakkara"],a:0},
+{q:["Who won the first Cricket World Cup in 1975?","1975 का पहला क्रिकेट वर्ल्ड कप किसने जीता?"],o:["Australia","England","West Indies","India"],a:2},
+{q:["Who captained India to the 1983 World Cup win?","1983 वर्ल्ड कप में भारत के कप्तान कौन थे?"],o:["Sunil Gavaskar","Kapil Dev","MS Dhoni","Mohinder Amarnath"],a:1},
+{q:["In which year did the IPL begin?","IPL की शुरुआत किस साल हुई?"],o:["2006","2007","2008","2009"],a:2},
+{q:["Who holds the highest individual score in ODI cricket?","वनडे में सबसे बड़ा व्यक्तिगत स्कोर किसका है?"],o:["Rohit Sharma","Martin Guptill","Chris Gayle","Virender Sehwag"],a:0},
+{q:["How long is a cricket pitch?","क्रिकेट की पिच कितनी लंबी होती है?"],o:["20 yards","22 yards","24 yards","25 yards"],a:1},
+{q:["Who has taken the most wickets in Test cricket?","टेस्ट क्रिकेट में सबसे ज़्यादा विकेट किसके नाम हैं?"],o:["Shane Warne","Anil Kumble","Muttiah Muralitharan","James Anderson"],a:2},
+{q:["Which team won the first T20 World Cup in 2007?","2007 का पहला T20 वर्ल्ड कप किसने जीता?"],o:["Pakistan","India","Australia","Sri Lanka"],a:1},
+{q:["Where is the ICC headquarters?","ICC का मुख्यालय कहाँ है?"],o:["London","Mumbai","Dubai","Melbourne"],a:2},
+{q:["Who won the first IPL season in 2008?","2008 के पहले IPL सीज़न का विजेता कौन था?"],o:["Chennai Super Kings","Mumbai Indians","Rajasthan Royals","Deccan Chargers"],a:2}];
+let Q=null;
+function renderQuiz(){
+ if(!Q){const st=(Math.floor(Date.now()/864e5)*3)%QZ.length;Q={list:[0,1,2,3,4].map(j=>QZ[(st+j)%QZ.length]),i:0,sc:0,pick:null}}
+ const hi=S.lang==="hi"?1:0;
+ if(Q.i>=5){
+  const msg=encodeURIComponent(`🏏 CricScore India Quiz: ${Q.sc}/5!\n${location.origin}`);
+  $("list").innerHTML=`<div class="panel"><div class="row"><div class="ttl">${t("qh")}</div><div class="pr" style="margin-top:8px">${t("fin")}</div><div class="big">${Q.sc}/5</div><div class="vn">${t("come")}</div><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${msg}">${t("shq")}</a><button class="btn" data-rq="1">${t("again")}</button></div></div>`;return}
+ const q=Q.list[Q.i];
+ $("list").innerHTML=`<div class="panel"><div class="row"><div class="pr">${t("qh")} • ${t("qs")} ${Q.i+1}/5</div><div class="ttl" style="font-size:1.1rem;margin-top:6px">${esc(q.q[hi])}</div>${q.o.map((x,k)=>`<button class="opt ${Q.pick===null?"":k===q.a?"ok":k===Q.pick?"bad":""}" data-o="${k}">${esc(x)}</button>`).join("")}${Q.pick!==null?`<button class="btn" data-nx="1">${t("next")}</button>`:""}</div></div>`;
+}
+function answer(k){if(Q.pick!==null)return;Q.pick=k;if(k===Q.list[Q.i].a)Q.sc++;renderQuiz()}
+const fi=(id,l,v="")=>`<label>${l}<input id="${id}" type="number" inputmode="decimal" min="0" step="any" value="${v}"></label>`;
+function renderTools(){
+ $("list").innerHTML=`<div class="panel"><div class="row"><div class="ttl">${t("rrr")}</div><div class="fg">${fi("tg",t("tg"))}${fi("rs",t("rs"))}${fi("ot",t("to"),"20")}${fi("ob",t("ob"))}</div><div class="res" id="r1"></div></div>
+ <div class="row"><div class="ttl">${t("sr")}</div><div class="fg">${fi("sr1",t("rn"))}${fi("sr2",t("bl"))}</div><div class="res" id="r2"></div></div>
+ <div class="row"><div class="ttl">${t("ec")}</div><div class="fg">${fi("ec1",t("rc"))}${fi("ec2",t("ov"))}</div><div class="res" id="r3"></div></div></div>`;
+}
+function calc(){
+ const n=id=>parseFloat($(id).value),ov=x=>Math.floor(x)+Math.round((x%1)*10)/6;
+ const a=[n("tg"),n("rs"),n("ot"),n("ob")],left=ov(a[2])-ov(a[3]);
+ $("r1").textContent=a.some(isNaN)||left<=0?"":`${t("need")} ${Math.max(a[0]-a[1],0)} ${t("inn")} ${Math.round(left*6)} ${t("balls")} • RRR ${(Math.max(a[0]-a[1],0)/left).toFixed(2)}`;
+ const r=n("sr1"),b=n("sr2");$("r2").textContent=isNaN(r)||!(b>0)?"":(r/b*100).toFixed(2);
+ const c=n("ec1"),o=n("ec2");$("r3").textContent=isNaN(c)||!(o>0)?"":(c/ov(o)).toFixed(2);
 }
 async function loadNews(){
  try{const r=await fetch("/api/news");const d=await r.json();S.news=Array.isArray(d)?d:[]}catch(e){S.news=[]}
@@ -215,6 +273,8 @@ $("fAll").onclick=()=>{S.india=false;put("india","0");render()};
 $("fav").onchange=e=>{S.fav=e.target.value;put("fav",S.fav);render()};
 $("lang").onclick=()=>{S.lang=S.lang==="en"?"hi":"en";put("lang",S.lang);render()};
 $("theme").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";put("theme",S.theme);document.documentElement.dataset.theme=S.theme};
+document.addEventListener("input",e=>{if(e.target.closest(".fg"))calc()});
+document.addEventListener("click",e=>{const o=e.target.closest("[data-o]");if(o){answer(+o.dataset.o);return}if(e.target.closest("[data-nx]")){Q.i++;Q.pick=null;renderQuiz();return}if(e.target.closest("[data-rq]")){Q=null;renderQuiz()}});
 document.documentElement.dataset.theme=S.theme;render();load();setInterval(load,120000);
 </script>
 </body>
