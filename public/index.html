@@ -117,7 +117,7 @@ td small{display:block;color:var(--mut);font-size:.74rem}
 @keyframes sp-fill{to{width:100%}}
 .sp-snd{font:inherit;font-weight:600;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:8px 18px;cursor:pointer}
 .sp small{opacity:.55;font-size:.72rem}
-@media(prefers-reduced-motion:reduce){.sp{display:none}}
+@media(prefers-reduced-motion:reduce){.sp-six{animation:none;opacity:1}.sp-bat{animation:none;transform:rotate(-70deg)}.sp-ball{animation:none;opacity:0}.sp-crowd{animation:none}}
 button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
 </style>
@@ -267,9 +267,6 @@ function thwack(){try{
 }catch(e){}}
 function splash(first){
  const sp=$("sp");if(!sp)return;
- let seen=false;try{seen=sessionStorage.getItem("sp")==="1"}catch(e){}
- if(seen||matchMedia("(prefers-reduced-motion:reduce)").matches){sp.remove();return}
- try{sessionStorage.setItem("sp","1")}catch(e){}
  const t0=performance.now(),HIT=910;let played=false;
  const play=()=>{if(played)return;played=true;thwack();chakka()};
  $("spSnd").onclick=e=>{e.stopPropagation();$("spSnd").textContent="🔊 ON";setTimeout(play,Math.max(HIT-(performance.now()-t0),0))};
