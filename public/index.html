@@ -162,7 +162,6 @@ button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(
 </svg></div>
 <div class="sp-ld">CricScore <b>INDIA</b><span>Live scores load ho rahe hain…</span></div>
 <div class="sp-bar"><i></i></div>
-<button id="spSnd" class="sp-snd">🔊 Sound ON karo</button>
 <small>Skip karne ke liye kahin bhi tap karo</small>
 </div>
 <header class="hd"><div class="w"><div class="lg"><svg width="36" height="36" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><clipPath id="lc"><rect width="48" height="48" rx="12"/></clipPath></defs><g clip-path="url(#lc)"><rect width="48" height="16" fill="#ff9933"/><rect y="16" width="48" height="16" fill="#fff"/><rect y="32" width="48" height="16" fill="#138808"/></g><circle cx="24" cy="24" r="13" fill="#c1272d" stroke="#fff" stroke-width="2"/><path d="M15 17c5 4 5 10 0 14M33 17c-5 4-5 10 0 14" stroke="#fff" stroke-width="1.6" fill="none" stroke-dasharray="2.4 2"/></svg>CricScore<small>INDIA</small></div>
@@ -287,12 +286,10 @@ function thwack(){try{
 }catch(e){}}
 function splash(first){
  const sp=$("sp");if(!sp)return;
- const t0=performance.now(),HIT=2580;let played=false;
+ const HIT=2580;let played=false;
  const aud=new Audio("/bowled.mp3");aud.preload="auto";
  const play=()=>{if(played)return;played=true;try{aud.currentTime=0}catch(e){}const p=aud.play();if(p&&p.catch)p.catch(thwack)};
- $("spSnd").onclick=e=>{e.stopPropagation();$("spSnd").textContent="🔊 ON";
-  aud.muted=true;const u=aud.play();if(u&&u.then)u.then(()=>{aud.pause();aud.currentTime=0;aud.muted=false}).catch(()=>{aud.muted=false});
-  setTimeout(play,Math.max(HIT-(performance.now()-t0),250))};
+ setTimeout(play,HIT);
  const hide=()=>{aud.pause();sp.classList.add("out");setTimeout(()=>sp.remove(),550)};
  sp.onclick=hide;
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
