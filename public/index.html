@@ -3,80 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CricScore India – Live cricket scores, Team India matches</title>
-<meta name="description" content="Live cricket scores, scorecards and Team India matches. Hindi and English.">
-<meta name="theme-color" content="#0b4fb3">
+<title>CricScore India – Live cricket scores, scorecards and news</title>
+<meta name="description" content="Live cricket scores, scorecards, venue weather, player info and news. Team India first. Hindi and English.">
+<meta name="theme-color" content="#0f172a">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Hind:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f2f5fb;--card:#fff;--ink:#0d1b3d;--mut:#5a6785;--line:#dbe2f0;--blue:#0b4fb3;--saf:#ff8a1f;--live:#e5372b;--ok:#0a7d3b}
-:root[data-theme=dark]{--bg:#0a1226;--card:#131d38;--ink:#e9eefb;--mut:#9fb0d3;--line:#25335a;--blue:#5b9bff;--saf:#ffa24d;--live:#ff6b5e;--ok:#4fd48a}
+:root{--bg:#f4f5f7;--card:#fff;--ink:#111827;--mut:#6b7280;--line:#e5e7eb;--hd:#0f172a;--acc:#15803d;--live:#dc2626;--saf:#f97316;--lnk:#1d4ed8}
+:root[data-theme=dark]{--bg:#0b0f17;--card:#121826;--ink:#e5e7eb;--mut:#9ca3af;--line:#1f2937;--hd:#05080d;--acc:#4ade80;--live:#f87171;--saf:#fb923c;--lnk:#7aa2ff}
 *{box-sizing:border-box}
-body{margin:0;font-family:"Hind",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-h1,h2,h3,.sc{font-family:"Baloo 2","Hind",sans-serif}
-header{background:var(--blue);color:#fff;border-bottom:5px solid var(--saf)}
-header .in{max-width:760px;margin:0 auto;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-header h1{margin:0;font-size:1.45rem;font-weight:800}
-header h1 span{color:var(--saf)}
-.tools{display:flex;gap:8px}
-.tools button{background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:8px;padding:7px 12px;font:inherit;font-weight:600;cursor:pointer}
-main{max-width:760px;margin:0 auto;padding:14px}
-.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.chip,select{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 14px;cursor:pointer}
-.chip.on{background:var(--saf);border-color:var(--saf);color:#14213d;font-weight:600}
-select{max-width:46%}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;background:var(--card);padding:5px;border-radius:12px;border:1px solid var(--line)}
-.tabs button{border:0;background:none;color:var(--ink);padding:10px 4px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
-.tabs button.on{background:var(--blue);color:#fff}
-.tabs i{font-style:normal;opacity:.75;font-weight:400}
-#meta{font-size:.82rem;color:var(--mut);margin:10px 2px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
-.card.in{border-left:5px solid var(--saf)}
-.card.feat{border-color:var(--blue);box-shadow:0 4px 16px rgba(11,79,179,.18)}
-.top{display:flex;justify-content:space-between;gap:8px;font-size:.8rem;color:var(--mut)}
-.live{color:var(--live);font-weight:700;white-space:nowrap}
-.tag{background:var(--saf);color:#14213d;border-radius:6px;padding:0 7px;font-weight:600;font-size:.75rem;margin-right:6px}
-.team{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;font-weight:600}
-.sc{font-size:1.25rem;font-variant-numeric:tabular-nums}
-.feat .sc{font-size:1.6rem}
-.st{margin-top:8px;color:var(--ok);font-size:.92rem}
-.act{display:flex;gap:8px;margin-top:12px}
-.act button,.act a{font:inherit;font-size:.88rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;text-decoration:none}
-.act .wa{border-color:#25d366;color:#128c4a}
-:root[data-theme=dark] .act .wa{color:#4fe08a}
-.nw a{color:var(--ink);font-weight:600;text-decoration:none;font-size:1.02rem}.nw a:hover{text-decoration:underline}.nw p{margin:6px 0 0;color:var(--mut);font-size:.9rem}
-.msg{text-align:center;color:var(--mut);padding:36px 10px}
-.sk{height:96px;border-radius:14px;margin-bottom:12px;background:linear-gradient(90deg,var(--card),var(--line),var(--card));background-size:200% 100%;animation:sh 1.3s linear infinite}
+body{margin:0;font:15px/1.5 "Inter","Noto Sans Devanagari",system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+.w{max-width:1040px;margin:0 auto;padding:0 16px}
+.hd{background:var(--hd);color:#fff;position:relative}
+.hd::before{content:"";display:block;height:3px;background:linear-gradient(90deg,#ff9933 33.3%,#fff 33.3% 66.6%,#138808 66.6%)}
+.hd .w{display:flex;align-items:center;justify-content:space-between;height:54px}
+.lg{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1.15rem;letter-spacing:-.2px}
+.lg small{font-size:.62rem;letter-spacing:.2em;color:var(--saf);font-weight:700;margin-left:-3px;align-self:flex-end;padding-bottom:3px}
+.tools{display:flex;gap:6px}
+.tools button{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:4px 11px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+.tb{background:var(--hd);position:sticky;top:0;z-index:5;border-bottom:1px solid rgba(255,255,255,.08)}
+#tabs{display:flex;overflow-x:auto;scrollbar-width:none}
+#tabs button{background:none;border:0;border-bottom:3px solid transparent;color:#9ca9bd;padding:10px 16px 8px;font:inherit;font-weight:600;font-size:.92rem;cursor:pointer;white-space:nowrap}
+#tabs button.on{color:#fff;border-bottom-color:var(--acc)}
+#tabs span{color:#7b8aa3;font-weight:500;margin-left:5px}
+.strip{display:flex;gap:10px;overflow-x:auto;padding:14px 16px;max-width:1040px;margin:0 auto;scrollbar-width:thin}
+.mini{flex:0 0 196px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 12px;font:inherit;color:var(--ink);cursor:pointer}
+.mini.in{box-shadow:inset 3px 0 0 var(--saf)}
+.mt{font-size:.68rem;font-weight:600;letter-spacing:.04em;color:var(--mut);margin-bottom:3px}
+.mr{display:flex;justify-content:space-between;font-weight:600;font-size:.88rem}
+.mr span:last-child,.sc{font-variant-numeric:tabular-nums}
+.ms{font-size:.72rem;color:var(--mut);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--live);margin-right:5px;animation:pl 1.4s infinite}
+@keyframes pl{50%{opacity:.25}}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:4px 0 10px}
+.seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--card)}
+.seg button{border:0;background:none;color:var(--ink);padding:6px 14px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+.seg button.on{background:var(--hd);color:#fff}
+:root[data-theme=dark] .seg button.on{background:var(--acc);color:#05080d}
+select{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:7px;padding:6px 10px;max-width:50%}
+#meta{font-size:.78rem;color:var(--mut);margin:0 2px 8px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:30px}
+.row{padding:14px 16px;border-bottom:1px solid var(--line)}.row:last-child{border:0}
+.row.in{box-shadow:inset 3px 0 0 var(--saf)}
+.ttl{font-weight:600;font-size:.95rem}
+.vn{font-size:.78rem;color:var(--mut);margin-top:1px}
+.rb{display:grid;gap:10px;margin-top:10px}
+@media(min-width:700px){.rb{grid-template-columns:1.3fr 1fr;align-items:center}}
+.tm{display:flex;align-items:center;gap:10px;padding:3px 0}
+.bd{position:relative;flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:.6rem;font-weight:700;overflow:hidden;color:var(--mut)}
+.bd img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--card)}
+.nm{flex:1;font-weight:500}
+.sc{font-weight:700;font-size:1rem}
+.st{font-size:.86rem;font-weight:600;line-height:1.35}
+.st.live{color:var(--live)}.st.done{color:var(--acc)}.st.up{color:var(--mut)}
+.act{display:flex;gap:8px;margin-top:8px}
+.act button,.act a,.lk{font:inherit;font-size:.8rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--ink);border-radius:6px;padding:4px 11px;cursor:pointer;text-decoration:none}
+.act button:hover,.act a:hover{border-color:var(--ink)}
+.tag{font-size:.65rem;font-weight:700;letter-spacing:.06em;background:var(--saf);color:#111;border-radius:4px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+.live{color:var(--live);font-weight:700;font-size:.72rem;letter-spacing:.05em;margin-right:6px}
+.nw a{color:var(--ink);font-weight:600;text-decoration:none}.nw a:hover{color:var(--lnk)}
+.nw p{margin:4px 0 0;color:var(--mut);font-size:.88rem}
+.msg{text-align:center;color:var(--mut);padding:40px 10px}
+.sk{height:84px;margin:12px 16px;border-radius:8px;background:linear-gradient(90deg,var(--card),var(--line),var(--card));background-size:200% 100%;animation:sh 1.3s linear infinite}
 @keyframes sh{to{background-position:-200% 0}}
-dialog{width:min(720px,96vw);max-height:88vh;border:0;border-radius:14px;padding:0;background:var(--card);color:var(--ink)}
+dialog{width:min(720px,96vw);max-height:88vh;border:0;border-radius:12px;padding:0;background:var(--card);color:var(--ink)}
 dialog::backdrop{background:rgba(0,0,0,.55)}
-.dh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card)}
-.dh h2{margin:0;font-size:1.1rem}
-.dh button{border:0;background:none;color:var(--ink);font-size:1.5rem;cursor:pointer}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--hd);color:#fff;position:sticky;top:0}
+.dh h2{margin:0;font-size:1rem;font-weight:600}.dh button{border:0;background:none;color:#fff;font-size:1.5rem;cursor:pointer}
 .db{padding:4px 16px 16px}
+.wx{font-size:.85rem;color:var(--mut);padding:10px 0 4px}
+.db h3{font-size:.95rem;margin:16px 0 4px}
 .tw{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.9rem}
-th,td{text-align:right;padding:6px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:right;padding:6px;border-bottom:1px solid var(--line);white-space:nowrap}
 th:first-child,td:first-child{text-align:left;white-space:normal}
-th{color:var(--mut);font-weight:600}
-td small{display:block;color:var(--mut)}
-button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--saf);outline-offset:2px}
-@media(prefers-reduced-motion:reduce){.sk{animation:none}}
+th{color:var(--mut);font-weight:600;font-size:.75rem;background:var(--bg)}
+td small{display:block;color:var(--mut);font-size:.74rem}
+.pn{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--lnk);cursor:pointer;text-align:left}
+.pn:hover{text-decoration:underline}
+.ph{float:right;width:96px;height:auto;border-radius:8px;margin:0 0 8px 12px}
+.db p{margin:8px 0}.db a{color:var(--lnk)}
+.note{font-size:.75rem;color:var(--mut)}
+button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
 </style>
 </head>
 <body>
-<header><div class="in"><h1>🏏 CricScore <span>India</span></h1>
-<div class="tools"><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">🌓</button></div></div></header>
-<main>
-<div class="bar"><button class="chip" id="fIn"></button><button class="chip" id="fAll"></button><select id="fav" aria-label="My team"></select></div>
-<div class="tabs" id="tabs"></div>
+<header class="hd"><div class="w"><div class="lg"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#c1272d"/><path d="M5 6c4 3 4 9 0 12M19 6c-4 3-4 9 0 12" stroke="#fff" stroke-width="1.4" fill="none" stroke-dasharray="2 2"/></svg>CricScore<small>INDIA</small></div>
+<div class="tools"><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">◐</button></div></div></header>
+<div class="tb"><div class="w"><div id="tabs"></div></div></div>
+<div class="strip" id="strip"></div>
+<main class="w">
+<div class="bar" id="bar"><div class="seg"><button id="fIn"></button><button id="fAll"></button></div><select id="fav" aria-label="My team"></select></div>
 <div id="meta" role="status"></div>
 <div id="list"></div>
 </main>
-<dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button id="dx" aria-label="Close">×</button></div><div class="db" id="db"></div></dialog>
+<dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button id="dx" aria-label="Close">×</button></div><div class="db"><div class="wx" id="wx"></div><div id="db"></div></div></dialog>
+<dialog id="pl"><div class="dh"><h2 id="pt"></h2><button id="px" aria-label="Close">×</button></div><div class="db" id="pb"></div></dialog>
 <script>
-const L={en:{news:"News",nonews:"News is not available right now.",live:"Live",up:"Upcoming",done:"Completed",ind:"Team India",all:"All matches",fav:"My team",none:"My team: none",empty:"No matches in this section right now.",upd:"Updated",ago:"min ago",now:"just now",sc:"Scorecard",wa:"Share",bat:"Batting",bowl:"Bowling",nosc:"Scorecard is not available for this match yet.",err:"Could not load scores. Please try again in a few minutes.",lv:"LIVE",tI:"India"},
-hi:{news:"खबरें",nonews:"अभी खबरें उपलब्ध नहीं हैं।",live:"लाइव",up:"आने वाले",done:"खत्म",ind:"टीम इंडिया",all:"सभी मैच",fav:"मेरी टीम",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया"}};
+const L={en:{news:"News",nonews:"News is not available right now.",live:"Live",up:"Upcoming",done:"Recent",ind:"Team India",all:"All matches",none:"My team: none",empty:"No matches in this section right now.",upd:"Updated",ago:"min ago",now:"just now",sc:"Scorecard",wa:"Share",bat:"Batting",bowl:"Bowling",nosc:"Scorecard is not available for this match yet.",err:"Could not load scores. Please try again in a few minutes.",lv:"LIVE",tI:"INDIA",wind:"wind",wiki:"Read more on Wikipedia",nop:"Player details not found.",wnote:"Source: Wikipedia. The match may not always be exact."},
+hi:{news:"खबरें",nonews:"अभी खबरें उपलब्ध नहीं हैं।",live:"लाइव",up:"आने वाले",done:"हाल के",ind:"टीम इंडिया",all:"सभी मैच",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया",wind:"हवा",wiki:"विकिपीडिया पर पढ़ें",nop:"खिलाड़ी की जानकारी नहीं मिली।",wnote:"स्रोत: विकिपीडिया। हो सकता है नाम पूरी तरह न मिले।"}};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const get=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
@@ -86,39 +112,51 @@ const t=k=>L[S.lang][k];
 const kind=m=>m.matchEnded?"done":m.matchStarted?"live":"up";
 const isInd=m=>(m.teams||[]).some(x=>/india/i.test(x));
 const score=(m,tm)=>((m.score||[]).filter(s=>(s.inning||"").toLowerCase().includes(tm.toLowerCase())).map(s=>`${s.r}/${s.w} (${s.o})`).join(" & "))||"-";
-function applyTheme(){document.documentElement.dataset.theme=S.theme}
+function badge(m,n){
+ const i=(m.teamInfo||[]).find(x=>x.name===n)||{};
+ const sn=(i.shortname||n.split(/\s+/).map(w=>w[0]).join("")).slice(0,4).toUpperCase();
+ return{sn,html:`<span class="bd">${esc(sn.slice(0,3))}${i.img?`<img src="${esc(i.img)}" alt="" loading="lazy" onerror="this.remove()">`:""}</span>`};
+}
+const dat=m=>`data-id="${esc(m.id)}" data-n="${esc((m.teams||[]).join(" vs "))}" data-v="${esc(m.venue)}"`;
 function shell(){
  document.documentElement.lang=S.lang;
- $("fIn").textContent="🇮🇳 "+t("ind");$("fIn").classList.toggle("on",S.india);
+ $("fIn").textContent=t("ind");$("fIn").classList.toggle("on",S.india);
  $("fAll").textContent=t("all");$("fAll").classList.toggle("on",!S.india);
  const teams=[...new Set(S.matches.flatMap(m=>m.teams||[]))].sort();
  $("fav").innerHTML=`<option value="">${esc(t("none"))}</option>`+teams.map(x=>`<option ${x===S.fav?"selected":""}>${esc(x)}</option>`).join("");
  $("lang").textContent=S.lang==="en"?"हिं":"EN";
 }
+function strip(){
+ const o={live:0,done:1,up:2};
+ const a=[...S.matches].sort((x,y)=>o[kind(x)]-o[kind(y)]||(isInd(y)-isInd(x))).slice(0,12);
+ $("strip").innerHTML=a.map(m=>`<button class="mini ${isInd(m)?"in":""}" ${dat(m)}><div class="mt">${kind(m)==="live"?`<span class="dot"></span>${t("lv")}`:esc(m.matchType).toUpperCase()}</div>${(m.teams||[]).map(x=>`<div class="mr"><span>${esc(badge(m,x).sn)}</span><span>${esc(score(m,x))}</span></div>`).join("")}<div class="ms">${esc(m.status)}</div></button>`).join("");
+}
 function render(){
- shell();
+ shell();strip();
  const pool=S.india?S.matches.filter(isInd):S.matches;
  const cnt={live:0,up:0,done:0};pool.forEach(m=>cnt[kind(m)]++);
- $("tabs").innerHTML=["live","up","done","news"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)}${k==="news"?"":` <i>${cnt[k]}</i>`}</button>`).join("");
- if(S.tab==="news"){$("meta").textContent="";return renderNews()}
+ $("tabs").innerHTML=["live","up","done","news"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)}${k==="news"?"":`<span>${cnt[k]}</span>`}</button>`).join("");
+ const nws=S.tab==="news";$("bar").hidden=nws;
+ if(nws){$("meta").textContent="";return renderNews()}
  let items=pool.filter(m=>kind(m)===S.tab);
  const w=m=>(S.fav&&(m.teams||[]).includes(S.fav)?2:0)+(isInd(m)?1:0);
  items=items.map((m,i)=>[m,i]).sort((a,b)=>w(b[0])-w(a[0])||a[1]-b[1]).map(x=>x[0]);
  const mins=S.at?Math.floor((Date.now()-S.at)/60000):null;
  $("meta").textContent=S.err||(mins===null?"":`${t("upd")}: ${mins<1?t("now"):mins+" "+t("ago")}`);
- if(!S.matches.length&&!S.err){$("list").innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';return}
+ const sk='<div class="panel"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
+ if(!S.matches.length&&!S.err){$("list").innerHTML=sk;return}
  if(S.err&&!S.matches.length){$("list").innerHTML=`<div class="msg">${esc(t("err"))}</div>`;return}
  if(!items.length){$("list").innerHTML=`<div class="msg">${esc(t("empty"))}</div>`;return}
- $("list").innerHTML=items.map((m,i)=>`<div class="card ${isInd(m)?"in":""} ${i===0&&S.tab==="live"?"feat":""}">
- <div class="top"><span>${isInd(m)?`<span class="tag">${t("tI")}</span>`:""}${esc(m.matchType).toUpperCase()} • ${esc(m.venue)}</span>${kind(m)==="live"?`<span class="live">● ${t("lv")}</span>`:`<span>${esc(m.date)}</span>`}</div>
- ${(m.teams||[]).map(x=>`<div class="team"><span>${esc(x)}</span><span class="sc">${esc(score(m,x))}</span></div>`).join("")}
- <div class="st">${esc(m.status)}</div>
- <div class="act"><button data-id="${esc(m.id)}" data-n="${esc((m.teams||[]).join(" vs "))}">${t("sc")}</button><a class="wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin)}">${t("wa")} 📲</a></div></div>`).join("");
+ $("list").innerHTML='<div class="panel">'+items.map(m=>{const k=kind(m);return`<div class="row ${isInd(m)?"in":""}">
+ <div class="ttl">${isInd(m)?`<span class="tag">${t("tI")}</span>`:""}${k==="live"?`<span class="live"><span class="dot"></span>${t("lv")}</span>`:""}${esc(m.name||(m.teams||[]).join(" vs "))}</div>
+ <div class="vn">${esc(m.matchType).toUpperCase()} • ${esc(m.venue)}${k==="live"?"":" • "+esc(m.date)}</div>
+ <div class="rb"><div>${(m.teams||[]).map(x=>`<div class="tm">${badge(m,x).html}<span class="nm">${esc(x)}</span><span class="sc">${esc(score(m,x))}</span></div>`).join("")}</div>
+ <div><div class="st ${k}">${esc(m.status)}</div><div class="act"><button ${dat(m)}>${t("sc")}</button><a target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin)}">${t("wa")}</a></div></div></div></div>`}).join("")+'</div>';
 }
 function renderNews(){
- if(S.news===null){$("list").innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';return}
+ if(S.news===null){$("list").innerHTML='<div class="panel"><div class="sk"></div><div class="sk"></div></div>';return}
  if(!S.news.length){$("list").innerHTML=`<div class="msg">${esc(t("nonews"))}</div>`;return}
- $("list").innerHTML=S.news.map(n=>`<div class="card nw"><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a><p>${esc((n.description||"").slice(0,160))}</p><div class="top" style="margin-top:8px"><span>${esc(n.source)}</span><span>${esc((n.pubDate||"").slice(0,10))}</span></div></div>`).join("");
+ $("list").innerHTML='<div class="panel">'+S.news.map(n=>`<div class="row nw"><a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.title)}</a><p>${esc((n.description||"").slice(0,160))}</p><div class="vn">${esc(n.source)} • ${esc((n.pubDate||"").slice(0,10))}</div></div>`).join("")+'</div>';
 }
 async function loadNews(){
  try{const r=await fetch("/api/news");const d=await r.json();S.news=Array.isArray(d)?d:[]}catch(e){S.news=[]}
@@ -126,31 +164,58 @@ async function loadNews(){
 }
 async function load(){
  try{const r=await fetch("/api/matches");const d=await r.json();if(d.error)throw new Error(d.error);S.matches=d.matches||[];S.at=d.updatedAt||Date.now();S.err=""}
- catch(e){S.err=S.matches.length?t("err"):"";if(!S.matches.length)S.err=t("err")}
+ catch(e){S.err=t("err")}
  render();
 }
+/* Venue weather: Open-Meteo, no key needed */
+const wx={};
+const WI=c=>c===0?["☀️","Clear"]:c<=3?["⛅","Partly cloudy"]:c<=48?["🌫️","Fog"]:c<=67?["🌧️","Rain"]:c<=77?["❄️","Snow"]:c<=82?["🌦️","Showers"]:["⛈️","Thunderstorm"];
+async function weather(venue){
+ const city=(venue||"").split(",").pop().trim();if(!city)return"";
+ if(wx[city]!==undefined)return wx[city];
+ try{
+  const g=await(await fetch("https://geocoding-api.open-meteo.com/v1/search?count=1&name="+encodeURIComponent(city))).json();
+  const p=g.results&&g.results[0];if(!p)return wx[city]="";
+  const w=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.latitude}&longitude=${p.longitude}&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto`)).json();
+  const c=w.current,i=WI(c.weather_code);
+  return wx[city]=`${i[0]} ${city}: ${Math.round(c.temperature_2m)}°C, ${i[1]}, ${t("wind")} ${Math.round(c.wind_speed_10m)} km/h`;
+ }catch(e){return wx[city]=""}
+}
+/* Player info: Wikipedia, no key needed */
+async function player(name){
+ $("pt").textContent=name;$("pb").innerHTML='<div class="sk" style="margin:12px 0"></div>';$("pl").showModal();
+ try{
+  const s=await(await fetch("https://en.wikipedia.org/w/api.php?action=query&list=search&srlimit=1&format=json&origin=*&srsearch="+encodeURIComponent(name+" cricketer"))).json();
+  const title=s.query.search[0].title;
+  const r=await(await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(title))).json();
+  $("pb").innerHTML=`${r.thumbnail?`<img class="ph" src="${esc(r.thumbnail.source)}" alt="">`:""}<p><b>${esc(r.title||title)}</b><br>${esc(r.description||"")}</p><p>${esc((r.extract||"").slice(0,650))}</p><p><a href="${esc(r.content_urls?.desktop?.page||"#")}" target="_blank" rel="noopener">${t("wiki")}</a></p><p class="note">${esc(t("wnote"))}</p>`;
+ }catch(e){$("pb").innerHTML=`<p>${esc(t("nop"))}</p>`}
+}
+const pn=n=>n?`<button class="pn" data-p="${esc(n)}">${esc(n)}</button>`:"";
 const tbl=(h,rows)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows}</table></div>`;
 function card(d){
  const inns=d.scorecard||[];if(!inns.length)return`<p>${t("nosc")}</p>`;
  return inns.map(i=>`<h3>${esc(i.inning)}</h3>`+
- tbl([t("bat"),"R","B","4s","6s"],(i.batting||[]).map(b=>`<tr><td>${esc(b.batsman?.name)}<small>${esc(b["dismissal-text"]||"")}</small></td><td>${esc(b.r)}</td><td>${esc(b.b)}</td><td>${esc(b["4s"])}</td><td>${esc(b["6s"])}</td></tr>`).join(""))+
- tbl([t("bowl"),"O","M","R","W"],(i.bowling||[]).map(b=>`<tr><td>${esc(b.bowler?.name)}</td><td>${esc(b.o)}</td><td>${esc(b.m)}</td><td>${esc(b.r)}</td><td>${esc(b.w)}</td></tr>`).join(""))).join("");
+ tbl([t("bat"),"R","B","4s","6s"],(i.batting||[]).map(b=>`<tr><td>${pn(b.batsman?.name)}<small>${esc(b["dismissal-text"]||"")}</small></td><td>${esc(b.r)}</td><td>${esc(b.b)}</td><td>${esc(b["4s"])}</td><td>${esc(b["6s"])}</td></tr>`).join(""))+
+ tbl([t("bowl"),"O","M","R","W"],(i.bowling||[]).map(b=>`<tr><td>${pn(b.bowler?.name)}</td><td>${esc(b.o)}</td><td>${esc(b.m)}</td><td>${esc(b.r)}</td><td>${esc(b.w)}</td></tr>`).join(""))).join("");
 }
-$("list").addEventListener("click",async e=>{
+document.addEventListener("click",async e=>{
+ const p=e.target.closest("button[data-p]");if(p){player(p.dataset.p);return}
  const b=e.target.closest("button[data-id]");if(!b)return;
- $("dt").textContent=b.dataset.n;$("db").innerHTML='<div class="sk"></div>';$("dlg").showModal();
+ $("dt").textContent=b.dataset.n;$("wx").textContent="";$("db").innerHTML='<div class="sk" style="margin:12px 0"></div>';$("dlg").showModal();
+ weather(b.dataset.v).then(x=>{$("wx").textContent=x});
  try{const r=await fetch("/api/match/"+encodeURIComponent(b.dataset.id));const d=await r.json();if(d.error)throw new Error(d.error);$("db").innerHTML=card(d)}
  catch(err){$("db").innerHTML=`<p>${esc(t("nosc"))}</p>`}
 });
-$("dx").onclick=()=>$("dlg").close();
-$("dlg").addEventListener("click",e=>{if(e.target===$("dlg"))$("dlg").close()});
+$("dx").onclick=()=>$("dlg").close();$("px").onclick=()=>$("pl").close();
+for(const id of["dlg","pl"])$(id).addEventListener("click",e=>{if(e.target===$(id))$(id).close()});
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.tab=b.dataset.t;render();if(S.tab==="news"&&S.news===null)loadNews()}});
 $("fIn").onclick=()=>{S.india=true;put("india","1");render()};
 $("fAll").onclick=()=>{S.india=false;put("india","0");render()};
 $("fav").onchange=e=>{S.fav=e.target.value;put("fav",S.fav);render()};
 $("lang").onclick=()=>{S.lang=S.lang==="en"?"hi":"en";put("lang",S.lang);render()};
-$("theme").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";put("theme",S.theme);applyTheme()};
-applyTheme();render();load();setInterval(load,120000);
+$("theme").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";put("theme",S.theme);document.documentElement.dataset.theme=S.theme};
+document.documentElement.dataset.theme=S.theme;render();load();setInterval(load,120000);
 </script>
 </body>
 </html>
