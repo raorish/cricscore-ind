@@ -6,6 +6,7 @@
 <title>CricScore India – Live cricket scores, scorecards and news</title>
 <meta name="description" content="Live cricket scores, scorecards, venue weather, player info and news. Team India first. Hindi and English.">
 <meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="/manifest.json"><link rel="apple-touch-icon" href="/icon-192.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2048%2048%22%3E%3Cdefs%3E%3CclipPath%20id%3D%22c%22%3E%3Crect%20width%3D%2248%22%20height%3D%2248%22%20rx%3D%2212%22/%3E%3C/clipPath%3E%3C/defs%3E%3Cg%20clip-path%3D%22url%28%23c%29%22%3E%3Crect%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23ff9933%22/%3E%3Crect%20y%3D%2216%22%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23fff%22/%3E%3Crect%20y%3D%2232%22%20width%3D%2248%22%20height%3D%2216%22%20fill%3D%22%23138808%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2224%22%20r%3D%2213%22%20fill%3D%22%23c1272d%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22M15%2017c5%204%205%2010%200%2014M33%2017c-5%204-5%2010%200%2014%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221.6%22%20fill%3D%22none%22%20stroke-dasharray%3D%222.4%202%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
@@ -143,6 +144,7 @@ td small{display:block;color:var(--mut);font-size:.74rem}
 :root[data-wp=plain]{--wp:none}
 #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--hd);color:#fff;padding:8px 16px;border-radius:99px;font-size:.85rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s;z-index:50}
 #toast.on{opacity:1}
+.ft{padding:0 16px 40px;font-size:.8rem;color:var(--mut)}.ft div{background:var(--card);border-radius:10px;padding:10px 14px;line-height:1.7}.ft a{color:var(--mut)}
 button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
 </style>
@@ -176,7 +178,7 @@ button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(
 <small>Skip karne ke liye kahin bhi tap karo</small>
 </div>
 <header class="hd"><div class="w"><div class="lg"><svg width="36" height="36" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><clipPath id="lc"><rect width="48" height="48" rx="12"/></clipPath></defs><g clip-path="url(#lc)"><rect width="48" height="16" fill="#ff9933"/><rect y="16" width="48" height="16" fill="#fff"/><rect y="32" width="48" height="16" fill="#138808"/></g><circle cx="24" cy="24" r="13" fill="#c1272d" stroke="#fff" stroke-width="2"/><path d="M15 17c5 4 5 10 0 14M33 17c-5 4-5 10 0 14" stroke="#fff" stroke-width="1.6" fill="none" stroke-dasharray="2.4 2"/></svg>CricScore<small>INDIA</small></div>
-<div class="tools"><button id="wpb" aria-label="Wallpaper" title="Wallpaper">▦</button><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">◐</button></div></div></header>
+<div class="tools"><button id="inst" hidden>⬇ App</button><button id="wpb" aria-label="Wallpaper" title="Wallpaper">▦</button><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">◐</button></div></div></header>
 <div class="tb"><div class="w"><div id="tabs"></div></div></div>
 <div class="strip" id="strip"></div>
 <main class="w">
@@ -184,6 +186,7 @@ button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(
 <div id="meta" role="status"></div>
 <div id="list"></div>
 </main>
+<footer class="ft w"><div><a href="/about">About</a> · <a href="/contact">Contact</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms</a><br>Scores may be delayed. Not affiliated with ICC or BCCI.</div></footer>
 <div id="toast" role="status"></div>
 <dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button id="dx" aria-label="Close">×</button></div><div class="db"><div class="wx" id="wx"></div><div id="db"></div></div></dialog>
 <dialog id="pl"><div class="dh"><h2 id="pt"></h2><button id="px" aria-label="Close">×</button></div><div class="db" id="pb"></div></dialog>
@@ -240,7 +243,7 @@ function render(){
  <div class="ttl">${isInd(m)?`<span class="tag">${t("tI")}</span>`:""}${k==="live"?`<span class="live"><span class="dot"></span>${t("lv")}</span>`:""}${esc(m.name||(m.teams||[]).join(" vs "))}</div>
  <div class="vn">${esc(m.matchType).toUpperCase()} • ${esc(m.venue)}${k==="live"?"":" • "+esc(m.date)}</div>
  <div class="rb"><div>${(m.teams||[]).map(x=>`<div class="tm">${badge(m,x).html}<span class="nm">${esc(x)}</span><span class="sc">${esc(score(m,x))}</span></div>`).join("")}</div>
- <div><div class="st ${k}">${esc(m.status)}</div>${k==="live"?ins(m):""}<div class="act"><button ${dat(m)}>${t("sc")}</button><a target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin)}">${t("wa")}</a></div></div></div></div>`}).join("")+'</div>';
+ <div><div class="st ${k}">${esc(m.status)}</div>${k==="live"?ins(m):""}<div class="act"><button ${dat(m)}>${t("sc")}</button><a target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("🏏 "+(m.teams||[]).join(" vs ")+"\n"+(m.status||"")+"\n"+location.origin+"/match/"+m.id)}">${t("wa")}</a></div></div></div></div>`}).join("")+'</div>';
 }
 function renderNews(){
  if(S.news===null){$("list").innerHTML='<div class="panel"><div class="sk"></div><div class="sk"></div></div>';return}
@@ -348,14 +351,19 @@ function card(d){
  tbl([t("bat"),"R","B","4s","6s"],(i.batting||[]).map(b=>`<tr><td>${pn(b.batsman?.name)}<small>${esc(b["dismissal-text"]||"")}</small></td><td>${esc(b.r)}</td><td>${esc(b.b)}</td><td>${esc(b["4s"])}</td><td>${esc(b["6s"])}</td></tr>`).join(""))+
  tbl([t("bowl"),"O","M","R","W"],(i.bowling||[]).map(b=>`<tr><td>${pn(b.bowler?.name)}</td><td>${esc(b.o)}</td><td>${esc(b.m)}</td><td>${esc(b.r)}</td><td>${esc(b.w)}</td></tr>`).join(""))).join("");
 }
-document.addEventListener("click",async e=>{
- const p=e.target.closest("button[data-p]");if(p){player(p.dataset.p);return}
- const b=e.target.closest("button[data-id]");if(!b)return;
- $("dt").textContent=b.dataset.n;$("wx").textContent="";$("db").innerHTML='<div class="sk" style="margin:12px 0"></div>';$("dlg").showModal();
- weather(b.dataset.v).then(x=>{$("wx").textContent=x});
- try{const r=await fetch("/api/match/"+encodeURIComponent(b.dataset.id));const d=await r.json();if(d.error)throw new Error(d.error);$("db").innerHTML=card(d)}
+async function openMatch(id,name,venue){
+ $("dt").textContent=name||"";$("wx").textContent="";$("db").innerHTML='<div class="sk" style="margin:12px 0"></div>';
+ if(!$("dlg").open)$("dlg").showModal();
+ try{history.replaceState(null,"","/match/"+encodeURIComponent(id))}catch(e){}
+ if(venue)weather(venue).then(x=>{$("wx").textContent=x});
+ try{const r=await fetch("/api/match/"+encodeURIComponent(id));const d=await r.json();if(d.error)throw new Error(d.error);$("db").innerHTML=card(d)}
  catch(err){$("db").innerHTML=`<p>${esc(t("nosc"))}</p>`}
+}
+document.addEventListener("click",e=>{
+ const p=e.target.closest("button[data-p]");if(p){player(p.dataset.p);return}
+ const b=e.target.closest("button[data-id]");if(b)openMatch(b.dataset.id,b.dataset.n,b.dataset.v);
 });
+$("dlg").addEventListener("close",()=>{if(location.pathname.startsWith("/match/"))try{history.replaceState(null,"","/")}catch(e){}});
 $("dx").onclick=()=>$("dlg").close();$("px").onclick=()=>$("pl").close();
 for(const id of["dlg","pl"])$(id).addEventListener("click",e=>{if(e.target===$(id))$(id).close()});
 $("tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b){S.tab=b.dataset.t;render();if(S.tab==="news"&&S.news===null)loadNews()}});
@@ -370,6 +378,10 @@ const WPS=["stadium","pitch","tricolor","photo","plain"],WPN={en:["Stadium","Pit
 let tt;$("wpb").onclick=()=>{S.wp=WPS[(WPS.indexOf(S.wp)+1)%WPS.length];put("wp",S.wp);document.documentElement.dataset.wp=S.wp;$("toast").textContent="▦ "+WPN[S.lang][WPS.indexOf(S.wp)];$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),1600)};
 if(!WPS.includes(S.wp))S.wp="stadium";document.documentElement.dataset.wp=S.wp;
 document.documentElement.dataset.theme=S.theme;render();const first=load();setInterval(load,120000);splash(first);
+if(location.pathname.startsWith("/match/")){const id=decodeURIComponent(location.pathname.split("/")[2]||"");first.then(()=>{const m=S.matches.find(x=>x.id===id);openMatch(id,m?(m.teams||[]).join(" vs "):"",m&&m.venue)})}
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+let dp;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;$("inst").hidden=false});
+$("inst").onclick=async()=>{if(!dp)return;dp.prompt();try{await dp.userChoice}catch(e){}dp=null;$("inst").hidden=true};
 </script>
 </body>
 </html>
