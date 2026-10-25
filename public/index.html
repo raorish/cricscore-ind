@@ -149,6 +149,15 @@ td small{display:block;color:var(--mut);font-size:.74rem}
 .wp b{flex:1;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--saf) var(--p),var(--acc) 0)}
 .aib{font:inherit;font-size:.85rem;font-weight:700;border:1px solid var(--lnk);color:var(--lnk);background:none;border-radius:8px;padding:6px 12px;cursor:pointer;margin:8px 0}
 .aitx{background:var(--bg);border-radius:8px;padding:10px 12px;margin:8px 0;font-size:.92rem}
+.sbd{padding:6px 0 2px}.sbd .tm{padding:4px 0}
+.itabs{display:flex;gap:6px;overflow-x:auto;margin:12px 0 6px;position:sticky;top:48px;background:var(--card);padding:6px 0;z-index:2}
+.itabs button{flex:0 0 auto;font:inherit;font-size:.82rem;font-weight:600;border:1px solid var(--line);background:none;color:var(--ink);border-radius:99px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+.itabs button.on{background:var(--hd);color:#fff;border-color:var(--hd)}
+:root[data-theme=dark] .itabs button.on{background:var(--acc);color:#05080d;border-color:var(--acc)}
+.hlx{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.hl{flex:1 1 180px;background:var(--bg);border-radius:8px;padding:8px 12px;font-size:.84rem}
+td.r{background:linear-gradient(90deg,rgba(21,128,61,.2) var(--w),transparent 0)}
+td small.no{color:var(--acc);font-weight:600}
+.ex{font-size:.84rem;color:var(--mut);padding:6px 4px}.ex.tot{color:var(--ink)}
 button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
 </style>
@@ -199,8 +208,8 @@ const L={en:{news:"News",nonews:"News is not available right now.",live:"Live",u
 hi:{news:"खबरें",nonews:"अभी खबरें उपलब्ध नहीं हैं।",live:"लाइव",up:"आने वाले",done:"हाल के",ind:"टीम इंडिया",all:"सभी मैच",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया",wind:"हवा",wiki:"विकिपीडिया पर पढ़ें",nop:"खिलाड़ी की जानकारी नहीं मिली।",wnote:"स्रोत: विकिपीडिया। हो सकता है नाम पूरी तरह न मिले।"}};
 Object.assign(L.en,{quiz:"Quiz",tools:"Tools",proj:"Projected",need:"Need",inn:"in",balls:"balls",qh:"Daily Cricket Quiz",qs:"Question",next:"Next",fin:"Your score",again:"Play again",shq:"Share score",come:"New questions every day.",rrr:"Required run rate",tg:"Target",rs:"Runs scored",to:"Total overs",ob:"Overs bowled (e.g. 12.3)",sr:"Strike rate",ec:"Economy rate",rn:"Runs",bl:"Balls",rc:"Runs conceded",ov:"Overs"});
 Object.assign(L.hi,{quiz:"क्विज़",tools:"टूल्स",proj:"अनुमानित",need:"चाहिए",inn:"में",balls:"गेंद",qh:"रोज़ का क्रिकेट क्विज़",qs:"सवाल",next:"अगला",fin:"आपका स्कोर",again:"फिर खेलें",shq:"स्कोर शेयर करें",come:"हर दिन नए सवाल।",rrr:"आवश्यक रन रेट",tg:"लक्ष्य",rs:"बने रन",to:"कुल ओवर",ob:"फेंके गए ओवर (जैसे 12.3)",sr:"स्ट्राइक रेट",ec:"इकॉनमी रेट",rn:"रन",bl:"गेंद",rc:"दिए गए रन",ov:"ओवर"});
-Object.assign(L.en,{est:"Win chance is a rough estimate",ai:"AI match summary",aiN:"AI-generated, may contain mistakes.",aiE:"Summary is not available right now.",bon:"Alerts ON for Team India and your team",boff:"Alerts OFF",bdn:"Notifications are blocked in browser settings",nb:"Notifications are not supported here"});
-Object.assign(L.hi,{est:"जीतने की संभावना सिर्फ़ एक मोटा अनुमान है",ai:"AI मैच सारांश",aiN:"AI से बना, इसमें गलती हो सकती है।",aiE:"सारांश अभी उपलब्ध नहीं है।",bon:"टीम इंडिया और आपकी टीम के अलर्ट चालू",boff:"अलर्ट बंद",bdn:"ब्राउज़र सेटिंग में नोटिफिकेशन बंद हैं",nb:"यहाँ नोटिफिकेशन उपलब्ध नहीं हैं"});
+Object.assign(L.en,{extras:"Extras",total:"Total",ts:"Top scorer",bb:"Best bowler",link:"Copy link",copied:"Link copied",est:"Win chance is a rough estimate",ai:"AI match summary",aiN:"AI-generated, may contain mistakes.",aiE:"Summary is not available right now.",bon:"Alerts ON for Team India and your team",boff:"Alerts OFF",bdn:"Notifications are blocked in browser settings",nb:"Notifications are not supported here"});
+Object.assign(L.hi,{extras:"अतिरिक्त",total:"कुल",ts:"टॉप स्कोरर",bb:"सर्वश्रेष्ठ गेंदबाज़",link:"लिंक कॉपी करें",copied:"लिंक कॉपी हो गया",est:"जीतने की संभावना सिर्फ़ एक मोटा अनुमान है",ai:"AI मैच सारांश",aiN:"AI से बना, इसमें गलती हो सकती है।",aiE:"सारांश अभी उपलब्ध नहीं है।",bon:"टीम इंडिया और आपकी टीम के अलर्ट चालू",boff:"अलर्ट बंद",bdn:"ब्राउज़र सेटिंग में नोटिफिकेशन बंद हैं",nb:"यहाँ नोटिफिकेशन उपलब्ध नहीं हैं"});
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const get=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
@@ -364,21 +373,47 @@ async function player(name){
 }
 const pn=n=>n?`<button class="pn" data-p="${esc(n)}">${esc(n)}</button>`:"";
 const tbl=(h,rows)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows}</table></div>`;
-function card(d){
- const inns=d.scorecard||[];if(!inns.length)return`<p>${t("nosc")}</p>`;
- return inns.map(i=>`<h3>${esc(i.inning)}</h3>`+
- tbl([t("bat"),"R","B","4s","6s"],(i.batting||[]).map(b=>`<tr><td>${pn(b.batsman?.name)}<small>${esc(b["dismissal-text"]||"")}</small></td><td>${esc(b.r)}</td><td>${esc(b.b)}</td><td>${esc(b["4s"])}</td><td>${esc(b["6s"])}</td></tr>`).join(""))+
- tbl([t("bowl"),"O","M","R","W"],(i.bowling||[]).map(b=>`<tr><td>${pn(b.bowler?.name)}</td><td>${esc(b.o)}</td><td>${esc(b.m)}</td><td>${esc(b.r)}</td><td>${esc(b.w)}</td></tr>`).join(""))).join("");
+let SC=null;
+const num=x=>{const n=parseFloat(x);return isNaN(n)?0:n};
+const sb=m=>m?`<div class="sbd">${(m.teams||[]).map(x=>`<div class="tm">${badge(m,x).html}<span class="nm">${esc(x)}</span><span class="sc">${esc(score(m,x))}</span></div>`).join("")}<div class="st ${kind(m)}">${esc(m.status)}</div></div>`:"";
+function shareBar(id,m){
+ const link=location.origin+"/match/"+encodeURIComponent(id);
+ const txt=m?"🏏 "+(m.teams||[]).map(x=>x+" "+score(m,x)).join(" vs ")+"\n"+(m.status||"")+"\n"+link:link;
+ return`<div class="act" style="margin:10px 0"><a class="wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(txt)}">${t("wa")}</a><button data-copy="${esc(link)}">${t("link")}</button></div>`;
+}
+function inn(i,m){
+ const bat=i.batting||[],bow=i.bowling||[],mx=Math.max(1,...bat.map(b=>num(b.r)));
+ const top=[...bat].filter(b=>b.batsman).sort((a,b)=>num(b.r)-num(a.r))[0];
+ const bb=[...bow].filter(b=>b.bowler).sort((a,b)=>num(b.w)-num(a.w)||num(a.r)-num(b.r))[0];
+ const hl=`<div class="hlx">${top?`<div class="hl">★ ${t("ts")}<br><b>${esc(top.batsman.name)}</b> ${esc(top.r)} (${esc(top.b)})</div>`:""}${bb?`<div class="hl">★ ${t("bb")}<br><b>${esc(bb.bowler.name)}</b> ${esc(bb.w)}/${esc(bb.r)} (${esc(bb.o)})</div>`:""}</div>`;
+ const sr=b=>b.sr!=null&&b.sr!==""?b.sr:(num(b.b)>0?(num(b.r)/num(b.b)*100).toFixed(2):"-");
+ const ov=o=>{o=num(o);return Math.floor(o)+Math.round((o%1)*10)/6};
+ const eco=b=>b.eco!=null&&b.eco!==""?b.eco:(ov(b.o)>0?(num(b.r)/ov(b.o)).toFixed(2):"-");
+ const out=b=>/not out/i.test(b["dismissal-text"]||"");
+ const ex=i.extras!=null&&i.extras!==""?(typeof i.extras==="object"?Object.entries(i.extras).map(([k,v])=>`${k} ${v}`).join(", "):i.extras):"";
+ const ms=((m&&m.score)||[]).find(x=>(x.inning||"").toLowerCase()===(i.inning||"").toLowerCase());
+ const tot=ms?`${ms.r}/${ms.w} (${ms.o} ov)`:"";
+ return hl+tbl([t("bat"),"R","B","4s","6s","SR"],bat.map(b=>`<tr><td>${pn(b.batsman?.name)}<small${out(b)?' class="no"':""}>${esc(b["dismissal-text"]||"")}</small></td><td class="r" style="--w:${Math.round(num(b.r)/mx*100)}%"><b>${esc(b.r)}</b></td><td>${esc(b.b)}</td><td>${esc(b["4s"])}</td><td>${esc(b["6s"])}</td><td>${esc(sr(b))}</td></tr>`).join(""))
+ +(ex?`<div class="ex"><b>${t("extras")}</b>: ${esc(ex)}</div>`:"")+(tot?`<div class="ex tot"><b>${t("total")}</b>: ${esc(tot)}</div>`:"")
+ +tbl([t("bowl"),"O","M","R","W","NB","WD","Eco"],bow.map(b=>`<tr><td>${pn(b.bowler?.name)}</td><td>${esc(b.o)}</td><td>${esc(b.m)}</td><td>${esc(b.r)}</td><td><b>${esc(b.w)}</b></td><td>${esc(b.nb??"-")}</td><td>${esc(b.wd??"-")}</td><td>${esc(eco(b))}</td></tr>`).join(""));
+}
+function paintSC(){
+ const{d,m,i,id}=SC,inns=d.scorecard||[];
+ $("db").innerHTML=sb(m)+shareBar(id,m)+(inns.length?`<div class="itabs">${inns.map((x,k)=>`<button data-inn="${k}" class="${k===i?"on":""}">${esc((x.inning||"").replace(/\s*Inning\s*/i," · Inn "))}</button>`).join("")}</div>`+inn(inns[i],m):`<p>${esc(t("nosc"))}</p>`);
 }
 async function openMatch(id,name,venue){
- $("dt").textContent=name||"";$("wx").textContent="";$("ai").innerHTML=S.ai?`<button class="aib" data-ai="${esc(id)}">✨ ${t("ai")}</button>`:"";$("db").innerHTML='<div class="sk" style="margin:12px 0"></div>';
+ const m=S.matches.find(x=>x.id===id);
+ $("dt").textContent=name||"";$("wx").textContent="";$("ai").innerHTML=S.ai?`<button class="aib" data-ai="${esc(id)}">✨ ${t("ai")}</button>`:"";
+ $("db").innerHTML=sb(m)+'<div class="sk" style="margin:12px 0"></div>';
  if(!$("dlg").open)$("dlg").showModal();
  try{history.replaceState(null,"","/match/"+encodeURIComponent(id))}catch(e){}
  if(venue)weather(venue).then(x=>{$("wx").textContent=x});
- try{const r=await fetch("/api/match/"+encodeURIComponent(id));const d=await r.json();if(d.error)throw new Error(d.error);$("db").innerHTML=card(d)}
- catch(err){$("db").innerHTML=`<p>${esc(t("nosc"))}</p>`}
+ try{const r=await fetch("/api/match/"+encodeURIComponent(id));const d=await r.json();if(d.error)throw new Error(d.error);SC={id,d,m,i:Math.max((d.scorecard||[]).length-1,0)};paintSC()}
+ catch(err){$("db").innerHTML=sb(m)+shareBar(id,m)+`<p>${esc(t("nosc"))}</p>`}
 }
 document.addEventListener("click",e=>{
+ const cp=e.target.closest("button[data-copy]");if(cp){if(navigator.clipboard)navigator.clipboard.writeText(cp.dataset.copy).then(()=>toast(t("copied"))).catch(()=>{});return}
+ const ti=e.target.closest("button[data-inn]");if(ti&&SC){SC.i=+ti.dataset.inn;paintSC();return}
  const p=e.target.closest("button[data-p]");if(p){player(p.dataset.p);return}
  const a=e.target.closest("button[data-ai]");if(a){aiSum(a.dataset.ai);return}
  const b=e.target.closest("button[data-id]");if(b)openMatch(b.dataset.id,b.dataset.n,b.dataset.v);
