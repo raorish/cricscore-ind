@@ -85,6 +85,43 @@ function findPage() {
   }
   return null;
 }
+// ---------- AI match summary (optional: ANTHROPIC_API_KEY Render me daalo) ----------
+const AI_KEY = process.env.ANTHROPIC_API_KEY;
+const AI_MODEL = process.env.AI_MODEL || "claude-haiku-5-5";
+const AI_MAX = 150;                       // roz ki limit, taaki bill na badhe
+let aiDay = "", aiN = 0;
+const sums = new Map();
+app.get("/api/config", (req, res) => res.json({ ai: !!AI_KEY }));
+app.get("/api/summary/:id", async (req, res) => {
+  if (!AI_KEY) return res.status(503).json({ error: "AI summary on nahi hai" });
+  const id = req.params.id;
+  if (!/^[\w-]{8,64}$/.test(id)) return res.status(400).json({ error: "Galat request" });
+  const lang = req.query.lang === "hi" ? "hi" : "en";
+  const m = (list.data || []).find(x => x.id === id);
+  if (!m) return res.status(404).json({ error: "Match abhi list me nahi hai" });
+  const key = `${id}|${lang}|${list.at}`;            // list badalte hi naya summary
+  if (sums.has(key)) return res.json({ text: sums.get(key) });
+  const d = new Date().toISOString().slice(0, 10);
+  if (aiDay !== d) { aiDay = d; aiN = 0; }
+  if (aiN >= AI_MAX) return res.status(429).json({ error: "Aaj ki AI limit poori ho gayi" });
+  aiN++;
+  try {
+    const data = { name: m.name, format: m.matchType, venue: m.venue, date: m.date, status: m.status, teams: m.teams, score: m.score };
+    const prompt = `You write short match updates for an Indian cricket website. Write a 2-3 sentence summary of this match ${lang === "hi" ? "in simple Hindi (Devanagari script)" : "in simple English"}. Use ONLY the facts in the JSON below. Do not mention any player, record or detail that is not in the JSON. If the match has not started, say so briefly. No markdown, no emojis.\n\n${JSON.stringify(data)}`;
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "x-api-key": AI_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+      body: JSON.stringify({ model: AI_MODEL, max_tokens: 220, messages: [{ role: "user", content: prompt }] })
+    });
+    const j = await r.json();
+    const text = j.content && j.content[0] && j.content[0].text;
+    if (!text) throw new Error("AI se jawab nahi mila");
+    if (sums.size > 300) sums.delete(sums.keys().next().value);
+    sums.set(key, text.trim());
+    res.json({ text: text.trim() });
+  } catch (e) { res.status(502).json({ error: "AI summary abhi available nahi hai" }); }
+});
+
 const EMAIL = process.env.CONTACT_EMAIL || "your-email@example.com";   // Render Environment me CONTACT_EMAIL daalo
 const h = x => String(x ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const base = req => `https://${req.get("host")}`;
