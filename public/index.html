@@ -158,6 +158,12 @@ td small{display:block;color:var(--mut);font-size:.74rem}
 td.r{background:linear-gradient(90deg,rgba(21,128,61,.2) var(--w),transparent 0)}
 td small.no{color:var(--acc);font-weight:600}
 .ex{font-size:.84rem;color:var(--mut);padding:6px 4px}.ex.tot{color:var(--ink)}
+.act button.pkd{background:var(--acc);color:#fff;border-color:var(--acc)}
+:root[data-theme=dark] .act button.pkd{color:#05080d}
+.fl{display:block;margin-top:10px;font-size:.8rem;color:var(--mut);font-weight:600}
+.fl input{display:block;width:100%;margin-top:3px;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--ink)}
+.lbt td:nth-child(2),.lbt th:nth-child(2){text-align:left}
+.panel+.panel{margin-top:-14px}
 button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
 </style>
@@ -208,13 +214,13 @@ const L={en:{news:"News",nonews:"News is not available right now.",live:"Live",u
 hi:{news:"खबरें",nonews:"अभी खबरें उपलब्ध नहीं हैं।",live:"लाइव",up:"आने वाले",done:"हाल के",ind:"टीम इंडिया",all:"सभी मैच",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया",wind:"हवा",wiki:"विकिपीडिया पर पढ़ें",nop:"खिलाड़ी की जानकारी नहीं मिली।",wnote:"स्रोत: विकिपीडिया। हो सकता है नाम पूरी तरह न मिले।"}};
 Object.assign(L.en,{quiz:"Quiz",tools:"Tools",proj:"Projected",need:"Need",inn:"in",balls:"balls",qh:"Daily Cricket Quiz",qs:"Question",next:"Next",fin:"Your score",again:"Play again",shq:"Share score",come:"New questions every day.",rrr:"Required run rate",tg:"Target",rs:"Runs scored",to:"Total overs",ob:"Overs bowled (e.g. 12.3)",sr:"Strike rate",ec:"Economy rate",rn:"Runs",bl:"Balls",rc:"Runs conceded",ov:"Overs"});
 Object.assign(L.hi,{quiz:"क्विज़",tools:"टूल्स",proj:"अनुमानित",need:"चाहिए",inn:"में",balls:"गेंद",qh:"रोज़ का क्रिकेट क्विज़",qs:"सवाल",next:"अगला",fin:"आपका स्कोर",again:"फिर खेलें",shq:"स्कोर शेयर करें",come:"हर दिन नए सवाल।",rrr:"आवश्यक रन रेट",tg:"लक्ष्य",rs:"बने रन",to:"कुल ओवर",ob:"फेंके गए ओवर (जैसे 12.3)",sr:"स्ट्राइक रेट",ec:"इकॉनमी रेट",rn:"रन",bl:"गेंद",rc:"दिए गए रन",ov:"ओवर"});
-Object.assign(L.en,{extras:"Extras",total:"Total",ts:"Top scorer",bb:"Best bowler",link:"Copy link",copied:"Link copied",est:"Win chance is a rough estimate",ai:"AI match summary",aiN:"AI-generated, may contain mistakes.",aiE:"Summary is not available right now.",bon:"Alerts ON for Team India and your team",boff:"Alerts OFF",bdn:"Notifications are blocked in browser settings",nb:"Notifications are not supported here"});
-Object.assign(L.hi,{extras:"अतिरिक्त",total:"कुल",ts:"टॉप स्कोरर",bb:"सर्वश्रेष्ठ गेंदबाज़",link:"लिंक कॉपी करें",copied:"लिंक कॉपी हो गया",est:"जीतने की संभावना सिर्फ़ एक मोटा अनुमान है",ai:"AI मैच सारांश",aiN:"AI से बना, इसमें गलती हो सकती है।",aiE:"सारांश अभी उपलब्ध नहीं है।",bon:"टीम इंडिया और आपकी टीम के अलर्ट चालू",boff:"अलर्ट बंद",bdn:"ब्राउज़र सेटिंग में नोटिफिकेशन बंद हैं",nb:"यहाँ नोटिफिकेशन उपलब्ध नहीं हैं"});
+Object.assign(L.en,{pred:"Predict",prh:"Predict the winner",prr:"Get +10 points for every correct pick. Pick before the match starts. Just for fun: no money, no prizes.",yn:"Your name",pk:"Your picks",lk:"Locked (match on)",pend:"Result awaited",okp:"Correct +10",nop:"Wrong",lb:"Leaderboard",pl:"Player",pts:"Pts",wl:"Won/Played",you:"Your rank: #",svd:"Pick saved",nonm:"Write your name first (2+ letters)",nomt:"No upcoming matches to predict right now.",nolb:"No one has scored yet. Be the first!",extras:"Extras",total:"Total",ts:"Top scorer",bb:"Best bowler",link:"Copy link",copied:"Link copied",est:"Win chance is a rough estimate",ai:"AI match summary",aiN:"AI-generated, may contain mistakes.",aiE:"Summary is not available right now.",bon:"Alerts ON for Team India and your team",boff:"Alerts OFF",bdn:"Notifications are blocked in browser settings",nb:"Notifications are not supported here"});
+Object.assign(L.hi,{pred:"भविष्यवाणी",prh:"जीतने वाली टीम चुनें",prr:"हर सही पिक पर +10 अंक। मैच शुरू होने से पहले चुनें। सिर्फ़ मज़े के लिए: कोई पैसा या इनाम नहीं।",yn:"आपका नाम",pk:"आपकी पिक",lk:"बंद (मैच चालू)",pend:"नतीजे का इंतज़ार",okp:"सही +10",nop:"गलत",lb:"लीडरबोर्ड",pl:"खिलाड़ी",pts:"अंक",wl:"जीते/खेले",you:"आपकी रैंक: #",svd:"पिक सेव हो गई",nonm:"पहले अपना नाम लिखें (2+ अक्षर)",nomt:"अभी भविष्यवाणी के लिए कोई मैच नहीं है।",nolb:"अभी किसी के अंक नहीं हैं। पहले आप बनें!",extras:"अतिरिक्त",total:"कुल",ts:"टॉप स्कोरर",bb:"सर्वश्रेष्ठ गेंदबाज़",link:"लिंक कॉपी करें",copied:"लिंक कॉपी हो गया",est:"जीतने की संभावना सिर्फ़ एक मोटा अनुमान है",ai:"AI मैच सारांश",aiN:"AI से बना, इसमें गलती हो सकती है।",aiE:"सारांश अभी उपलब्ध नहीं है।",bon:"टीम इंडिया और आपकी टीम के अलर्ट चालू",boff:"अलर्ट बंद",bdn:"ब्राउज़र सेटिंग में नोटिफिकेशन बंद हैं",nb:"यहाँ नोटिफिकेशन उपलब्ध नहीं हैं"});
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const get=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
 const put=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
-let S={lang:get("lang","en"),theme:get("theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),tab:"live",wp:get("wp","stadium"),bell:get("bell","0")==="1",ai:false,india:get("india","0")==="1",fav:get("fav",""),matches:[],news:null,at:0,err:""};
+let S={lang:get("lang","en"),theme:get("theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),tab:"live",wp:get("wp","stadium"),bell:get("bell","0")==="1",ai:false,pred:false,board:null,india:get("india","0")==="1",fav:get("fav",""),matches:[],news:null,at:0,err:""};
 const t=k=>L[S.lang][k];
 const kind=m=>m.matchEnded?"done":m.matchStarted?"live":"up";
 const isInd=m=>(m.teams||[]).some(x=>/india/i.test(x));
@@ -242,9 +248,9 @@ function render(){
  shell();strip();
  const pool=S.india?S.matches.filter(isInd):S.matches;
  const cnt={live:0,up:0,done:0};pool.forEach(m=>cnt[kind(m)]++);
- $("tabs").innerHTML=["live","up","done","news","quiz","tools"].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)}${cnt[k]===undefined?"":`<span>${cnt[k]}</span>`}</button>`).join("");
- const ex=["news","quiz","tools"].includes(S.tab);$("bar").hidden=ex;
- if(ex){$("meta").textContent="";return S.tab==="news"?renderNews():S.tab==="quiz"?renderQuiz():renderTools()}
+ $("tabs").innerHTML=["live","up","done","news","quiz","tools",...(S.pred?["predict"]:[])].map(k=>`<button data-t="${k}" class="${S.tab===k?"on":""}">${t(k)}${cnt[k]===undefined?"":`<span>${cnt[k]}</span>`}</button>`).join("");
+ const ex=["news","quiz","tools","predict"].includes(S.tab);$("bar").hidden=ex;
+ if(ex){$("meta").textContent="";return S.tab==="news"?renderNews():S.tab==="quiz"?renderQuiz():S.tab==="predict"?renderPredict():renderTools()}
  let items=pool.filter(m=>kind(m)===S.tab);
  const w=m=>(S.fav&&(m.teams||[]).includes(S.fav)?2:0)+(isInd(m)?1:0);
  items=items.map((m,i)=>[m,i]).sort((a,b)=>w(b[0])-w(a[0])||a[1]-b[1]).map(x=>x[0]);
@@ -328,6 +334,31 @@ function splash(first){
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
  Promise.race([Promise.all([sleep(5900),first]),sleep(8000)]).then(hide);
 }
+const uid=(()=>{let u=get("uid","");if(!/^[a-f0-9]{32}$/.test(u)){u=[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,"0")).join("");put("uid",u)}return u})();
+const picks=()=>{try{return JSON.parse(get("picks","{}"))}catch(e){return{}}};
+function winnerOf(m){const st=(m.status||"").toLowerCase();return(m.teams||[]).find(x=>st.includes(x.toLowerCase()+" won"))||null}
+function renderPredict(){
+ const pk=picks(),up=S.matches.filter(m=>kind(m)==="up"),mine=S.matches.filter(m=>pk[m.id]&&kind(m)!=="up");
+ const nm=m=>esc(m.name||(m.teams||[]).join(" vs "));
+ const row=m=>`<div class="row"><div class="ttl">${nm(m)}</div><div class="vn">${esc(m.date)}</div><div class="act">${(m.teams||[]).map((x,i)=>`<button class="${pk[m.id]===x?"pkd":""}" data-pk="${i}" data-m="${esc(m.id)}">${esc(x)}</button>`).join("")}</div></div>`;
+ const res=m=>{const w=winnerOf(m),p=pk[m.id],st=kind(m)==="live"?t("lk"):w?(w===p?t("okp"):t("nop")):t("pend");return`<div class="row"><div class="ttl">${nm(m)}</div><div class="vn">${t("pk")}: <b>${esc(p)}</b> • ${esc(st)}</div></div>`};
+ $("list").innerHTML=`<div class="panel"><div class="row"><div class="ttl">${t("prh")}</div><div class="vn">${t("prr")}</div><label class="fl">${t("yn")}<input id="nick" maxlength="20" value="${esc(get("nick",""))}"></label></div>${up.length?up.map(row).join(""):`<div class="row vn">${t("nomt")}</div>`}</div>`
+ +(mine.length?`<div class="panel"><div class="row"><div class="ttl">${t("pk")}</div></div>${mine.map(res).join("")}</div>`:"")+'<div class="panel" id="lbp"></div>';
+ paintBoard();loadBoard();
+}
+async function loadBoard(){try{const r=await fetch("/api/leaderboard?uid="+uid);const d=await r.json();S.board=d.rows?d:null}catch(e){S.board=null}paintBoard()}
+function paintBoard(){
+ const el=$("lbp");if(!el)return;const b=S.board;
+ el.innerHTML=`<div class="row"><div class="ttl">🏆 ${t("lb")}</div>${b&&b.me?`<div class="vn">${t("you")}${b.me.rank} • ${b.me.points} ${t("pts")}</div>`:""}</div>`+(b&&b.rows.length?`<div class="tw" style="padding:0 8px 8px"><table class="lbt"><tr><th>#</th><th>${t("pl")}</th><th>${t("pts")}</th><th>${t("wl")}</th></tr>${b.rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.nick)}</td><td><b>${esc(r.points)}</b></td><td>${esc(r.won)}/${esc(r.played)}</td></tr>`).join("")}</table></div>`:`<div class="row vn">${t("nolb")}</div>`);
+}
+document.addEventListener("click",async e=>{
+ const b=e.target.closest("button[data-pk]");if(!b)return;
+ const nm=(($("nick")||{}).value||"").trim();if(nm.length<2){toast(t("nonm"));return}put("nick",nm);
+ const m=S.matches.find(x=>x.id===b.dataset.m);if(!m)return;const team=(m.teams||[])[+b.dataset.pk];
+ try{const r=await fetch("/api/predict",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({uid,nick:nm,matchId:m.id,team})});const d=await r.json();
+  if(!r.ok)throw new Error(d.error||"Error");const p=picks();p[m.id]=team;put("picks",JSON.stringify(p));toast(t("svd"));renderPredict()}
+ catch(err){toast(err.message)}
+});
 async function loadNews(){
  try{const r=await fetch("/api/news");const d=await r.json();S.news=Array.isArray(d)?d:[]}catch(e){S.news=[]}
  render();
@@ -435,7 +466,7 @@ $("bell").onclick=async()=>{
  const p=Notification.permission==="granted"?"granted":await Notification.requestPermission();
  if(p==="granted"){S.bell=true;put("bell","1");toast(t("bon"))}else toast(t("bdn"));upBell();
 };
-fetch("/api/config").then(r=>r.json()).then(d=>{S.ai=!!d.ai}).catch(()=>{});
+fetch("/api/config").then(r=>r.json()).then(d=>{S.ai=!!d.ai;S.pred=!!d.predict;render()}).catch(()=>{});
 document.addEventListener("input",e=>{if(e.target.closest(".fg"))calc()});
 document.addEventListener("click",e=>{const o=e.target.closest("[data-o]");if(o){answer(+o.dataset.o);return}if(e.target.closest("[data-nx]")){Q.i++;Q.pick=null;renderQuiz();return}if(e.target.closest("[data-rq]")){Q=null;renderQuiz()}});
 const WPS=["stadium","pitch","tricolor","photo","plain"],WPN={en:["Stadium","Pitch","Tricolor","Photo","Plain"],hi:["स्टेडियम","पिच","तिरंगा","फोटो","सादा"]};
