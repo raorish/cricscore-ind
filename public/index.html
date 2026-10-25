@@ -145,6 +145,10 @@ td small{display:block;color:var(--mut);font-size:.74rem}
 #toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--hd);color:#fff;padding:8px 16px;border-radius:99px;font-size:.85rem;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s;z-index:50}
 #toast.on{opacity:1}
 .ft{padding:0 16px 40px;font-size:.8rem;color:var(--mut)}.ft div{background:var(--card);border-radius:10px;padding:10px 14px;line-height:1.7}.ft a{color:var(--mut)}
+.wp{display:flex;align-items:center;gap:8px;font-size:.76rem;font-weight:600;margin-top:7px}
+.wp b{flex:1;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--saf) var(--p),var(--acc) 0)}
+.aib{font:inherit;font-size:.85rem;font-weight:700;border:1px solid var(--lnk);color:var(--lnk);background:none;border-radius:8px;padding:6px 12px;cursor:pointer;margin:8px 0}
+.aitx{background:var(--bg);border-radius:8px;padding:10px 12px;margin:8px 0;font-size:.92rem}
 button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--lnk);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.sk,.dot{animation:none}}
 </style>
@@ -178,7 +182,7 @@ button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(
 <small>Skip karne ke liye kahin bhi tap karo</small>
 </div>
 <header class="hd"><div class="w"><div class="lg"><svg width="36" height="36" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><clipPath id="lc"><rect width="48" height="48" rx="12"/></clipPath></defs><g clip-path="url(#lc)"><rect width="48" height="16" fill="#ff9933"/><rect y="16" width="48" height="16" fill="#fff"/><rect y="32" width="48" height="16" fill="#138808"/></g><circle cx="24" cy="24" r="13" fill="#c1272d" stroke="#fff" stroke-width="2"/><path d="M15 17c5 4 5 10 0 14M33 17c-5 4-5 10 0 14" stroke="#fff" stroke-width="1.6" fill="none" stroke-dasharray="2.4 2"/></svg>CricScore<small>INDIA</small></div>
-<div class="tools"><button id="inst" hidden>⬇ App</button><button id="wpb" aria-label="Wallpaper" title="Wallpaper">▦</button><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">◐</button></div></div></header>
+<div class="tools"><button id="bell" aria-label="Alerts" title="Alerts">🔔</button><button id="inst" hidden>⬇ App</button><button id="wpb" aria-label="Wallpaper" title="Wallpaper">▦</button><button id="lang" aria-label="Language">हिं</button><button id="theme" aria-label="Theme">◐</button></div></div></header>
 <div class="tb"><div class="w"><div id="tabs"></div></div></div>
 <div class="strip" id="strip"></div>
 <main class="w">
@@ -188,18 +192,20 @@ button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(
 </main>
 <footer class="ft w"><div><a href="/about">About</a> · <a href="/contact">Contact</a> · <a href="/privacy">Privacy Policy</a> · <a href="/terms">Terms</a><br>Scores may be delayed. Not affiliated with ICC or BCCI.</div></footer>
 <div id="toast" role="status"></div>
-<dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button id="dx" aria-label="Close">×</button></div><div class="db"><div class="wx" id="wx"></div><div id="db"></div></div></dialog>
+<dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button id="dx" aria-label="Close">×</button></div><div class="db"><div class="wx" id="wx"></div><div id="ai"></div><div id="db"></div></div></dialog>
 <dialog id="pl"><div class="dh"><h2 id="pt"></h2><button id="px" aria-label="Close">×</button></div><div class="db" id="pb"></div></dialog>
 <script>
 const L={en:{news:"News",nonews:"News is not available right now.",live:"Live",up:"Upcoming",done:"Recent",ind:"Team India",all:"All matches",none:"My team: none",empty:"No matches in this section right now.",upd:"Updated",ago:"min ago",now:"just now",sc:"Scorecard",wa:"Share",bat:"Batting",bowl:"Bowling",nosc:"Scorecard is not available for this match yet.",err:"Could not load scores. Please try again in a few minutes.",lv:"LIVE",tI:"INDIA",wind:"wind",wiki:"Read more on Wikipedia",nop:"Player details not found.",wnote:"Source: Wikipedia. The match may not always be exact."},
 hi:{news:"खबरें",nonews:"अभी खबरें उपलब्ध नहीं हैं।",live:"लाइव",up:"आने वाले",done:"हाल के",ind:"टीम इंडिया",all:"सभी मैच",none:"मेरी टीम: कोई नहीं",empty:"अभी इस सेक्शन में कोई मैच नहीं है।",upd:"अपडेट",ago:"मिनट पहले",now:"अभी",sc:"स्कोरकार्ड",wa:"शेयर",bat:"बल्लेबाज़ी",bowl:"गेंदबाज़ी",nosc:"इस मैच का स्कोरकार्ड अभी उपलब्ध नहीं है।",err:"स्कोर लोड नहीं हो पाया। कुछ मिनट बाद फिर कोशिश करें।",lv:"लाइव",tI:"इंडिया",wind:"हवा",wiki:"विकिपीडिया पर पढ़ें",nop:"खिलाड़ी की जानकारी नहीं मिली।",wnote:"स्रोत: विकिपीडिया। हो सकता है नाम पूरी तरह न मिले।"}};
 Object.assign(L.en,{quiz:"Quiz",tools:"Tools",proj:"Projected",need:"Need",inn:"in",balls:"balls",qh:"Daily Cricket Quiz",qs:"Question",next:"Next",fin:"Your score",again:"Play again",shq:"Share score",come:"New questions every day.",rrr:"Required run rate",tg:"Target",rs:"Runs scored",to:"Total overs",ob:"Overs bowled (e.g. 12.3)",sr:"Strike rate",ec:"Economy rate",rn:"Runs",bl:"Balls",rc:"Runs conceded",ov:"Overs"});
 Object.assign(L.hi,{quiz:"क्विज़",tools:"टूल्स",proj:"अनुमानित",need:"चाहिए",inn:"में",balls:"गेंद",qh:"रोज़ का क्रिकेट क्विज़",qs:"सवाल",next:"अगला",fin:"आपका स्कोर",again:"फिर खेलें",shq:"स्कोर शेयर करें",come:"हर दिन नए सवाल।",rrr:"आवश्यक रन रेट",tg:"लक्ष्य",rs:"बने रन",to:"कुल ओवर",ob:"फेंके गए ओवर (जैसे 12.3)",sr:"स्ट्राइक रेट",ec:"इकॉनमी रेट",rn:"रन",bl:"गेंद",rc:"दिए गए रन",ov:"ओवर"});
+Object.assign(L.en,{est:"Win chance is a rough estimate",ai:"AI match summary",aiN:"AI-generated, may contain mistakes.",aiE:"Summary is not available right now.",bon:"Alerts ON for Team India and your team",boff:"Alerts OFF",bdn:"Notifications are blocked in browser settings",nb:"Notifications are not supported here"});
+Object.assign(L.hi,{est:"जीतने की संभावना सिर्फ़ एक मोटा अनुमान है",ai:"AI मैच सारांश",aiN:"AI से बना, इसमें गलती हो सकती है।",aiE:"सारांश अभी उपलब्ध नहीं है।",bon:"टीम इंडिया और आपकी टीम के अलर्ट चालू",boff:"अलर्ट बंद",bdn:"ब्राउज़र सेटिंग में नोटिफिकेशन बंद हैं",nb:"यहाँ नोटिफिकेशन उपलब्ध नहीं हैं"});
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const get=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
 const put=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
-let S={lang:get("lang","en"),theme:get("theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),tab:"live",wp:get("wp","stadium"),india:get("india","0")==="1",fav:get("fav",""),matches:[],news:null,at:0,err:""};
+let S={lang:get("lang","en"),theme:get("theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),tab:"live",wp:get("wp","stadium"),bell:get("bell","0")==="1",ai:false,india:get("india","0")==="1",fav:get("fav",""),matches:[],news:null,at:0,err:""};
 const t=k=>L[S.lang][k];
 const kind=m=>m.matchEnded?"done":m.matchStarted?"live":"up";
 const isInd=m=>(m.teams||[]).some(x=>/india/i.test(x));
@@ -254,10 +260,13 @@ function ins(m){
  const mt=(m.matchType||"").toLowerCase(),max=mt==="t20"?20:mt==="odi"?50:0;if(!max)return"";
  const sc=m.score||[];let k=-1;sc.forEach((x,i)=>{if(+x.o>0&&+x.o<max&&+x.w<10)k=i});if(k<0)return"";
  const s=sc[k],o=+s.o,ov=Math.floor(o)+Math.round((o%1)*10)/6,rr=s.r/ov;
- let h=`CRR ${rr.toFixed(2)}`;
+ let h=`CRR ${rr.toFixed(2)}`,wpH="";
  if(k===0)h+=` • ${t("proj")} ${Math.round(rr*max)}`;
- else if(sc[k-1]){const need=sc[k-1].r+1-s.r,bl=Math.round((max-ov)*6);if(need>0&&bl>0)h+=` • ${t("need")} ${need} ${t("inn")} ${bl} ${t("balls")} • RRR ${(need/(bl/6)).toFixed(2)}`}
- return`<div class="ins">${h}</div>`;
+ else if(sc[k-1]){const need=sc[k-1].r+1-s.r,bl=Math.round((max-ov)*6);if(need>0&&bl>0){h+=` • ${t("need")} ${need} ${t("inn")} ${bl} ${t("balls")} • RRR ${(need/(bl/6)).toFixed(2)}`;
+  const rate=mt==="t20"?1.4:1,hand=Math.max(10-s.w,0)/10,proj=bl*rate*Math.pow(hand,.6),sd=1.6*Math.sqrt(bl)+2,pc=Math.round(100/(1+Math.exp(-(proj-need)/sd*1.7)));
+  const bat=(s.inning||"").replace(/\s*Inning.*$/i,""),oth=(m.teams||[]).find(x=>x!==bat)||"";
+  wpH=`<div class="wp"><span>${esc(bat)} ${pc}%</span><b style="--p:${pc}%"></b><span>${esc(oth)} ${100-pc}%</span></div><div class="ins">${t("est")}</div>`}}
+ return`<div class="ins">${h}</div>${wpH}`;
 }
 const QZ=[
 {q:["Who has scored the most international centuries in men's cricket?","पुरुष क्रिकेट में सबसे ज़्यादा अंतरराष्ट्रीय शतक किसके नाम हैं?"],o:["Sachin Tendulkar","Virat Kohli","Ricky Ponting","Kumar Sangakkara"],a:0},
@@ -314,8 +323,18 @@ async function loadNews(){
  try{const r=await fetch("/api/news");const d=await r.json();S.news=Array.isArray(d)?d:[]}catch(e){S.news=[]}
  render();
 }
+function notify(old,nw){
+ if(!S.bell||!old.length||typeof Notification==="undefined"||Notification.permission!=="granted")return;
+ const sig=m=>(m.score||[]).map(x=>x.w).join(",")+"|"+m.status,om=new Map(old.map(m=>[m.id,sig(m)]));
+ nw.filter(m=>(isInd(m)||(S.fav&&(m.teams||[]).includes(S.fav)))&&om.has(m.id)&&om.get(m.id)!==sig(m)).slice(0,3).forEach(m=>{try{new Notification((m.teams||[]).join(" vs "),{body:m.status||"",icon:"/icon-192.png",tag:m.id})}catch(e){}});
+}
+async function aiSum(id){
+ $("ai").innerHTML='<div class="aitx">…</div>';
+ try{const r=await fetch(`/api/summary/${encodeURIComponent(id)}?lang=${S.lang}`);const d=await r.json();if(!d.text)throw 0;$("ai").innerHTML=`<div class="aitx">${esc(d.text)}<div class="note" style="margin-top:6px">✨ ${esc(t("aiN"))}</div></div>`}
+ catch(e){$("ai").innerHTML=`<div class="aitx">${esc(t("aiE"))}</div>`}
+}
 async function load(){
- try{const r=await fetch("/api/matches");const d=await r.json();if(d.error)throw new Error(d.error);S.matches=d.matches||[];S.at=d.updatedAt||Date.now();S.err=""}
+ try{const r=await fetch("/api/matches");const d=await r.json();if(d.error)throw new Error(d.error);notify(S.matches,d.matches||[]);S.matches=d.matches||[];S.at=d.updatedAt||Date.now();S.err=""}
  catch(e){S.err=t("err")}
  render();
 }
@@ -352,7 +371,7 @@ function card(d){
  tbl([t("bowl"),"O","M","R","W"],(i.bowling||[]).map(b=>`<tr><td>${pn(b.bowler?.name)}</td><td>${esc(b.o)}</td><td>${esc(b.m)}</td><td>${esc(b.r)}</td><td>${esc(b.w)}</td></tr>`).join(""))).join("");
 }
 async function openMatch(id,name,venue){
- $("dt").textContent=name||"";$("wx").textContent="";$("db").innerHTML='<div class="sk" style="margin:12px 0"></div>';
+ $("dt").textContent=name||"";$("wx").textContent="";$("ai").innerHTML=S.ai?`<button class="aib" data-ai="${esc(id)}">✨ ${t("ai")}</button>`:"";$("db").innerHTML='<div class="sk" style="margin:12px 0"></div>';
  if(!$("dlg").open)$("dlg").showModal();
  try{history.replaceState(null,"","/match/"+encodeURIComponent(id))}catch(e){}
  if(venue)weather(venue).then(x=>{$("wx").textContent=x});
@@ -361,6 +380,7 @@ async function openMatch(id,name,venue){
 }
 document.addEventListener("click",e=>{
  const p=e.target.closest("button[data-p]");if(p){player(p.dataset.p);return}
+ const a=e.target.closest("button[data-ai]");if(a){aiSum(a.dataset.ai);return}
  const b=e.target.closest("button[data-id]");if(b)openMatch(b.dataset.id,b.dataset.n,b.dataset.v);
 });
 $("dlg").addEventListener("close",()=>{if(location.pathname.startsWith("/match/"))try{history.replaceState(null,"","/")}catch(e){}});
@@ -372,6 +392,15 @@ $("fAll").onclick=()=>{S.india=false;put("india","0");render()};
 $("fav").onchange=e=>{S.fav=e.target.value;put("fav",S.fav);render()};
 $("lang").onclick=()=>{S.lang=S.lang==="en"?"hi":"en";put("lang",S.lang);render()};
 $("theme").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";put("theme",S.theme);document.documentElement.dataset.theme=S.theme};
+let tt3;function toast(m){$("toast").textContent=m;$("toast").classList.add("on");clearTimeout(tt3);tt3=setTimeout(()=>$("toast").classList.remove("on"),2400)}
+const upBell=()=>{$("bell").style.opacity=S.bell?1:.55};upBell();
+$("bell").onclick=async()=>{
+ if(typeof Notification==="undefined"){toast(t("nb"));return}
+ if(S.bell){S.bell=false;put("bell","0");upBell();toast(t("boff"));return}
+ const p=Notification.permission==="granted"?"granted":await Notification.requestPermission();
+ if(p==="granted"){S.bell=true;put("bell","1");toast(t("bon"))}else toast(t("bdn"));upBell();
+};
+fetch("/api/config").then(r=>r.json()).then(d=>{S.ai=!!d.ai}).catch(()=>{});
 document.addEventListener("input",e=>{if(e.target.closest(".fg"))calc()});
 document.addEventListener("click",e=>{const o=e.target.closest("[data-o]");if(o){answer(+o.dataset.o);return}if(e.target.closest("[data-nx]")){Q.i++;Q.pick=null;renderQuiz();return}if(e.target.closest("[data-rq]")){Q=null;renderQuiz()}});
 const WPS=["stadium","pitch","tricolor","photo","plain"],WPN={en:["Stadium","Pitch","Tricolor","Photo","Plain"],hi:["स्टेडियम","पिच","तिरंगा","फोटो","सादा"]};
