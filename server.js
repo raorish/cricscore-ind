@@ -33,7 +33,7 @@ app.get("/api/matches", async (req, res) => {
   const stale = !list.data || Date.now() - list.at > LIST_TTL;
   if (stale && Date.now() >= nextTry) {
     pending = pending || call("currentMatches", "offset=0")
-      .then(d => { list = { data: d || [], at: Date.now() }; })
+      .then(d => { list = { data: d || [], at: Date.now() }; settle(list.data).catch(() => {}); })
       .finally(() => { pending = null; });
     try { await pending; } catch (e) { nextTry = Date.now() + RETRY; if (!list.data) return res.status(502).json({ error: e.message }); }
   }
@@ -85,13 +85,89 @@ function findPage() {
   }
   return null;
 }
+// ---------- Prediction game (Upstash Redis chahiye) ----------
+const RD_URL = process.env.UPSTASH_REDIS_REST_URL, RD_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+app.set("trust proxy", 1);
+app.use(express.json({ limit: "2kb" }));
+async function rd(cmds) {                                  // cmds = [["SET","k","v"], ...]
+  const r = await fetch(RD_URL.replace(/\/$/, "") + "/pipeline", { method: "POST", headers: { Authorization: "Bearer " + RD_TOKEN, "content-type": "application/json" }, body: JSON.stringify(cmds) });
+  const j = await r.json();
+  if (!Array.isArray(j)) throw new Error("Redis error");
+  return j.map(x => { if (x.error) throw new Error(x.error); return x.result; });
+}
+function winnerOf(m) {
+  const st = String(m.status || "").toLowerCase();
+  return (m.teams || []).find(t => st.includes(String(t).toLowerCase() + " won")) || null;
+}
+const handled = new Set();
+async function settle(data) {                              // match khatam hote hi sahi pick walon ko +10
+  if (!RD_URL || !RD_TOKEN) return;
+  for (const m of (data || []).filter(x => x.matchEnded && !handled.has(x.id))) {
+    const w = winnerOf(m), voidM = /tie|no result|abandon|draw|cancel/i.test(m.status || "");
+    if (!w && !voidM) continue;                            // status abhi pura nahi aaya, agli baar try
+    handled.add(m.id);
+    const [added] = await rd([["SADD", "settled", m.id]]);
+    if (!added || !w) continue;
+    const flat = (await rd([["HGETALL", "pred:" + m.id]]))[0] || [];
+    const cmds = [];
+    for (let i = 0; i < flat.length; i += 2) {
+      cmds.push(["HINCRBY", "pp", flat[i], 1]);
+      if (flat[i + 1] === w) cmds.push(["ZINCRBY", "lb", 10, flat[i]], ["HINCRBY", "pw", flat[i], 1]);
+    }
+    for (let i = 0; i < cmds.length; i += 300) await rd(cmds.slice(i, i + 300));
+  }
+}
+const rl = new Map();
+app.post("/api/predict", async (req, res) => {
+  if (!RD_URL || !RD_TOKEN) return res.status(503).json({ error: "Prediction game on nahi hai" });
+  const now = Date.now(), r0 = rl.get(req.ip);
+  if (rl.size > 5000) rl.clear();
+  if (r0 && now - r0.t < 60000) { if (++r0.n > 20) return res.status(429).json({ error: "Thodi der baad try karo" }); } else rl.set(req.ip, { n: 1, t: now });
+  const { uid, nick, matchId, team } = req.body || {};
+  if (typeof uid !== "string" || !/^[a-f0-9]{16,64}$/.test(uid) || typeof matchId !== "string" || !/^[\w-]{8,64}$/.test(matchId) || typeof team !== "string")
+    return res.status(400).json({ error: "Galat request" });
+  const name = String(nick || "").replace(/[<>&"'`]/g, "").trim().slice(0, 20);
+  if (name.length < 2) return res.status(400).json({ error: "Apna naam (kam se kam 2 akshar) likho" });
+  const m = (list.data || []).find(x => x.id === matchId);
+  if (!m) return res.status(404).json({ error: "Ye match abhi list me nahi hai" });
+  if (m.matchStarted || m.matchEnded) return res.status(409).json({ error: "Match shuru ho chuka hai, ab pick nahi ho sakta" });
+  if (!(m.teams || []).includes(team)) return res.status(400).json({ error: "Galat team" });
+  try {
+    await rd([["HSET", "pred:" + matchId, uid, team], ["EXPIRE", "pred:" + matchId, 2592000], ["HSET", "nick", uid, name]]);
+    res.json({ ok: true });
+  } catch (e) { res.status(502).json({ error: "Abhi save nahi ho paya, thodi der baad try karo" }); }
+});
+let lbCache = { at: 0, rows: [] };
+app.get("/api/leaderboard", async (req, res) => {
+  if (!RD_URL || !RD_TOKEN) return res.status(503).json({ error: "off" });
+  try {
+    if (Date.now() - lbCache.at > 60000) {
+      const [z] = await rd([["ZREVRANGE", "lb", 0, 19, "WITHSCORES"]]);
+      const ids = z.filter((_, i) => i % 2 === 0), pts = z.filter((_, i) => i % 2 === 1);
+      let rows = [];
+      if (ids.length) {
+        const [nk, pp, pw] = await rd([["HMGET", "nick", ...ids], ["HMGET", "pp", ...ids], ["HMGET", "pw", ...ids]]);
+        rows = ids.map((_, i) => ({ nick: nk[i] || "Player", points: +pts[i], played: +pp[i] || 0, won: +pw[i] || 0 }));
+      }
+      lbCache = { at: Date.now(), rows };
+    }
+    let me = null;
+    const uid = String(req.query.uid || "");
+    if (/^[a-f0-9]{16,64}$/.test(uid)) {
+      const [rk, sc] = await rd([["ZREVRANK", "lb", uid], ["ZSCORE", "lb", uid]]);
+      if (rk !== null && rk !== undefined) me = { rank: rk + 1, points: +sc };
+    }
+    res.json({ rows: lbCache.rows, me });
+  } catch (e) { res.status(502).json({ error: "Leaderboard abhi nahi mil raha" }); }
+});
+
 // ---------- AI match summary (optional: ANTHROPIC_API_KEY Render me daalo) ----------
 const AI_KEY = process.env.ANTHROPIC_API_KEY;
 const AI_MODEL = process.env.AI_MODEL || "claude-haiku-5-5";
 const AI_MAX = 150;                       // roz ki limit, taaki bill na badhe
 let aiDay = "", aiN = 0;
 const sums = new Map();
-app.get("/api/config", (req, res) => res.json({ ai: !!AI_KEY }));
+app.get("/api/config", (req, res) => res.json({ ai: !!AI_KEY, predict: !!(RD_URL && RD_TOKEN) }));
 app.get("/api/summary/:id", async (req, res) => {
   if (!AI_KEY) return res.status(503).json({ error: "AI summary on nahi hai" });
   const id = req.params.id;
